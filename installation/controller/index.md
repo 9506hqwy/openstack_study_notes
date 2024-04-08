@@ -2,4 +2,5 @@
 
 ```{toctree}
 prepare
+database
 ```
