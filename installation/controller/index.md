@@ -5,4 +5,5 @@ prepare
 database
 messaging
 cache
+keyvaluestore
 ```
