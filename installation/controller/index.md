@@ -6,4 +6,5 @@ database
 messaging
 cache
 keyvaluestore
+keystone
 ```
