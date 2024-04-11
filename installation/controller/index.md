@@ -7,4 +7,5 @@ messaging
 cache
 keyvaluestore
 keystone
+glance
 ```
