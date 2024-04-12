@@ -35,6 +35,17 @@ firewall-cmd --zone=internal --change-interface=ens192 --permanent
 firewall-cmd --reload
 ```
 
+IPv6 を無効化する。
+
+```sh
+cat > /etc/sysctl.d/10-disable-ipv6.conf <<EOF
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+EOF
+```
+
+再起動する。
+
 ## NTP クライアント
 
 [](../appendix/time_sync.md) を参照する。
