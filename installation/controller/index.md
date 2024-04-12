@@ -8,4 +8,5 @@ cache
 keyvaluestore
 keystone
 glance
+placement
 ```
