@@ -8,7 +8,7 @@
 mysql -u root -p59c6b803ff3fd0e68dcd
 ```
 
-データベース keystone を作成する。
+データベース glance を作成する。
 
 ```sh
 CREATE DATABASE glance;
