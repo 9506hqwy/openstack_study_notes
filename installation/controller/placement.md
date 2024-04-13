@@ -30,7 +30,7 @@ openstack user create --domain default --password b4b6936f87c338567d3c placement
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | 30cde206a8bb421082ea79f2aae78cec |
+| id                  | 025321ec417543aa88c52681d1b9dd5f |
 | name                | placement                        |
 | options             | {}                               |
 | password_expires_at | None                             |
@@ -57,7 +57,7 @@ openstack service create --name placement --description "Placement API" placemen
 +-------------+----------------------------------+
 | description | Placement API                    |
 | enabled     | True                             |
-| id          | f9f9890379c04315a49c7896eb3c9dbe |
+| id          | 2993c33f14264beb991dfb17ec90a042 |
 | name        | placement                        |
 | type        | placement                        |
 +-------------+----------------------------------+
@@ -76,11 +76,11 @@ openstack endpoint create --region RegionOne placement public http://controller:
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 5fee347847a744c7bfc17f96dad1e108 |
+| id           | 6891c4866ad9439fb167bdd59daf57e0 |
 | interface    | public                           |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | f9f9890379c04315a49c7896eb3c9dbe |
+| service_id   | 2993c33f14264beb991dfb17ec90a042 |
 | service_name | placement                        |
 | service_type | placement                        |
 | url          | http://controller:8778           |
@@ -96,11 +96,11 @@ openstack endpoint create --region RegionOne placement internal http://controlle
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | dc0f10888dde435cbe50da08d941b1b0 |
+| id           | cf75b865f2d141b3ba1c7ed71922d944 |
 | interface    | internal                         |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | f9f9890379c04315a49c7896eb3c9dbe |
+| service_id   | 2993c33f14264beb991dfb17ec90a042 |
 | service_name | placement                        |
 | service_type | placement                        |
 | url          | http://controller:8778           |
@@ -116,11 +116,11 @@ openstack endpoint create --region RegionOne placement admin http://controller:8
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | cf59b2b8cfec4d9aa58342c76e0694d4 |
+| id           | 8ea9433a3d764f92a0b254532daa6326 |
 | interface    | admin                            |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | f9f9890379c04315a49c7896eb3c9dbe |
+| service_id   | 2993c33f14264beb991dfb17ec90a042 |
 | service_name | placement                        |
 | service_type | placement                        |
 | url          | http://controller:8778           |

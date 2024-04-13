@@ -10,6 +10,7 @@ numbered: 4
 preface/environ
 preface/credential
 installation/index
+note
 ```
 
 ## 索引と検索

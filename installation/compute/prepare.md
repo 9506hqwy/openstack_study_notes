@@ -11,7 +11,7 @@ hostnamectl set-hostname compute.home.local
 ネットワークアダプタを設定する。
 
 ```sh
-nmcli connection modify ens192 \
+nmcli connection modify eth1 \
     ipv6.method ignore \
     ipv4.method manual \
     ipv4.dns 10.0.0.1 \
@@ -19,19 +19,19 @@ nmcli connection modify ens192 \
     ipv4.addresses 10.0.0.31/24 \
     ipv4.gateway 10.0.0.1 \
     connection.autoconnect yes
-nmcli connection up ens192
+nmcli connection up eth1
 
-nmcli connection modify ens224 \
+nmcli connection modify eth0 \
     ipv6.method ignore \
     ipv4.method auto \
     connection.autoconnect yes
-nmcli connection up ens224
+nmcli connection up eth0
 ```
 
 ファイアウォールを設定する。
 
 ```sh
-firewall-cmd --zone=internal --change-interface=ens192 --permanent
+firewall-cmd --zone=internal --change-interface=eth1 --permanent
 firewall-cmd --reload
 ```
 

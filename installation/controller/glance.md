@@ -31,7 +31,7 @@ openstack user create --domain default --password 7a69c4834de4f3ed2cfa glance
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | 011104ed999f473db2e12b88780f0ad2 |
+| id                  | 79c03c2f523b479ab98565add8c72552 |
 | name                | glance                           |
 | options             | {}                               |
 | password_expires_at | None                             |
@@ -56,7 +56,7 @@ openstack service create --name glance --description "OpenStack Image" image
 +-------------+----------------------------------+
 | description | OpenStack Image                  |
 | enabled     | True                             |
-| id          | caf161a6fcd94ce8b0cb9bb4e7fed12a |
+| id          | 1207733aef284c37a3d4e26952802528 |
 | name        | glance                           |
 | type        | image                            |
 +-------------+----------------------------------+
@@ -73,11 +73,11 @@ openstack endpoint create --region RegionOne image public http://controller:9292
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 25a548c384674472805ce5bd11bc48ee |
+| id           | e11c6bc806fa46878cef909b83f681bc |
 | interface    | public                           |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | caf161a6fcd94ce8b0cb9bb4e7fed12a |
+| service_id   | 1207733aef284c37a3d4e26952802528 |
 | service_name | glance                           |
 | service_type | image                            |
 | url          | http://controller:9292           |
@@ -93,11 +93,11 @@ openstack endpoint create --region RegionOne image internal http://controller:92
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 87a797eca4384721a79a858286db03e7 |
+| id           | f991841602d84c248f5c81b20cf233c5 |
 | interface    | internal                         |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | caf161a6fcd94ce8b0cb9bb4e7fed12a |
+| service_id   | 1207733aef284c37a3d4e26952802528 |
 | service_name | glance                           |
 | service_type | image                            |
 | url          | http://controller:9292           |
@@ -113,11 +113,11 @@ openstack endpoint create --region RegionOne image admin http://controller:9292
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | a2ecfac484fb4b19bee90a5f68e24109 |
+| id           | e81ca38e2fa5474597b26f8b6863ad48 |
 | interface    | admin                            |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | caf161a6fcd94ce8b0cb9bb4e7fed12a |
+| service_id   | 1207733aef284c37a3d4e26952802528 |
 | service_name | glance                           |
 | service_type | image                            |
 | url          | http://controller:9292           |
@@ -205,7 +205,12 @@ systemctl enable --now openstack-glance-api
 cirros をダウンロードする。
 
 ```sh
-curl -sSLO http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-aarch64-disk.img
+curl -sSLO http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img
+file cirros-0.4.0-x86_64-disk.img
+```
+
+```
+cirros-0.4.0-x86_64-disk.img: QEMU QCOW Image (v3), 46137344 bytes
 ```
 
 イメージを作成する。
@@ -213,7 +218,7 @@ curl -sSLO http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-aarch64-disk.img
 ```sh
 glance image-create \
     --name "cirros" \
-    --file cirros-0.4.0-aarch64-disk.img \
+    --file cirros-0.4.0-x86_64-disk.img \
     --disk-format qcow2 \
     --container-format bare \
     --visibility=public
@@ -223,25 +228,25 @@ glance image-create \
 +------------------+----------------------------------------------------------------------------------+
 | Property         | Value                                                                            |
 +------------------+----------------------------------------------------------------------------------+
-| checksum         | ecc9a5132e7a0f11a4c585f513cd0873                                                 |
+| checksum         | 443b7623e27ecf03dc9e01ee93f67afe                                                 |
 | container_format | bare                                                                             |
-| created_at       | 2024-04-09T11:55:29Z                                                             |
+| created_at       | 2024-04-13T05:38:27Z                                                             |
 | disk_format      | qcow2                                                                            |
-| id               | 479c1890-edb4-4b69-85c5-40dcef777f42                                             |
+| id               | e83903c4-7fa8-42a7-b693-f5034bc33603                                             |
 | min_disk         | 0                                                                                |
 | min_ram          | 0                                                                                |
 | name             | cirros                                                                           |
 | os_hash_algo     | sha512                                                                           |
-| os_hash_value    | 5e23f68b90d5c4763193e08ce149b24df32c53ad8b758b55ef42b045d865cf777edf3812b1219986 |
-|                  | 47315c5e9a978bdfda42092148c3b8f85c3395e76d9c11bf                                 |
+| os_hash_value    | 6513f21e44aa3da349f248188a44bc304a3653a04122d8fb4535423c8e1d14cd6a153f735bb0982e |
+|                  | 2161b5b5186106570c17a9e58b64dd39390617cd5a350f78                                 |
 | os_hidden        | False                                                                            |
-| owner            | cb2be036057d4225af1a33e3afb9f891                                                 |
+| owner            | 1e3ac7ae10e24515a0956beaa1d8073c                                                 |
 | protected        | False                                                                            |
-| size             | 15731712                                                                         |
+| size             | 12716032                                                                         |
 | status           | active                                                                           |
 | tags             | []                                                                               |
-| updated_at       | 2024-04-09T11:55:30Z                                                             |
-| virtual_size     | 113246208                                                                        |
+| updated_at       | 2024-04-13T05:38:28Z                                                             |
+| virtual_size     | 46137344                                                                         |
 | visibility       | public                                                                           |
 +------------------+----------------------------------------------------------------------------------+
 ```
@@ -254,7 +259,7 @@ ls -R /var/lib/glance/images/
 
 ```
 /var/lib/glance/images/:
-479c1890-edb4-4b69-85c5-40dcef777f42
+e83903c4-7fa8-42a7-b693-f5034bc33603
 ```
 
 イメージの登録を確認する。
@@ -267,6 +272,6 @@ openstack image list
 +--------------------------------------+--------+--------+
 | ID                                   | Name   | Status |
 +--------------------------------------+--------+--------+
-| 479c1890-edb4-4b69-85c5-40dcef777f42 | cirros | active |
+| e83903c4-7fa8-42a7-b693-f5034bc33603 | cirros | active |
 +--------------------------------------+--------+--------+
 ```
