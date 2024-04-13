@@ -9,4 +9,5 @@ keyvaluestore
 keystone
 glance
 placement
+nova
 ```

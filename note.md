@@ -1,5 +1,26 @@
 # 注記
 
+## CPU モードをサポートしていない
+
+x86_64 なら host-model, aarch64 なら host-passthrough をサポートしていない場合は
+インスタンス作成でエラーが発生する。
+
+Compute Node で下記のコマンドでサポートしている CPU モードを確認する。
+
+```sh
+virsh domcapabilities | sed -n -e '/<cpu>/,/<\/cpu>/ { p }'
+```
+
+*/etc/nova/nova.conf* の cpu_mode および cpu_models を指定する。
+
+サービスを再起動する。
+
+```sh
+systemctl restart openstack-nova-compute
+```
+
+参考: https://opendev.org/openstack/nova/commit/8bc7b950b7c0a3c80cdd120fe4df97c14848c344
+
 ## ゲストOSが起動しない
 
 aarch64 アーキテクチャで QEMU を使用してインスタンスを作成すると下記のエラーでゲスト OS が起動しない。
