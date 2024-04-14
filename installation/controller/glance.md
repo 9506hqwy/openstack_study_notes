@@ -16,8 +16,7 @@ GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'localhost' IDENTIFIED BY '5ba24787
 GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'%' IDENTIFIED BY '5ba24787139e1a1a86b8';
 ```
 
-## 事前準備
-
+## ユーザの作成
 
 ユーザ glance を作成する。
 
@@ -44,6 +43,8 @@ openstack user create --domain default --password 7a69c4834de4f3ed2cfa glance
 openstack role add --project service --user glance admin
 ```
 
+## サービスの作成
+
 image サービスを作成する。
 
 ```sh
@@ -61,6 +62,8 @@ openstack service create --name glance --description "OpenStack Image" image
 | type        | image                            |
 +-------------+----------------------------------+
 ```
+
+## エンドポイントの作成
 
 API エンドポイントを作成する。
 
@@ -251,7 +254,7 @@ glance image-create \
 +------------------+----------------------------------------------------------------------------------+
 ```
 
-ファイルシステム上の格納していることを確認する。
+ファイルシステム上に格納していることを確認する。
 
 ```sh
 ls -R /var/lib/glance/images/

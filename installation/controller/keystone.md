@@ -64,7 +64,7 @@ keystone-manage credential_setup --keystone-user keystone --keystone-group keyst
 
 ## エンドポイントの作成
 
-Keystone のエンドポイントを作成する。
+API エンドポイントを作成する。
 
 ```{tip}
 カレントディレクトリに keystone.conf があると /etc/keystone/keystone.conf より優先される

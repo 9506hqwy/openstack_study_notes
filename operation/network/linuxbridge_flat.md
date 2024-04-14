@@ -4,7 +4,14 @@ Linux Bridge を利用した flat ネットワークを作成する。
 
 ## 外部ネットワークの作成
 
-外部ネットワークを作成する。
+eth0 に繋がる外部ネットワークに flat ネットワークを作成する。
+
+| オプション                  | 説明                         |
+| --------------------------- | ---------------------------- |
+| --share                     | プロジェクトで共有           |
+| -external                   | OpenStack 外部のネットワーク |
+| --provider-physical-network | */etc/neutron/plugins/ml2/ml2_conf.ini* の flat_networks に指定した値 |
+| --provider-physical-network | flat                         |
 
 ```sh
 openstack network create \
@@ -51,8 +58,15 @@ openstack network create \
 
 ## サブネットの作成
 
-
 サブネットを作成する。
+
+
+| オプション                  | 説明                         |
+| --------------------------- | ---------------------------- |
+| --network                   | ネットワーク                 |
+| --allocation-pool           | IP アドレス範囲              |
+| --gateway                   | ゲートウェイ IP アドレス     |
+| -subnet-range               | サブネットの CIDR            |
 
 ```sh
 openstack subnet create \

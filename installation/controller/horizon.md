@@ -20,6 +20,7 @@ sed \
     -e "/^#CACHES =/,/^#}/s/^#\(.*\)/\1/" \
     -e "s|http://%s/identity/v3|http://%s:5000/identity/v3|" \
     -i /etc/openstack-dashboard/local_settings
+
 cat >> /etc/openstack-dashboard/local_settings <<EOF
 
 # domain をサポート

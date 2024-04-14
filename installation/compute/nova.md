@@ -161,6 +161,7 @@ Checking host mapping for compute host 'compute.home.local': 30cb800f-e095-4a5c-
 Creating host mapping for compute host 'compute.home.local': 30cb800f-e095-4a5c-a05a-fdfafdeb435a
 Found 1 unmapped computes in cell: 3d7b9db7-4e4a-4f7a-b91a-e054e57906c3
 ```
+
 ## 動作確認
 
 Controller Node でサービスを表示する。

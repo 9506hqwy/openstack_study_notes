@@ -82,6 +82,7 @@ br_netfilter モジュールを有効化する。
 cat > /etc/modules-load.d/nuetron.conf <<EOF
 br_netfilter
 EOF
+
 systemctl restart systemd-modules-load
 ```
 

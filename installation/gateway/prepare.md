@@ -29,8 +29,8 @@ nmcli connection up eth0
 ファイアウォールを設定する。
 
 ```sh
-firewall-cmd --zone=internal --change-interface=eth1 --permanent
-firewall-cmd --zone=public --add-masquerade --permanent
+firewall-cmd --permanent --zone=internal --change-interface=eth1
+firewall-cmd --permanent --zone=public --add-masquerade
 firewall-cmd --permanent --direct --add-rule ipv4 nat POSTROUTING 0 -o eth0 -j MASQUERADE
 firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -i eth1 -o eth0 -j ACCEPT
 firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -i eth0 -o eth1 -m state --state RELATED,ESTABLISHED -j ACCEPT

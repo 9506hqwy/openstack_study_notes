@@ -19,7 +19,7 @@ virsh domcapabilities | sed -n -e '/<cpu>/,/<\/cpu>/ { p }'
 systemctl restart openstack-nova-compute
 ```
 
-参考: https://opendev.org/openstack/nova/commit/8bc7b950b7c0a3c80cdd120fe4df97c14848c344
+参考: [libvirt: use 'host-passthrough' as default on AArch64](https://opendev.org/openstack/nova/commit/8bc7b950b7c0a3c80cdd120fe4df97c14848c344)
 
 ## ゲストOSが起動しない
 

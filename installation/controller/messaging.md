@@ -8,6 +8,8 @@ RabbitMQ をインストールする。
 dnf install -y rabbitmq-server
 ```
 
+## 設定
+
 ファイアウォールを開ける。
 
 ```sh
@@ -31,7 +33,7 @@ systemctl enable --now rabbitmq-server
 rabbitmqctl add_user openstack 3c17215fe69ba1dad320
 ```
 
-ユーザ openstack のすべての権限を付与する。
+ユーザ openstack にすべての権限を付与する。
 
 ```sh
 rabbitmqctl set_permissions openstack ".*" ".*" ".*"

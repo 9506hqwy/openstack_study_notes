@@ -31,7 +31,7 @@ nmcli connection up eth0
 ファイアウォールを設定する。
 
 ```sh
-firewall-cmd --zone=internal --change-interface=eth1 --permanent
+firewall-cmd --permanent --zone=internal --change-interface=eth1
 firewall-cmd --reload
 ```
 
