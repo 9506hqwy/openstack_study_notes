@@ -10,6 +10,7 @@ numbered: 4
 preface/environ
 preface/credential
 installation/index
+operation/index
 note
 ```
 

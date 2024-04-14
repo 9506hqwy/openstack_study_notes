@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-04-13T05:02:23.421Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0" etag="ZlWsMC1DHfb-DZt7WL2G" version="24.2.2" type="device">
+<mxfile host="app.diagrams.net" modified="2024-04-14T10:46:22.096Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0" etag="vyzvh3BQSub9nDD7ejMn" version="24.2.5" type="device">
   <diagram name="ページ1" id="6O8cq4Rfigk1k-ii5kAo">
-    <mxGraphModel dx="2230" dy="1877" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2202" dy="1873" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <object label="ネットワーク" id="1">
@@ -18,8 +18,8 @@
             <mxPoint x="800" y="40" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ExSx5SIZApUU_Iw7rpWn-10" value="192.168.0.0/24" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="-360" y="25" width="110" height="30" as="geometry" />
+        <mxCell id="ExSx5SIZApUU_Iw7rpWn-10" value="172.16.0.0/12" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="-355" y="25" width="100" height="30" as="geometry" />
         </mxCell>
         <mxCell id="ExSx5SIZApUU_Iw7rpWn-11" value="10.0.0.0/24" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="-345" y="305" width="80" height="30" as="geometry" />
