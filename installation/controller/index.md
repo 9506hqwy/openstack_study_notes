@@ -10,4 +10,5 @@ keystone
 glance
 placement
 nova
+neutron
 ```

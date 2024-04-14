@@ -3,4 +3,5 @@
 ```{toctree}
 prepare
 nova
+neutron
 ```
