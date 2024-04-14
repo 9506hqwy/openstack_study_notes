@@ -11,4 +11,5 @@ glance
 placement
 nova
 neutron
+horizon
 ```
