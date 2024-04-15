@@ -2,4 +2,5 @@
 
 ```{toctree}
 network/index
+flavor/index
 ```
