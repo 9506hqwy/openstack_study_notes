@@ -3,4 +3,5 @@
 ```{toctree}
 network/index
 flavor/index
+sshkey/index
 ```
