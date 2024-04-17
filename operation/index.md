@@ -5,4 +5,5 @@ network/index
 flavor/index
 sshkey/index
 security_group/index
+instance/index
 ```
