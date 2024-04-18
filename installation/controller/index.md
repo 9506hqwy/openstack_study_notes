@@ -11,5 +11,6 @@ glance
 placement
 nova
 neutron
+neutron_vlan
 horizon
 ```

@@ -415,3 +415,7 @@ openstack network agent list
 | f075f5df-7f2f-4482-881f-5f463387be89 | Linux bridge agent | controller.home.local | None              | :-)   | UP    | neutron-linuxbridge-agent |
 +--------------------------------------+--------------------+-----------------------+-------------------+-------+-------+---------------------------+
 ```
+
+## VLAN ネットワークの設定
+
+VLAN ネットワークを使用する場合は [](./neutron_vlan.md) を参照して設定する。
