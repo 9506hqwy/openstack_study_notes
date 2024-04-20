@@ -419,3 +419,7 @@ openstack network agent list
 ## VLAN ネットワークの設定
 
 VLAN ネットワークを使用する場合は [](./neutron_vlan.md) を参照して設定する。
+
+## VXLAN ネットワークの設定
+
+VXLAN ネットワークを使用する場合は [](./neutron_vxlan.md) を参照して設定する。

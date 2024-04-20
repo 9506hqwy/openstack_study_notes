@@ -44,3 +44,20 @@ ausearch -c dnsmasq | audit2allow
 ```
 
 参考: [SELinux の使用](https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/8/html-single/using_selinux/index#fixing-an-analyzed-selinux-denial_troubleshooting-problems-related-to-selinux)
+
+## vxlan ネットワークでインスタンスに IP アドレスが割り当たらない
+
+DHCP offer をインスタンスが受信しないため、
+Controller Node / Compute Node でファイアウォールを開ける。
+
+```sh
+firewall-cmd --permanent --zone=public --add-service=dhcp
+firewall-cmd --permanent --zone=public --add-port=68/udp
+firewall-cmd --reload
+```
+
+これでも疎通ができない場合はファイアウォールを無効にする。
+
+```sh
+systemctl stop firewalld
+```
