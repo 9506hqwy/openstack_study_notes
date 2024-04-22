@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-04-17T10:58:19.401Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0" etag="sgggLEhAPyG4wo6ZUs4f" version="24.2.5" type="device">
+<mxfile host="app.diagrams.net" modified="2024-04-22T11:20:26.986Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0" etag="BPC32VbpAMpGRz5F_Bjn" version="24.2.7" type="device">
   <diagram name="ページ1" id="6O8cq4Rfigk1k-ii5kAo">
-    <mxGraphModel dx="2227" dy="736" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2213" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <object label="ネットワーク" id="1">
@@ -48,7 +48,7 @@
         <mxCell id="ExSx5SIZApUU_Iw7rpWn-32" value="eth0" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3c800;fontColor=#000000;strokeColor=#B09500;" parent="ExSx5SIZApUU_Iw7rpWn-6" vertex="1">
           <mxGeometry x="-80" y="110" width="80" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="ExSx5SIZApUU_Iw7rpWn-33" value="10.0.0.11" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="ExSx5SIZApUU_Iw7rpWn-6" vertex="1">
+        <mxCell id="ExSx5SIZApUU_Iw7rpWn-33" value="10.0.0.31" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="ExSx5SIZApUU_Iw7rpWn-6" vertex="1">
           <mxGeometry x="-40" y="400" width="70" height="30" as="geometry" />
         </mxCell>
         <mxCell id="ExSx5SIZApUU_Iw7rpWn-36" value="DHCP" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="ExSx5SIZApUU_Iw7rpWn-6" vertex="1">

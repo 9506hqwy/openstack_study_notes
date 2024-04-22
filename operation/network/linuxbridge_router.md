@@ -236,7 +236,6 @@ default via 172.16.0.1 dev qg-6a1873e6-21 proto static
 
 待ち受けているポートを確認する。
 
-
 ```sh
 ip netns exec qrouter-d0e3870f-c70a-4165-af86-2e34ec001967 ss -ano -4
 ```
