@@ -18,6 +18,7 @@ openssl rand -hex 10
 | placement | 251ccf2f93a6bd6ef9ee |
 | nova      | 830e052c9ff3fab2efa4 |
 | neutron   | 7d58a6544954d3272e44 |
+| octavia   | 37cf176d919e31c90e43 |
 
 ## RabbitMQ
 
@@ -35,6 +36,7 @@ openssl rand -hex 10
 | placement | b4b6936f87c338567d3c |
 | nova      | 5c5cfbce3214db530456 |
 | neutron   | 76283d854fd24b78f90b |
+| octavia   | 1672b62e6cd2c1682425 |
 
 ## Neutron
 
