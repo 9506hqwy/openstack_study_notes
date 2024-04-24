@@ -6,4 +6,5 @@ linuxbridge_vlan
 linuxbridge_vxlan
 linuxbridge_router
 linuxbridge_fip
+linuxbridge_lb
 ```
