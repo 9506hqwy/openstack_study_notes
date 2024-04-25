@@ -1,4 +1,4 @@
-# Neutron (VLAN ネットワーク)
+# VLAN ネットワーク (Linux Bridge)
 
 ## Neutron の設定
 

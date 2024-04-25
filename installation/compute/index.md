@@ -4,5 +4,4 @@
 prepare
 nova
 neutron
-neutron_vxlan
 ```

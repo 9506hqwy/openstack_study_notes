@@ -142,8 +142,19 @@ neutron と Linux Bridge ML2 プラグインをインストールする。
 dnf install -y \
     openstack-neutron \
     openstack-neutron-ml2 \
-    openstack-neutron-linuxbridge \
     ebtables
+```
+
+Linux Bridge を使用する場合は下記をインストールする。
+
+```sh
+dnf install -y openstack-neutron-linuxbridge
+```
+
+Open vSwitch を使用する場合は下記をインストールする。
+
+```sh
+dnf install -y openstack-neutron-openvswitch NetworkManager-ovs
 ```
 
 ## Neutron の設定
@@ -217,95 +228,21 @@ sed \
     -i /etc/neutron/neutron.conf
 ```
 
-## ML2 プラグインの設定
+## メカニズムドライバの設定
 
-設定ファイルを更新する。
+Linux Bridge と Open vSwitch のどちらかを設定する。
 
-```sh
-sed \
-    -e '/^\[ml2]/,/^\[/ {
-      /^type_drivers =/d
-      /^#type_drivers =/atype_drivers = flat,vlan
-      /^tenant_network_types =/d
-      /^#tenant_network_types =/atenant_network_types =
-      /^mechanism_drivers =/d
-      /^#mechanism_drivers =/amechanism_drivers = linuxbridge
-      /^extension_drivers =/d
-      /^#extension_drivers =/aextension_drivers = port_security
-    }' \
-    -e '/^\[ml2_type_flat]/,/^\[/ {
-      /^flat_networks =/d
-      /^#flat_networks =/aflat_networks = provider,mgmt
-    }' \
-    -e '/^\[securitygroup]/,/^\[/ {
-      /^enable_ipset =/d
-      /^#enable_ipset =/aenable_ipset = true
-    }' \
-    -i /etc/neutron/plugins/ml2/ml2_conf.ini
-```
+### Linux Bridge の場合
 
-## Linux Bridge の設定
+* [](./neutron_linuxbridge/ml2_plugin.md)
+* [](./neutron_linuxbridge/agent.md)
+* [](./neutron_linuxbridge/dhcp.md)
 
-設定ファイルを更新する。
+### Open vSwitch の場合
 
-```sh
-sed \
-    -e '/^\[linux_bridge]/,/^\[/ {
-      /^physical_interface_mappings =/d
-      /^#physical_interface_mappings =/aphysical_interface_mappings = provider:eth0,mgmt:eth1
-    }' \
-    -e '/^\[vxlan]/,/^\[/ {
-      /^enable_vxlan =/d
-      /^#enable_vxlan =/aenable_vxlan = false
-    }' \
-    -e '/^\[securitygroup]/,/^\[/ {
-      /^enable_security_group =/d
-      /^#enable_security_group =/aenable_security_group = true
-      /^firewall_driver =/d
-      /^#firewall_driver =/afirewall_driver = neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
-    }' \
-    -i /etc/neutron/plugins/ml2/linuxbridge_agent.ini
-```
-
-br_netfilter モジュールを有効化する。
-
-```sh
-cat > /etc/modules-load.d/nuetron.conf <<EOF
-br_netfilter
-EOF
-
-systemctl restart systemd-modules-load
-```
-
-## DHCP の設定
-
-設定ファイルを更新する。
-
-```sh
-sed \
-    -e '/^\[DEFAULT]/,/^\[/ {
-      /^interface_driver =/d
-      /^#interface_driver =/ainterface_driver = linuxbridge
-      /^dhcp_driver =/d
-      /^#dhcp_driver =/adhcp_driver = neutron.agent.linux.dhcp.Dnsmasq
-      /^enable_isolated_metadata =/d
-      /^#enable_isolated_metadata =/aenable_isolated_metadata = true
-    }' \
-    -i /etc/neutron/dhcp_agent.ini
-```
-
-```{warning}
-継続
-```
-
-DHCP エージェント がインスタンスの DHCP Discover を受信できないので
-既定の firewalld ゾーンを trusted に設定する。
-
-```sh
-firewall-cmd --set-default-zone trusted
-firewall-cmd --permanent --zone=public --change-interface=eth0
-firewall-cmd --reload
-```
+* [](./neutron_ovs/ml2_plugin.md)
+* [](./neutron_ovs/agent.md)
+* [](./neutron_ovs/dhcp.md)
 
 ## メタデータの設定
 
@@ -383,43 +320,28 @@ su -s /bin/sh -c "neutron-db-manage \
 
 ## 起動
 
-nova を再起動する。
+メカニズムドライバの種類によって手順を選択する。
 
-```sh
-systemctl restart openstack-nova-api
-```
-
-マシン起動時の自動起動設定とサービスを起動する。
-
-```sh
-systemctl enable --now neutron-server
-systemctl enable --now neutron-linuxbridge-agent
-systemctl enable --now neutron-dhcp-agent
-systemctl enable --now neutron-metadata-agent
-```
+* [](./neutron_linuxbridge/startup.md)
+* [](./neutron_ovs/startup.md)
 
 ## 動作確認
 
-エージェントを表示する。
+メカニズムドライバの種類によって手順を選択する。
 
-```sh
-openstack network agent list
-```
-
-```
-+--------------------------------------+--------------------+-----------------------+-------------------+-------+-------+---------------------------+
-| ID                                   | Agent Type         | Host                  | Availability Zone | Alive | State | Binary                    |
-+--------------------------------------+--------------------+-----------------------+-------------------+-------+-------+---------------------------+
-| 145d9d73-cb1c-4bbf-ad28-adb1a9f4a826 | Metadata agent     | controller.home.local | None              | :-)   | UP    | neutron-metadata-agent    |
-| e843c356-67a9-418e-96db-3fa6e4210df9 | DHCP agent         | controller.home.local | nova              | :-)   | UP    | neutron-dhcp-agent        |
-| f075f5df-7f2f-4482-881f-5f463387be89 | Linux bridge agent | controller.home.local | None              | :-)   | UP    | neutron-linuxbridge-agent |
-+--------------------------------------+--------------------+-----------------------+-------------------+-------+-------+---------------------------+
-```
+* [](./neutron_linuxbridge/confirm.md)
+* [](./neutron_ovs/confirm.md)
 
 ## VLAN ネットワークの設定
 
-VLAN ネットワークを使用する場合は [](./neutron_vlan.md) を参照して設定する。
+VLAN ネットワークを使用する場合はメカニズムドライバの種類によって手順を選択する。
+
+* [](./neutron_linuxbridge/vlan.md)
+* [](./neutron_ovs/vlan.md)
 
 ## VXLAN ネットワークの設定
 
-VXLAN ネットワークを使用する場合は [](./neutron_vxlan.md) を参照して設定する。
+VXLAN ネットワークを使用する場合はメカニズムドライバの種類によって手順を選択する。
+
+* [](./neutron_linuxbridge/vxlan.md)
+* [](./neutron_ovs/vxlan.md)

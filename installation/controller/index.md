@@ -11,8 +11,6 @@ glance
 placement
 nova
 neutron
-neutron_vlan
-neutron_vxlan
 horizon
 octavia
 ```

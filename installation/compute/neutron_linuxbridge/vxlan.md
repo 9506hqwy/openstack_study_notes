@@ -1,4 +1,4 @@
-# Neutron (VXLAN ネットワーク)
+# VXLAN ネットワーク (Linux Bridge)
 
 ## Linux Bridge の設定
 

@@ -4,8 +4,8 @@ Linux Bridge を利用した vxlan ネットワークを作成する。
 
 ## 前提条件
 
-* Controller Node で [](../../installation/controller/neutron_vxlan) を設定していること。
-* Compute Node で [](../../installation/compute/neutron_vxlan) を設定していること。
+* Controller Node で [](../../installation/controller/neutron_linuxbridge/vxlan) を設定していること。
+* Compute Node で [](../../installation/compute/neutron_linuxbridge/vxlan) を設定していること。
 
 ## セルフサービスネットワークの作成
 

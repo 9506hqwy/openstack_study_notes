@@ -1,4 +1,4 @@
-# Neutron (VXLAN ネットワーク)
+# VXLAN ネットワーク (Open vSwitch)
 
 ## Neutron の設定
 
@@ -25,7 +25,7 @@ sed \
       /^tenant_network_types =/d
       /^#tenant_network_types =/atenant_network_types = vxlan
       /^mechanism_drivers =/d
-      /^#mechanism_drivers =/amechanism_drivers = linuxbridge,l2population
+      /^#mechanism_drivers =/amechanism_drivers = openvswitch,l2population
     }' \
     -e '/^\[ml2_type_vxlan]/,/^\[/ {
       /^vni_ranges =/d
@@ -34,32 +34,30 @@ sed \
     -i /etc/neutron/plugins/ml2/ml2_conf.ini
 ```
 
-## Linux Bridge の設定
+## Open vSwitch の設定
 
 設定ファイルに物理ネットワークのために使用する IP アドレスを指定する。
 
 ```sh
 sed \
-    -e '/^\[vxlan]/,/^\[/ {
-      /^enable_vxlan =/d
-      /^#enable_vxlan =/aenable_vxlan = true
+    -e '/^\[agent]/,/^\[/ {
+      /^tunnel_types =/d
+      /^#tunnel_types =/atunnel_types = vxlan
+    }' \
+    -e '/^\[ovs]/,/^\[/ {
       /^local_ip =/d
       /^#local_ip =/alocal_ip = 172.16.0.11
-      /^l2_population =/d
-      /^#l2_population =/al2_population = true
     }' \
-    -i /etc/neutron/plugins/ml2/linuxbridge_agent.ini
+    -i /etc/neutron/plugins/ml2/openvswitch_agent.ini
 ```
 
 ## L3 エージェントの設定
-
-設定ファイルを更新する。
 
 ```sh
 sed \
     -e '/^\[DEFAULT]/,/^\[/ {
       /^interface_driver =/d
-      /^#interface_driver =/ainterface_driver = linuxbridge
+      /^#interface_driver =/ainterface_driver = openvswitch
     }' \
     -i /etc/neutron/l3_agent.ini
 ```
@@ -78,7 +76,7 @@ firewall-cmd --reload
 neutron を再起動する。
 
 ```sh
-systemctl restart neutron-server neutron-linuxbridge-agent
+systemctl restart neutron-server neutron-openvswitch-agent
 ```
 
 マシン起動時の自動起動設定とサービスを起動する。

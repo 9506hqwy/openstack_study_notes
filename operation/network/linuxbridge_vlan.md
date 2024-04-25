@@ -4,7 +4,7 @@ Linux Bridge を利用した vlan ネットワークを作成する。
 
 ## 前提条件
 
-* [](../../installation/controller/neutron_vlan) を設定していること。
+* [](../../installation/controller/neutron_linuxbridge/vlan) を設定していること。
 
 ## 外部ネットワークの作成
 
