@@ -7,4 +7,5 @@ linuxbridge_vxlan
 linuxbridge_router
 linuxbridge_fip
 linuxbridge_lb
+ovs_flat
 ```
