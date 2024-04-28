@@ -8,4 +8,5 @@ linuxbridge_router
 linuxbridge_fip
 linuxbridge_lb
 ovs_flat
+ovs_vlan
 ```
