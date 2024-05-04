@@ -10,4 +10,5 @@ linuxbridge_lb
 ovs_flat
 ovs_vlan
 ovs_vxlan
+ovs_router
 ```
