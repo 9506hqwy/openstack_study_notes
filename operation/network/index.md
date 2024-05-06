@@ -12,4 +12,5 @@ ovs_vlan
 ovs_vxlan
 ovs_router
 ovs_fip
+ovs_lb
 ```

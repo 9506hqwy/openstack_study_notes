@@ -6,7 +6,7 @@
 sed \
     -e '/^\[ovs]/,/^\[/ {
       /^bridge_mappings =/d
-      /^#bridge_mappings =/abridge_mappings = provider:br-provider
+      /^#bridge_mappings =/abridge_mappings = provider:br-provider,mgmt:br-mgmt
     }' \
     -e '/^\[securitygroup]/,/^\[/ {
       /^enable_security_group =/d

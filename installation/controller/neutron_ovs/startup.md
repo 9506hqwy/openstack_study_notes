@@ -51,3 +51,40 @@ nmcli con add \
     ifname eth0 \
     master eth0
 ```
+
+eth1 と接続するブリッジ be-mgmt を作成する。
+
+```sh
+nmcli c d eth1
+nmcli c delete  eth1
+nmcli con add \
+    type ovs-bridge \
+    con-name br-mgmt \
+    ifname br-mgmt
+nmcli con add \
+    type ovs-port \
+    con-name br-mgmt \
+    ifname br-mgmt \
+    master br-mgmt
+nmcli con add \
+    type ovs-interface \
+    con-name br-mgmt \
+    slave-type ovs-port \
+    ifname br-mgmt \
+    master br-mgmt \
+    ipv4.method manual \
+    ipv4.dns 10.0.0.1 \
+    ipv4.address 10.0.0.11/24 \
+    ipv4.gateway 10.0.0.1 \
+    ipv6.method disabled
+nmcli con add \
+    type ovs-port \
+    con-name eth1 \
+    ifname eth1 \
+    master br-mgmt
+nmcli con add \
+    type ethernet \
+    con-name eth1 \
+    ifname eth1 \
+    master eth1
+```

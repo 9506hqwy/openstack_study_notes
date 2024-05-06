@@ -61,3 +61,12 @@ firewall-cmd --reload
 ```sh
 systemctl stop firewalld
 ```
+
+## ovs-interface が起動しない
+
+```{note}
+継続
+```
+
+Network Manager で ovs-interface に IP アドレスを設定しても
+connection が起動せず IP アドレスが割り当たらない場合がある。
