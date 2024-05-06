@@ -6,4 +6,5 @@ flavor/index
 sshkey/index
 security_group/index
 instance/index
+stack/index
 ```

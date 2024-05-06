@@ -19,6 +19,7 @@ openssl rand -hex 10
 | nova      | 830e052c9ff3fab2efa4 |
 | neutron   | 7d58a6544954d3272e44 |
 | octavia   | 37cf176d919e31c90e43 |
+| heat      | 08e9d96fd510ddab2732 |
 
 ## RabbitMQ
 
@@ -28,15 +29,17 @@ openssl rand -hex 10
 
 ## OpenStack
 
-| ユーザ名  | パスワード           |
-| --------- | -------------------- |
-| admin     | e0f7bb1a2f0571b09c33 |
-| myuser    | 77f17eb865932cb5d1af |
-| glance    | 7a69c4834de4f3ed2cfa |
-| placement | b4b6936f87c338567d3c |
-| nova      | 5c5cfbce3214db530456 |
-| neutron   | 76283d854fd24b78f90b |
-| octavia   | 1672b62e6cd2c1682425 |
+| ユーザ名          | パスワード           |
+| ----------------- | -------------------- |
+| admin             | e0f7bb1a2f0571b09c33 |
+| myuser            | 77f17eb865932cb5d1af |
+| glance            | 7a69c4834de4f3ed2cfa |
+| placement         | b4b6936f87c338567d3c |
+| nova              | 5c5cfbce3214db530456 |
+| neutron           | 76283d854fd24b78f90b |
+| octavia           | 1672b62e6cd2c1682425 |
+| heat              | 2fac8b8307cabd60f3b8 |
+| heat_domain_admin | 3d99ff8995969fbe113b |
 
 ## Neutron
 
