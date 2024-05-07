@@ -14,4 +14,5 @@ neutron
 horizon
 octavia
 heat
+cinder
 ```
