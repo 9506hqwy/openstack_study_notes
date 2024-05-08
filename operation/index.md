@@ -7,4 +7,5 @@ sshkey/index
 security_group/index
 instance/index
 stack/index
+volume/index
 ```
