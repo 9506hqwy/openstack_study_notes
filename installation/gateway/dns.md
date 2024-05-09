@@ -33,6 +33,7 @@ cat >> /etc/hosts <<EOF
 10.0.0.1   gateway
 10.0.0.11  controller
 10.0.0.31  compute
+10.0.0.51  baremetal
 EOF
 ```
 
