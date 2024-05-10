@@ -15,4 +15,5 @@ horizon
 octavia
 heat
 cinder
+ironic
 ```

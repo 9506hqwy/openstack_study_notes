@@ -21,6 +21,7 @@ openssl rand -hex 10
 | octavia   | 37cf176d919e31c90e43 |
 | heat      | 08e9d96fd510ddab2732 |
 | cinder    | 909ad266b6b2b52c6a6d |
+| ironic    | 383e3b4468252474df9f |
 
 ## RabbitMQ
 
@@ -42,6 +43,7 @@ openssl rand -hex 10
 | heat              | 2fac8b8307cabd60f3b8 |
 | heat_domain_admin | 3d99ff8995969fbe113b |
 | cinder            | e2c046c01e44c27725c3 |
+| ironic            | bdda64a33b3a75728a9c |
 
 ## Neutron
 
