@@ -70,3 +70,14 @@ systemctl stop firewalld
 
 Network Manager で ovs-interface に IP アドレスを設定しても
 connection が起動せず IP アドレスが割り当たらない場合がある。
+
+## ironic staging driver の修正
+
+[_set_boot_device](https://github.com/openstack-archive/ironic-staging-drivers/blob/stable/ocata/ironic_staging_drivers/libvirt/power.py#L320)
+で型エラーが発生するためソースコードを修正する。
+
+引数に `encoding` を追加する。
+
+```python
+tostring(..., encoding='unicode')
+```

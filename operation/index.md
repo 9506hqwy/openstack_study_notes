@@ -8,4 +8,5 @@ security_group/index
 instance/index
 stack/index
 volume/index
+node/index
 ```

@@ -418,6 +418,35 @@ firewall-cmd --permanent --zone=internal --add-service=tftp
 firewall-cmd --reload
 ```
 
+## HTTP の設定
+
+イメージを配信するための HTTP サーバを用意する。
+
+```sh
+mkdir /httpboot
+chown ironic /httpboot
+restorecon -R /httpboot
+```
+
+```sh
+cat > /etc/httpd/conf.d/openstack-ironic-httpboot.conf <<EOF
+Listen 8080
+<VirtualHost *:8080>
+  DocumentRoot "/httpboot"
+  <Directory "/httpboot">
+    Options Indexes FollowSymLinks
+    Require all granted
+  </Directory>
+</VirtualHost>
+EOF
+```
+
+再起動する。
+
+```sh
+systemctl restart httpd
+```
+
 ## データベースの構築
 
 データベースを構築する。
