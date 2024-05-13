@@ -22,6 +22,7 @@ openssl rand -hex 10
 | heat      | 08e9d96fd510ddab2732 |
 | cinder    | 909ad266b6b2b52c6a6d |
 | ironic    | 383e3b4468252474df9f |
+| gnocchi   | 023e924d8a52c340024f |
 
 ## RabbitMQ
 
@@ -44,6 +45,8 @@ openssl rand -hex 10
 | heat_domain_admin | 3d99ff8995969fbe113b |
 | cinder            | e2c046c01e44c27725c3 |
 | ironic            | bdda64a33b3a75728a9c |
+| gnocchi           | e760d03f9f03f676c9e2 |
+| ceilometer        | eb5b4e528d0e10669cfa |
 
 ## Neutron
 
@@ -56,4 +59,3 @@ openssl rand -hex 10
 | ユーザ名  | パスワード           |
 | --------- | -------------------- |
 | openstack | 4398982633ff4915310c |
-

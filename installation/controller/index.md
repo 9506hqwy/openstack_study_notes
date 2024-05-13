@@ -16,4 +16,5 @@ octavia
 heat
 cinder
 ironic
+ceilometer
 ```
