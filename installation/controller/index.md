@@ -17,4 +17,5 @@ heat
 cinder
 ironic
 ceilometer
+aodb
 ```

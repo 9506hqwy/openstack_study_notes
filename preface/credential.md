@@ -23,6 +23,7 @@ openssl rand -hex 10
 | cinder    | 909ad266b6b2b52c6a6d |
 | ironic    | 383e3b4468252474df9f |
 | gnocchi   | 023e924d8a52c340024f |
+| aodh      | 237d687f60cd82bd2472 |
 
 ## RabbitMQ
 
@@ -47,6 +48,7 @@ openssl rand -hex 10
 | ironic            | bdda64a33b3a75728a9c |
 | gnocchi           | e760d03f9f03f676c9e2 |
 | ceilometer        | eb5b4e528d0e10669cfa |
+| aodh              | 7df3446ca4ec04bb40be |
 
 ## Neutron
 
