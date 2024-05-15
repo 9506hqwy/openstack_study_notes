@@ -9,4 +9,5 @@ instance/index
 stack/index
 volume/index
 node/index
+alarm/index
 ```
