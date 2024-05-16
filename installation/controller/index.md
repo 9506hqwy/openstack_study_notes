@@ -18,4 +18,5 @@ cinder
 ironic
 ceilometer
 aodb
+cyborg
 ```

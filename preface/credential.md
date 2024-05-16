@@ -24,6 +24,7 @@ openssl rand -hex 10
 | ironic    | 383e3b4468252474df9f |
 | gnocchi   | 023e924d8a52c340024f |
 | aodh      | 237d687f60cd82bd2472 |
+| cyborg    | da7c58277dc7e86d72a0 |
 
 ## RabbitMQ
 
@@ -49,6 +50,7 @@ openssl rand -hex 10
 | gnocchi           | e760d03f9f03f676c9e2 |
 | ceilometer        | eb5b4e528d0e10669cfa |
 | aodh              | 7df3446ca4ec04bb40be |
+| cyborg            | 2927e8e7587d5ccaf836 |
 
 ## Neutron
 
