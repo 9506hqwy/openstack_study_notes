@@ -10,4 +10,5 @@ stack/index
 volume/index
 node/index
 alarm/index
+device_profile/index
 ```
