@@ -1,13 +1,5 @@
 # NTP サーバ
 
-## インストール
-
-chrony をインストールする。
-
-```sh
-dnf install -y chrony
-```
-
 ## 設定
 
 内部ネットワーク向けに NTP をサービスを有効化する。
@@ -33,14 +25,20 @@ firewall-cmd --reload
 
 ## 起動
 
-マシン起動時の自動起動設定とサービスを起動する。
+サービスを再起動する。
 
 ```sh
-systemctl enable --now chronyd
+systemctl restart chronyd
 ```
 
 設定を確認する。
 
 ```sh
 chronyc sources
+```
+
+```
+MS Name/IP address         Stratum Poll Reach LastRx Last sample
+===============================================================================
+^* ntp-k1.nict.jp                1   6    17     7   +309us[+1831us] +/- 9862us
 ```

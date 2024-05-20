@@ -19,12 +19,12 @@ openstack keypair create --public-key demo_rsa.pub mykey
 | Field       | Value                                           |
 +-------------+-------------------------------------------------+
 | created_at  | None                                            |
-| fingerprint | e3:10:52:4d:ef:91:51:d9:a6:8b:31:f5:6d:f5:51:ed |
+| fingerprint | d2:b8:9e:71:0f:86:dc:ca:ac:a1:c6:c8:4d:45:16:8c |
 | id          | mykey                                           |
 | is_deleted  | None                                            |
 | name        | mykey                                           |
 | type        | ssh                                             |
-| user_id     | 71b5948c75f24c0f841dbf1c4eb4c4a7                |
+| user_id     | 7f3acb28d26943bab9510df3a6edf3b0                |
 +-------------+-------------------------------------------------+
 ```
 
@@ -38,6 +38,6 @@ openstack keypair list
 +-------+-------------------------------------------------+------+
 | Name  | Fingerprint                                     | Type |
 +-------+-------------------------------------------------+------+
-| mykey | e3:10:52:4d:ef:91:51:d9:a6:8b:31:f5:6d:f5:51:ed | ssh  |
+| mykey | d2:b8:9e:71:0f:86:dc:ca:ac:a1:c6:c8:4d:45:16:8c | ssh  |
 +-------+-------------------------------------------------+------+
 ```

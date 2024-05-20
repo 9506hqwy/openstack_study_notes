@@ -1,4 +1,4 @@
-#  OpenStack Identity (Keystone)
+#  Identity (Keystone)
 
 ## データベースの作成
 
@@ -141,7 +141,7 @@ openstack project create --domain default --description "Service Project" servic
 | description | Service Project                  |
 | domain_id   | default                          |
 | enabled     | True                             |
-| id          | 39dd96b7af3a420096b892fabd45900a |
+| id          | bb6848524614439b9b0f89f69ca98c37 |
 | is_domain   | False                            |
 | name        | service                          |
 | options     | {}                               |
@@ -163,7 +163,7 @@ openstack project create --domain default --description "Demo Project" myproject
 | description | Demo Project                     |
 | domain_id   | default                          |
 | enabled     | True                             |
-| id          | f2aeffb34ff34ffb8959f1cd813655c6 |
+| id          | bccf406c045d401b91ba5c7552a124ae |
 | is_domain   | False                            |
 | name        | myproject                        |
 | options     | {}                               |
@@ -184,7 +184,7 @@ openstack user create --domain default --password 77f17eb865932cb5d1af myuser
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | 71b5948c75f24c0f841dbf1c4eb4c4a7 |
+| id                  | 7f3acb28d26943bab9510df3a6edf3b0 |
 | name                | myuser                           |
 | options             | {}                               |
 | password_expires_at | None                             |
@@ -203,13 +203,13 @@ openstack role create myrole
 +-------------+----------------------------------+
 | description | None                             |
 | domain_id   | None                             |
-| id          | a4fac38ae4de4a56a5f6ece8cc36bc4c |
+| id          | 994fea031e034d85980415fa73785877 |
 | name        | myrole                           |
 | options     | {}                               |
 +-------------+----------------------------------+
 ```
 
-プロジェクト myproject にロール myrole 権限でユーザ myuser を追加する。
+プロジェクト myproject でユーザ myuser にロール myrole 権限を追加する。
 
 ```sh
 openstack role add --project myproject --user myuser myrole
@@ -244,19 +244,19 @@ openstack \
     --os-user-domain-name Default \
     --os-project-name admin \
     --os-username admin \
+    --os-password e0f7bb1a2f0571b09c33 \
     token \
     issue
 ```
 
 ```
-Password:
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Field      | Value                                                                                                                                                                                   |
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| expires    | 2024-04-13T06:27:19+0000                                                                                                                                                                |
-| id         | gAAAAABmGhe3jJ1bwtAmwkLkLokKujDlQ-pWNGf1QxllvA89HqfxUOio1UNyIR3WSpiKchzdTfEhQ7QgmMvWXB2OQ7R5dQztLL8Nnq_D5NQn4g38YDhfzNsBvxb5L7ieA5blnfDvYu-YsvpSmHxN92l328HsXG4iksZoC7QNHpxsB5gPnfLiAkY |
-| project_id | 1e3ac7ae10e24515a0956beaa1d8073c                                                                                                                                                        |
-| user_id    | d0a08833034240889e27ff1a8c007be0                                                                                                                                                        |
+| expires    | 2024-05-08T12:33:36+0000                                                                                                                                                                |
+| id         | gAAAAABmO2MQCLKpjtH9ecSNR5oxRVDL1za3pFtuz-Y1LvJLBW-9UTVJcqb5MzeTb_wedMFEDPHPzVsjZW5lcsjq3FzMp7XmLGKuiDuk1Jpj5Ac9jkBIvHT9f9nXgRuCITNV-74OrewRhpcvRCGIeWBQE6MEKvn8KOODuQxrPibIx1LQTmDwByY |
+| project_id | be94f4411bd74f249f5e25f642209b82                                                                                                                                                        |
+| user_id    | 34d4ed4faeac41b6bc6a2116fb2d0f47                                                                                                                                                        |
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ```
 
@@ -271,18 +271,18 @@ openstack \
     --os-user-domain-name Default \
     --os-project-name myproject \
     --os-username myuser \
+    --os-password 77f17eb865932cb5d1af \
     token \
     issue
 ```
 
 ```
-Password:
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Field      | Value                                                                                                                                                                                   |
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| expires    | 2024-04-13T06:27:42+0000                                                                                                                                                                |
-| id         | gAAAAABmGhfOWk2-K98vK7IRZONrxpSPB_6KJWs7oZAGSMvwIIxzWkdxl-26THOfFFjkLaHz1rA9qC-R8FS9dSmcbXsEGchMunDUwnkoTvY5MHqOf9-hLVzSwZRzqCMj1Nwf95u89ou95iZ5IxcAyN5hJ0BsHusFLqXX8zEEe-QnHck8RGNwzRM |
-| project_id | f2aeffb34ff34ffb8959f1cd813655c6                                                                                                                                                        |
-| user_id    | 71b5948c75f24c0f841dbf1c4eb4c4a7                                                                                                                                                        |
+| expires    | 2024-05-08T12:34:30+0000                                                                                                                                                                |
+| id         | gAAAAABmO2NGjhfSHcgtYogXR_89MjCS9OGJi58pw4pMInCnjph6NW24BLZuuo5AnTgvQL7Yr6DrYR1R_LugkD0wxFIKT98tvECYiz7aSfAfcFg719l_uUd5tSoh0RAC3zduOQuJOZXOo6geGMhMiNFUODbAyKQoyc8FDN0mstXap87yKrJiE3A |
+| project_id | bccf406c045d401b91ba5c7552a124ae                                                                                                                                                        |
+| user_id    | 7f3acb28d26943bab9510df3a6edf3b0                                                                                                                                                        |
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ```

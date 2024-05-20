@@ -1,4 +1,4 @@
-# OpenStack Placement Service
+# Placement
 
 ## データベースの作成
 
@@ -30,14 +30,14 @@ openstack user create --domain default --password b4b6936f87c338567d3c placement
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | 025321ec417543aa88c52681d1b9dd5f |
+| id                  | ab233b028637484c8ca21cf2e7649b82 |
 | name                | placement                        |
 | options             | {}                               |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 ```
 
-プロジェクト service にロール admin 権限でユーザ placement を追加する。
+プロジェクト service でユーザ placement にロール admin 権限を追加する。
 
 ```sh
 openstack role add --project service --user placement admin
@@ -48,16 +48,16 @@ openstack role add --project service --user placement admin
 placement サービスを作成する。
 
 ```sh
-openstack service create --name placement --description "Placement API" placement
+openstack service create --name placement --description "Placement" placement
 ```
 
 ```
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
-| description | Placement API                    |
+| description | Placement                        |
 | enabled     | True                             |
-| id          | 2993c33f14264beb991dfb17ec90a042 |
+| id          | 7d2af9cb2ed6416995a1420512d1faa4 |
 | name        | placement                        |
 | type        | placement                        |
 +-------------+----------------------------------+
@@ -76,11 +76,11 @@ openstack endpoint create --region RegionOne placement public http://controller:
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 6891c4866ad9439fb167bdd59daf57e0 |
+| id           | aad1d67971584640986316d47685ac56 |
 | interface    | public                           |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 2993c33f14264beb991dfb17ec90a042 |
+| service_id   | 7d2af9cb2ed6416995a1420512d1faa4 |
 | service_name | placement                        |
 | service_type | placement                        |
 | url          | http://controller:8778           |
@@ -96,11 +96,11 @@ openstack endpoint create --region RegionOne placement internal http://controlle
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | cf75b865f2d141b3ba1c7ed71922d944 |
+| id           | 2d24052aa86a438587cfde80011dc280 |
 | interface    | internal                         |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 2993c33f14264beb991dfb17ec90a042 |
+| service_id   | 7d2af9cb2ed6416995a1420512d1faa4 |
 | service_name | placement                        |
 | service_type | placement                        |
 | url          | http://controller:8778           |
@@ -116,11 +116,11 @@ openstack endpoint create --region RegionOne placement admin http://controller:8
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 8ea9433a3d764f92a0b254532daa6326 |
+| id           | 831942d661d14fda9691865c8c8b032c |
 | interface    | admin                            |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 2993c33f14264beb991dfb17ec90a042 |
+| service_id   | 7d2af9cb2ed6416995a1420512d1faa4 |
 | service_name | placement                        |
 | service_type | placement                        |
 | url          | http://controller:8778           |
@@ -139,7 +139,7 @@ firewall-cmd --reload
 placement をインストールする。
 
 ```sh
-dnf install -y openstack-placement-api
+dnf install -y openstack-placement-api python3-osc-placement
 ```
 
 ## Placement の設定
@@ -183,13 +183,10 @@ sed \
 
 ```sh
 cat >> /etc/httpd/conf.d/00-placement-api.conf <<EOF
+
 <Directory /usr/bin>
   <IfVersion >= 2.4>
     Require all granted
-  </IfVersion>
-  <IfVersion < 2.4>
-    Order allow,deny
-    Allow from all
   </IfVersion>
 </Directory>
 EOF
@@ -220,34 +217,25 @@ placement-status upgrade check
 ```
 
 ```
-+----------------------------------------------------------------------+
-| Upgrade Check Results                                                |
-+----------------------------------------------------------------------+
-| Check: Missing Root Provider IDs                                     |
-| Result: Success                                                      |
-| Details: None                                                        |
-+----------------------------------------------------------------------+
-| Check: Incomplete Consumers                                          |
-| Result: Success                                                      |
-| Details: None                                                        |
-+----------------------------------------------------------------------+
-| Check: Policy File JSON to YAML Migration                            |
-| Result: Failure                                                      |
-| Details: Your policy file is JSON-formatted which is deprecated. You |
-|   need to switch to YAML-formatted file. Use the                     |
-|   ``oslopolicy-convert-json-to-yaml`` tool to convert the            |
-|   existing JSON-formatted files to YAML in a backwards-              |
-|   compatible manner: https://docs.openstack.org/oslo.policy/         |
-|   latest/cli/oslopolicy-convert-json-to-yaml.html.                   |
-+----------------------------------------------------------------------+
++-------------------------------------------+
+| Upgrade Check Results                     |
++-------------------------------------------+
+| Check: Missing Root Provider IDs          |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+| Check: Incomplete Consumers               |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+| Check: Policy File JSON to YAML Migration |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
 ```
 
 ```sh
-dnf install -y python3-osc-placement
-```
-
-```sh
-openstack --os-placement-api-version 1.2 resource class list --sort-column name
+openstack resource class list --sort-column name
 ```
 
 ```
@@ -279,7 +267,7 @@ openstack --os-placement-api-version 1.2 resource class list --sort-column name
 ```
 
 ```sh
-openstack --os-placement-api-version 1.6 trait list --sort-column name
+openstack trait list --sort-column name
 ```
 
 ```
@@ -287,6 +275,8 @@ openstack --os-placement-api-version 1.6 trait list --sort-column name
 | name                                  |
 +---------------------------------------+
 | COMPUTE_ACCELERATORS                  |
+| COMPUTE_ADDRESS_SPACE_EMULATED        |
+| COMPUTE_ADDRESS_SPACE_PASSTHROUGH     |
 | COMPUTE_ARCH_AARCH64                  |
 | COMPUTE_ARCH_MIPSEL                   |
 | COMPUTE_ARCH_PPC64LE                  |

@@ -14,16 +14,3 @@ sed \
     }' \
     -i /etc/neutron/dhcp_agent.ini
 ```
-
-```{warning}
-継続
-```
-
-DHCP エージェント がインスタンスの DHCP Discover を受信できないので
-既定の firewalld ゾーンを trusted に設定する。
-
-```sh
-firewall-cmd --set-default-zone trusted
-firewall-cmd --permanent --zone=public --change-interface=eth0
-firewall-cmd --reload
-```

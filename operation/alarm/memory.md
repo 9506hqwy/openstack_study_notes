@@ -9,14 +9,18 @@ openstack server list
 ```
 
 ```
-+--------------------------------------+---------------------------+---------+-----------------------------------------+--------+---------+
-| ID                                   | Name                      | Status  | Networks                                | Image  | Flavor  |
-+--------------------------------------+---------------------------+---------+-----------------------------------------+--------+---------+
-| 36b496b2-4976-4bf1-88c0-09f44385fd19 | instance02                | ACTIVE  | selfservice=172.17.0.95, 192.168.101.19 | cirros | m1.nano |
-+--------------------------------------+---------------------------+---------+-----------------------------------------+--------+---------+
++--------------------------------------+------------+--------+-----------------------+-----------+----------+
+| ID                                   | Name       | Status | Networks              | Image     | Flavor   |
++--------------------------------------+------------+--------+-----------------------+-----------+----------+
+| a8fbb935-7f2b-49a5-983a-1f6e78a1e0ed | instance00 | ACTIVE | provider=172.16.0.169 | cirros062 | m1.milli |
++--------------------------------------+------------+--------+-----------------------+-----------+----------+
 ```
 
 ## アラームの作成
+
+```{tip}
+myuser で実行
+```
 
 メモリ使用率のアラームを作成する。
 
@@ -25,14 +29,14 @@ openstack alarm create  \
     --name mem_ave \
     --type gnocchi_resources_threshold \
     --description 'Memory Usage' \
-    --metric memory \
-    --threshold 60.0 \
+    --metric memory.usage \
+    --threshold 30.0 \
     --comparison-operator gt \
     --aggregation-method mean \
     --granularity 300 \
     --evaluation-periods 1 \
     --resource-type instance \
-    --resource-id 36b496b2-4976-4bf1-88c0-09f44385fd19
+    --resource-id a8fbb935-7f2b-49a5-983a-1f6e78a1e0ed
 ```
 
 ```
@@ -41,30 +45,30 @@ openstack alarm create  \
 +---------------------------+--------------------------------------+
 | aggregation_method        | mean                                 |
 | alarm_actions             | []                                   |
-| alarm_id                  | 2475246c-70d5-4858-aa82-b93b9c7685ee |
+| alarm_id                  | b67294e3-3006-4a9e-a366-3e8011145d3c |
 | comparison_operator       | gt                                   |
 | description               | Memory Usage                         |
 | enabled                   | True                                 |
-| evaluate_timestamp        | 2024-05-04T03:57:23.412646           |
+| evaluate_timestamp        | 2024-05-19T00:26:50.201043           |
 | evaluation_periods        | 1                                    |
 | granularity               | 300                                  |
 | insufficient_data_actions | []                                   |
-| metric                    | memory                               |
+| metric                    | memory.usage                         |
 | name                      | mem_ave                              |
 | ok_actions                | []                                   |
-| project_id                | f2aeffb34ff34ffb8959f1cd813655c6     |
+| project_id                | bccf406c045d401b91ba5c7552a124ae     |
 | repeat_actions            | False                                |
-| resource_id               | 36b496b2-4976-4bf1-88c0-09f44385fd19 |
+| resource_id               | a8fbb935-7f2b-49a5-983a-1f6e78a1e0ed |
 | resource_type             | instance                             |
 | severity                  | low                                  |
 | state                     | insufficient data                    |
 | state_reason              | Not evaluated yet                    |
-| state_timestamp           | 2024-05-04T03:57:23.389488           |
-| threshold                 | 60.0                                 |
+| state_timestamp           | 2024-05-19T00:26:50.152841           |
+| threshold                 | 30.0                                 |
 | time_constraints          | []                                   |
-| timestamp                 | 2024-05-04T03:57:23.389488           |
+| timestamp                 | 2024-05-19T00:26:50.152841           |
 | type                      | gnocchi_resources_threshold          |
-| user_id                   | 71b5948c75f24c0f841dbf1c4eb4c4a7     |
+| user_id                   | 7f3acb28d26943bab9510df3a6edf3b0     |
 +---------------------------+--------------------------------------+
 ```
 
@@ -78,7 +82,7 @@ openstack alarm list
 +--------------------------------------+-----------------------------+---------+-------------------+----------+---------+
 | alarm_id                             | type                        | name    | state             | severity | enabled |
 +--------------------------------------+-----------------------------+---------+-------------------+----------+---------+
-| 2475246c-70d5-4858-aa82-b93b9c7685ee | gnocchi_resources_threshold | mem_ave | insufficient data | low      | True    |
+| b67294e3-3006-4a9e-a366-3e8011145d3c | gnocchi_resources_threshold | mem_ave | insufficient data | low      | True    |
 +--------------------------------------+-----------------------------+---------+-------------------+----------+---------+
 ```
 
@@ -91,9 +95,9 @@ openstack alarm list
 ```
 
 ```
-+--------------------------------------+-----------------------------+---------+-------+----------+---------+
-| alarm_id                             | type                        | name    | state | severity | enabled |
-+--------------------------------------+-----------------------------+---------+-------+----------+---------+
-| 2475246c-70d5-4858-aa82-b93b9c7685ee | gnocchi_resources_threshold | mem_ave | alarm | low      | True    |
-+--------------------------------------+-----------------------------+---------+-------+----------+---------+
++--------------------------------------+-----------------------------+---------+-------------------+----------+---------+
+| alarm_id                             | type                        | name    | state             | severity | enabled |
++--------------------------------------+-----------------------------+---------+-------------------+----------+---------+
+| b67294e3-3006-4a9e-a366-3e8011145d3c | gnocchi_resources_threshold | mem_ave | alarm             | low      | True    |
++--------------------------------------+-----------------------------+---------+-------------------+----------+---------+
 ```

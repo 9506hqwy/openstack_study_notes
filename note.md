@@ -47,7 +47,7 @@ ausearch -c dnsmasq | audit2allow
 
 ## vxlan ネットワークでインスタンスに IP アドレスが割り当たらない
 
-DHCP offer をインスタンスが受信しないため、
+Linux Bridge を使用した場合 DHCP offer をインスタンスが受信しないため、
 Controller Node / Compute Node でファイアウォールを開ける。
 
 ```sh
@@ -61,15 +61,6 @@ firewall-cmd --reload
 ```sh
 systemctl stop firewalld
 ```
-
-## ovs-interface が起動しない
-
-```{note}
-継続
-```
-
-Network Manager で ovs-interface に IP アドレスを設定しても
-connection が起動せず IP アドレスが割り当たらない場合がある。
 
 ## ironic staging driver の修正
 

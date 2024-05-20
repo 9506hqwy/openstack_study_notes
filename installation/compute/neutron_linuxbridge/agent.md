@@ -6,7 +6,7 @@
 sed \
     -e '/^\[linux_bridge]/,/^\[/ {
       /^physical_interface_mappings =/d
-      /^#physical_interface_mappings =/aphysical_interface_mappings = provider:eth0,mgmt:eth1
+      /^#physical_interface_mappings =/aphysical_interface_mappings = provider:eth2,mgmt:eth3
     }' \
     -e '/^\[vxlan]/,/^\[/ {
       /^enable_vxlan =/d

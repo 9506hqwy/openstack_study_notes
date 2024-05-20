@@ -14,16 +14,17 @@ hostnamectl set-hostname baremetal.home.local
 nmcli connection modify eth1 \
     ipv6.method disabled \
     ipv4.method manual \
-    ipv4.dns 10.0.0.1 \
+    ipv4.dns 10.0.0.254 \
     ipv4.dns-search home.local \
     ipv4.addresses 10.0.0.51/24 \
-    ipv4.gateway 10.0.0.1 \
     connection.autoconnect yes
 nmcli connection up eth1
 
 nmcli connection modify eth0 \
     ipv6.method disabled \
-    ipv4.method auto \
+    ipv4.method manual \
+    ipv4.addresses 172.16.0.51/24 \
+    ipv4.gateway 172.16.0.254 \
     connection.autoconnect yes
 nmcli connection up eth0
 ```
@@ -32,6 +33,7 @@ nmcli connection up eth0
 
 ```sh
 firewall-cmd --set-default-zone trusted
+firewall-cmd --permanent --zone=public --change-interface=eth0
 firewall-cmd --permanent --zone=internal --change-interface=eth1
 firewall-cmd --reload
 ```
@@ -50,3 +52,11 @@ EOF
 ## NTP クライアント
 
 [](../appendix/time_sync.md) を参照する。
+
+## Cockpit
+
+ユーザ root でログインを許可する。
+
+```sh
+echo > /etc/cockpit/disallowed-users
+```

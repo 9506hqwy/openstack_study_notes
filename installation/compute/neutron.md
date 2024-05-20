@@ -1,4 +1,4 @@
-# OpenStack Networking (Neutron)
+# Networking (Neutron)
 
 ## インストール
 
@@ -25,8 +25,8 @@ dnf install -y openstack-neutron-openvswitch NetworkManager-ovs
 ```sh
 sed \
     -e '/^\[DEFAULT]/,/^\[/ {
-      /^state_path=/d
-      /^#state_path=/astate_path=/var/lib/neutron
+      /^state_path= /d
+      /^#state_path =/astate_path = /var/lib/neutron
       /^transport_url =/d
       /^#transport_url =/atransport_url = rabbit://openstack:3c17215fe69ba1dad320@controller:5672/
       /^auth_strategy =/d
@@ -56,9 +56,12 @@ sed \
       /^lock_path =/d
       /^# lock_path =/alock_path = $state_path/tmp
     }' \
+    -e '/^\[experimental]/,/^\[/ {
+      /^linuxbridge =/d
+      /^#linuxbridge =/alinuxbridge = true
+    }' \
     -i /etc/neutron/neutron.conf
 ```
-
 
 ## メカニズムドライバの設定
 
@@ -71,21 +74,6 @@ Linux Bridge と Open vSwitch のどちらかを設定する。
 ### Open vSwitch の場合
 
 * [](./neutron_ovs/agent.md)
-
-## ファイアウォールの設定
-
-```{warning}
-継続
-```
-
-インスタンスが DHCP エージェントの DHCP Offer を受信できないので
-既定の firewalld ゾーンを trusted に設定する。
-
-```sh
-firewall-cmd --set-default-zone trusted
-firewall-cmd --permanent --zone=public --change-interface=eth0
-firewall-cmd --reload
-```
 
 ## Nova の設定
 

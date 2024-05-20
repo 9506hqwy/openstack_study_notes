@@ -1,4 +1,4 @@
-# OpenStack Networking (Neutron)
+# Networking (Neutron)
 
 ## データベースの作成
 
@@ -30,14 +30,14 @@ openstack user create --domain default --password 76283d854fd24b78f90b neutron
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | 3744ebe3c7f3437c832bcf9da2e8ece6 |
+| id                  | 46347461b532408586b5f63cb59d6aea |
 | name                | neutron                          |
 | options             | {}                               |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 ```
 
-プロジェクト service にロール admin 権限でユーザ neutron を追加する。
+プロジェクト service でユーザ neutron にロール admin 権限を追加する。
 
 ```sh
 openstack role add --project service --user neutron admin
@@ -48,16 +48,16 @@ openstack role add --project service --user neutron admin
 neutron サービスを作成する。
 
 ```sh
-openstack service create --name neutron --description "OpenStack Networking" network
+openstack service create --name neutron --description "Networking" network
 ```
 
 ```
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
-| description | OpenStack Networking             |
+| description | Networking                       |
 | enabled     | True                             |
-| id          | 53b4c8d7b26e400a81a7ce187c0bf4cf |
+| id          | f1c57ae2421a4b1196d90cbd5aee209c |
 | name        | neutron                          |
 | type        | network                          |
 +-------------+----------------------------------+
@@ -76,11 +76,11 @@ openstack endpoint create --region RegionOne network public http://controller:96
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 0d004f2e177c413281d96d967d9a2e85 |
+| id           | d0f928fc84534182ad1ffd8d6835eca6 |
 | interface    | public                           |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 53b4c8d7b26e400a81a7ce187c0bf4cf |
+| service_id   | f1c57ae2421a4b1196d90cbd5aee209c |
 | service_name | neutron                          |
 | service_type | network                          |
 | url          | http://controller:9696           |
@@ -96,11 +96,11 @@ openstack endpoint create --region RegionOne network internal http://controller:
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 7dfe7cf516c54b73896f4a94181f166a |
+| id           | 8d42dacfffa84b60977475924270f1de |
 | interface    | internal                         |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 53b4c8d7b26e400a81a7ce187c0bf4cf |
+| service_id   | f1c57ae2421a4b1196d90cbd5aee209c |
 | service_name | neutron                          |
 | service_type | network                          |
 | url          | http://controller:9696           |
@@ -116,11 +116,11 @@ openstack endpoint create --region RegionOne network admin http://controller:969
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 515675b528594faca7af2a6faed17e58 |
+| id           | cf4038de6dd64eff8597858fe2492eee |
 | interface    | admin                            |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 53b4c8d7b26e400a81a7ce187c0bf4cf |
+| service_id   | f1c57ae2421a4b1196d90cbd5aee209c |
 | service_name | neutron                          |
 | service_type | network                          |
 | url          | http://controller:9696           |
@@ -136,19 +136,18 @@ firewall-cmd --reload
 
 ## インストール
 
-neutron と Linux Bridge ML2 プラグインをインストールする。
+neutron と ML2 プラグインをインストールする。
 
 ```sh
 dnf install -y \
     openstack-neutron \
-    openstack-neutron-ml2 \
-    ebtables
+    openstack-neutron-ml2
 ```
 
 Linux Bridge を使用する場合は下記をインストールする。
 
 ```sh
-dnf install -y openstack-neutron-linuxbridge
+dnf install -y openstack-neutron-linuxbridge ebtables
 ```
 
 Open vSwitch を使用する場合は下記をインストールする。
@@ -164,8 +163,8 @@ dnf install -y openstack-neutron-openvswitch NetworkManager-ovs
 ```sh
 sed \
     -e '/^\[DEFAULT]/,/^\[/ {
-      /^state_path=/d
-      /^#state_path=/astate_path=/var/lib/neutron
+      /^state_path =/d
+      /^#state_path =/astate_path = /var/lib/neutron
       /^core_plugin =/d
       /^#core_plugin =/acore_plugin = ml2
       /^service_plugins =/d
@@ -224,6 +223,10 @@ sed \
     -e '/^\[oslo_concurrency]/,/^\[/ {
       /^lock_path =/d
       /^# lock_path =/alock_path = $state_path/tmp
+    }' \
+    -e '/^\[experimental]/,/^\[/ {
+      /^linuxbridge =/d
+      /^#linuxbridge =/alinuxbridge = true
     }' \
     -i /etc/neutron/neutron.conf
 ```

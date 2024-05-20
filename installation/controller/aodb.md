@@ -1,4 +1,4 @@
-# OpenStack Telemetry Alarming Service (aodh)
+# Telemetry Alarming (aodh)
 
 ## データベースの作成
 
@@ -30,14 +30,14 @@ openstack user create --domain default --password 7df3446ca4ec04bb40be aodh
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | a61918fc49164c6fa6b80714c68a9412 |
+| id                  | d605f85c5a7b4722903afcc3657a2293 |
 | name                | aodh                             |
 | options             | {}                               |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 ```
 
-プロジェクト service にロール admin 権限でユーザ aodh を追加する。
+プロジェクト service でユーザ aodh にロール admin 権限を追加する。
 
 ```sh
 openstack role add --project service --user aodh admin
@@ -48,16 +48,16 @@ openstack role add --project service --user aodh admin
 サービス alarming を作成する。
 
 ```sh
-openstack service create --name aodh --description "OpenStack Telemetry Alarming" alarming
+openstack service create --name aodh --description "Telemetry Alarming" alarming
 ```
 
 ```
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
-| description | OpenStack Telemetry Alarming     |
+| description | Telemetry Alarming               |
 | enabled     | True                             |
-| id          | 7a617f6df901433a82da9b36e3eaccce |
+| id          | 6d563adee2144fe09d2f6e4f62a9b0aa |
 | name        | aodh                             |
 | type        | alarming                         |
 +-------------+----------------------------------+
@@ -76,11 +76,11 @@ openstack endpoint create --region RegionOne alarming public http://controller:8
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | ae789ff352dc4ebd9e161fa84c631010 |
+| id           | e30bc33622ee4b47a654bd6ab1316a4a |
 | interface    | public                           |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 7a617f6df901433a82da9b36e3eaccce |
+| service_id   | 6d563adee2144fe09d2f6e4f62a9b0aa |
 | service_name | aodh                             |
 | service_type | alarming                         |
 | url          | http://controller:8042           |
@@ -96,11 +96,11 @@ openstack endpoint create --region RegionOne alarming internal http://controller
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 728e133996e840978296f7e33fdf49b8 |
+| id           | 47ff02939d9a494eb56deb63af33b11f |
 | interface    | internal                         |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 7a617f6df901433a82da9b36e3eaccce |
+| service_id   | 6d563adee2144fe09d2f6e4f62a9b0aa |
 | service_name | aodh                             |
 | service_type | alarming                         |
 | url          | http://controller:8042           |
@@ -116,11 +116,11 @@ openstack endpoint create --region RegionOne alarming admin http://controller:80
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 27017f929fe5465a95f4969f4ee4193f |
+| id           | 3800a723d75f4bb68bda11b63aa72c82 |
 | interface    | admin                            |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 7a617f6df901433a82da9b36e3eaccce |
+| service_id   | 6d563adee2144fe09d2f6e4f62a9b0aa |
 | service_name | aodh                             |
 | service_type | alarming                         |
 | url          | http://controller:8042           |
@@ -220,7 +220,7 @@ aodh-dbsync
 マシン起動時の自動起動設定とサービスを起動する。
 
 ```{note}
-*/usr/bin/aodh-api*　の 8000 -> 8042 に変更する。
+*/usr/bin/aodh-api* の 8000 -> 8042 に変更する。
 ```
 
 ```sh

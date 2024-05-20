@@ -108,7 +108,8 @@ nmcli connection add \
     ifname br0 \
     ipv6.method disabled \
     ipv4.method manual \
-    ipv4.addresses 172.16.0.51/12 \
+    ipv4.addresses 172.16.0.51/24 \
+    ipv4.gateway 172.16.0.254 \
     connection.autoconnect yes
 nmcli con add \
     type ethernet \
@@ -125,6 +126,8 @@ nmcli connection add \
     ifname br1 \
     ipv6.method disabled \
     ipv4.method manual \
+    ipv4.dns 10.0.0.254 \
+    ipv4.dns-search home.local \
     ipv4.addresses 10.0.0.51/24 \
     connection.autoconnect yes
 nmcli con add \
@@ -133,6 +136,10 @@ nmcli con add \
     ifname eth1 \
     master br1
 nmcli connection up br1
+
+firewall-cmd --permanent --zone=public --change-interface=eth0
+firewall-cmd --permanent --zone=internal --change-interface=eth1
+firewall-cmd --reload
 ```
 
 ## ストレージプールの作成
@@ -155,11 +162,17 @@ virt-install \
     --name node01 \
     --vcpu 1 \
     --memory 1024 \
-    --os-variant cirros0.4.0 \
+    --os-variant cirros0.5.2 \
     --disk /var/lib/libvirt/images/node01.qcow2,bus=virtio \
     --network bridge=br1,model=virtio \
     --graphics vnc,listen=0.0.0.0 \
     --virt-type qemu \
     --pxe \
     --noautoconsole
+```
+
+起動を確認した後に停止する。
+
+```sh
+virsh destroy 1
 ```

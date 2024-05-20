@@ -1,11 +1,21 @@
-# b1.nano
+# a1.milli
 
 ## flavor の作成
 
-ベアメタルプロビジョニングで使用する flavor を作成する。
+FPGA を要求する flavor を作成する。
+
+| オプション                  | 説明                         |
+| --------------------------- | ---------------------------- |
+| --vcpus                     | CPU 数                       |
+| --ram                       | メモリサイズ MiB             |
+| --disk                      | ディスクサイズ GiB           |
 
 ```sh
-openstack flavor create b1.nano
+openstack flavor create \
+    --ram 256 \
+    --vcpus 1 \
+    --disk 1 \
+    a1.milli
 ```
 
 ```
@@ -15,9 +25,9 @@ openstack flavor create b1.nano
 | OS-FLV-DISABLED:disabled   | False                                |
 | OS-FLV-EXT-DATA:ephemeral  | 0                                    |
 | description                | None                                 |
-| disk                       | 0                                    |
-| id                         | 7a123317-6326-4517-8d57-d42e09dda099 |
-| name                       | b1.nano                              |
+| disk                       | 1                                    |
+| id                         | 82979736-dea6-4e0f-a155-bcfbda0afd49 |
+| name                       | a1.milli                             |
 | os-flavor-access:is_public | True                                 |
 | properties                 |                                      |
 | ram                        | 256                                  |
@@ -27,13 +37,10 @@ openstack flavor create b1.nano
 +----------------------------+--------------------------------------+
 ```
 
-## リソースクラスの設定
+## デバイスプロファイルの設定
 
-`resource_class` が `baremetal` と一致するノードを対象とする。
+デバイスプロファイル fpga1 を設定する。
 
 ```sh
-openstack flavor set --property resources:CUSTOM_BAREMETAL=1 b1.nano
-openstack flavor set --property resources:VCPU=0 b1.nano
-openstack flavor set --property resources:MEMORY_MB=0 b1.nano
-openstack flavor set --property resources:DISK_GB=0 b1.nano
+openstack flavor set --property 'accel:device_profile=fpga1' a1.milli
 ```

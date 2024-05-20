@@ -47,10 +47,10 @@ openstack network agent list
 +--------------------------------------+--------------------+-----------------------+-------------------+-------+-------+---------------------------+
 | ID                                   | Agent Type         | Host                  | Availability Zone | Alive | State | Binary                    |
 +--------------------------------------+--------------------+-----------------------+-------------------+-------+-------+---------------------------+
-| 145d9d73-cb1c-4bbf-ad28-adb1a9f4a826 | Metadata agent     | controller.home.local | None              | :-)   | UP    | neutron-metadata-agent    |
-| 1e13255e-0f7c-4002-8d52-f53db8839bae | L3 agent           | controller.home.local | nova              | :-)   | UP    | neutron-l3-agent          |
-| 20918645-7ee8-429c-a9ff-ba942695e4a4 | Open vSwitch agent | compute.home.local    | None              | :-)   | UP    | neutron-openvswitch-agent |
-| 5bb635cd-1e42-48fa-b2be-c5d0dce3fef4 | Open vSwitch agent | controller.home.local | None              | :-)   | UP    | neutron-openvswitch-agent |
-| e843c356-67a9-418e-96db-3fa6e4210df9 | DHCP agent         | controller.home.local | nova              | :-)   | UP    | neutron-dhcp-agent        |
+| 1fbd5909-3c41-4356-a042-24dc5befc8a0 | DHCP agent         | controller.home.local | nova              | :-)   | UP    | neutron-dhcp-agent        |
+| 2a57065a-d890-450f-bae0-2f456898d009 | Open vSwitch agent | compute.home.local    | None              | :-)   | UP    | neutron-openvswitch-agent |
+| 5368ea0a-53d6-4f3c-946b-e01467f08929 | Metadata agent     | controller.home.local | None              | :-)   | UP    | neutron-metadata-agent    |
+| 73bea1cf-d980-4aaf-8e9f-9d4781342c86 | L3 agent           | controller.home.local | nova              | :-)   | UP    | neutron-l3-agent          |
+| ec88144f-cccb-48f3-a94d-4899f4cf0743 | Open vSwitch agent | controller.home.local | None              | :-)   | UP    | neutron-openvswitch-agent |
 +--------------------------------------+--------------------+-----------------------+-------------------+-------+-------+---------------------------+
 ```

@@ -1,4 +1,4 @@
-# OpenStack Orchestration Service (Heat)
+# Orchestration (Heat)
 
 ## データベースの作成
 
@@ -37,7 +37,7 @@ openstack user create --domain default --password 2fac8b8307cabd60f3b8 heat
 +---------------------+----------------------------------+
 ```
 
-プロジェクト service にロール admin 権限でユーザ heat を追加する。
+プロジェクト service でユーザ heat にロール admin 権限を追加する。
 
 ```sh
 openstack role add --project service --user heat admin
@@ -48,16 +48,16 @@ openstack role add --project service --user heat admin
 サービス orchestration を作成する。
 
 ```sh
-openstack service create --name heat --description "OpenStack Orchestration" orchestration
+openstack service create --name heat --description "Orchestration" orchestration
 ```
 
 ```
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
-| description | OpenStack Orchestration          |
+| description | Orchestration                    |
 | enabled     | True                             |
-| id          | 89491554f1af418cab877eaec203b56d |
+| id          | 0f8a5236f4ad4b10a8c27e49ea4cdeef |
 | name        | heat                             |
 | type        | orchestration                    |
 +-------------+----------------------------------+
@@ -66,16 +66,16 @@ openstack service create --name heat --description "OpenStack Orchestration" orc
 サービス cloudformation を作成する。
 
 ```sh
-openstack service create --name heat-cfn --description "OpenStack Orchestration" cloudformation
+openstack service create --name heat-cfn --description "Orchestration CFN" cloudformation
 ```
 
 ```
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
-| description | OpenStack Orchestration          |
+| description | Orchestration CFN                |
 | enabled     | True                             |
-| id          | 81e32f4141d745c2b399502a5e854093 |
+| id          | 375ff7c307bd47d3acd7abc31c933ae6 |
 | name        | heat-cfn                         |
 | type        | cloudformation                   |
 +-------------+----------------------------------+
@@ -94,11 +94,11 @@ openstack endpoint create --region RegionOne orchestration public http://control
 | Field        | Value                                   |
 +--------------+-----------------------------------------+
 | enabled      | True                                    |
-| id           | a5228818885e423d97b8c9a0684204fe        |
+| id           | 7b8338bb42444515bc843e06ac8e4218        |
 | interface    | public                                  |
 | region       | RegionOne                               |
 | region_id    | RegionOne                               |
-| service_id   | 89491554f1af418cab877eaec203b56d        |
+| service_id   | 0f8a5236f4ad4b10a8c27e49ea4cdeef        |
 | service_name | heat                                    |
 | service_type | orchestration                           |
 | url          | http://controller:8004/v1/%(tenant_id)s |
@@ -114,11 +114,11 @@ openstack endpoint create --region RegionOne orchestration internal http://contr
 | Field        | Value                                   |
 +--------------+-----------------------------------------+
 | enabled      | True                                    |
-| id           | 5b7c389a8e004d7a9e3258c38a9b36a7        |
+| id           | f8f16d25e8024555abe9de8498feffe1        |
 | interface    | internal                                |
 | region       | RegionOne                               |
 | region_id    | RegionOne                               |
-| service_id   | 89491554f1af418cab877eaec203b56d        |
+| service_id   | 0f8a5236f4ad4b10a8c27e49ea4cdeef        |
 | service_name | heat                                    |
 | service_type | orchestration                           |
 | url          | http://controller:8004/v1/%(tenant_id)s |
@@ -134,11 +134,11 @@ openstack endpoint create --region RegionOne orchestration admin http://controll
 | Field        | Value                                   |
 +--------------+-----------------------------------------+
 | enabled      | True                                    |
-| id           | 06c2e43d04b6466ebeb41f98dd2058c6        |
+| id           | d55eaed796c943a19833ab9231ae083f        |
 | interface    | admin                                   |
 | region       | RegionOne                               |
 | region_id    | RegionOne                               |
-| service_id   | 89491554f1af418cab877eaec203b56d        |
+| service_id   | 0f8a5236f4ad4b10a8c27e49ea4cdeef        |
 | service_name | heat                                    |
 | service_type | orchestration                           |
 | url          | http://controller:8004/v1/%(tenant_id)s |
@@ -163,11 +163,11 @@ openstack endpoint create --region RegionOne cloudformation public http://contro
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | d9edb9f30e794f03a3af7f182ade7668 |
+| id           | e4b883a6455d4376bf1f3413d08eda1f |
 | interface    | public                           |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 81e32f4141d745c2b399502a5e854093 |
+| service_id   | 375ff7c307bd47d3acd7abc31c933ae6 |
 | service_name | heat-cfn                         |
 | service_type | cloudformation                   |
 | url          | http://controller:8000/v1        |
@@ -183,11 +183,11 @@ openstack endpoint create --region RegionOne cloudformation internal http://cont
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | f3f7c38b110a4a2fa399db94b6c4f3bb |
+| id           | a2e188b5fe6b4debb1579227fa73689f |
 | interface    | internal                         |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 81e32f4141d745c2b399502a5e854093 |
+| service_id   | 375ff7c307bd47d3acd7abc31c933ae6 |
 | service_name | heat-cfn                         |
 | service_type | cloudformation                   |
 | url          | http://controller:8000/v1        |
@@ -203,11 +203,11 @@ openstack endpoint create --region RegionOne cloudformation admin http://control
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 67bd76a0dacd4450a68b961a4b9cc50e |
+| id           | 01683be8a4494b13be22020909672ce2 |
 | interface    | admin                            |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 81e32f4141d745c2b399502a5e854093 |
+| service_id   | 375ff7c307bd47d3acd7abc31c933ae6 |
 | service_name | heat-cfn                         |
 | service_type | cloudformation                   |
 | url          | http://controller:8000/v1        |
@@ -235,7 +235,7 @@ openstack domain create --description "Stack projects and users" heat
 +-------------+----------------------------------+
 | description | Stack projects and users         |
 | enabled     | True                             |
-| id          | 8a3ceeb0876a4378b058ce669e361d9a |
+| id          | 9c4f6a35d5044e8484ec72eddcdfd575 |
 | name        | heat                             |
 | options     | {}                               |
 | tags        | []                               |
@@ -252,16 +252,16 @@ openstack user create --domain heat --password 3d99ff8995969fbe113b heat_domain_
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
-| domain_id           | 8a3ceeb0876a4378b058ce669e361d9a |
+| domain_id           | 9c4f6a35d5044e8484ec72eddcdfd575 |
 | enabled             | True                             |
-| id                  | 77fc8955fda94af38e13cbfd9511ce97 |
+| id                  | eae88383f7ed444eb984b2ed1ea7ed6c |
 | name                | heat_domain_admin                |
 | options             | {}                               |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 ```
 
-ドメイン heat にロール admin 権限でユーザ heat_domain_admin を追加する。
+ドメイン heat でユーザ heat_domain_admin にロール admin 権限を追加する。
 
 ```sh
 openstack role add --domain heat --user-domain heat --user heat_domain_admin admin
@@ -279,13 +279,13 @@ openstack role create heat_stack_owner
 +-------------+----------------------------------+
 | description | None                             |
 | domain_id   | None                             |
-| id          | 80737431e09445b899b8825fb8a97685 |
+| id          | 9b5e41dd28b643cd87670646c26db497 |
 | name        | heat_stack_owner                 |
 | options     | {}                               |
 +-------------+----------------------------------+
 ```
 
-プロジェクト myproject にロール heat_stack_owner 権限でユーザ myuser を追加する。
+プロジェクト myproject でユーザ myuser にロール heat_stack_owner 権限を追加する。
 
 ```sh
 openstack role add --project myproject --user myuser heat_stack_owner
@@ -303,7 +303,7 @@ openstack role create heat_stack_user
 +-------------+----------------------------------+
 | description | None                             |
 | domain_id   | None                             |
-| id          | b5194c5b757b4d919684a41f6bae95f8 |
+| id          | f97f4d66e000446ca46f07f7bcb21ba9 |
 | name        | heat_stack_user                  |
 | options     | {}                               |
 +-------------+----------------------------------+
@@ -345,6 +345,26 @@ sed \
       /^connection =/d
       /^#connection =/aconnection = mysql+pymysql://heat:08e9d96fd510ddab2732@controller/heat
     }' \
+    -e '/^\[keystone_authtoken]/,/^\[/ {
+      /^www_authenticate_uri =/d
+      /^#www_authenticate_uri =/awww_authenticate_uri = http://controller:5000
+      /^memcached_servers =/d
+      /^#memcached_servers =/amemcached_servers = controller:11211
+      /^auth_type =/d
+      /^#auth_type =/aauth_type = password
+      /^auth_url =/d
+      /^\[keystone_authtoken]/aauth_url = http://controller:5000
+      /^project_domain_name =/d
+      /^\[keystone_authtoken]/aproject_domain_name = Default
+      /^project_name =/d
+      /^\[keystone_authtoken]/aproject_name = service
+      /^user_domain_name =/d
+      /^\[keystone_authtoken]/auser_domain_name = Default
+      /^username =/d
+      /^\[keystone_authtoken]/ausername = heat
+      /^password =/d
+      /^\[keystone_authtoken]/apassword = 2fac8b8307cabd60f3b8
+    }' \
     -e '/^\[trustee]/,/^\[/ {
       /^auth_type =/d
       /^#auth_type =/aauth_type = password
@@ -362,24 +382,6 @@ sed \
       /^#auth_uri =/aauth_uri = http://controller:5000
     }' \
     -i /etc/heat/heat.conf
-
-sed \
-    -e '/^\[keystone_authtoken]/,/^\[/d' \
-    -i /etc/heat/heat.conf
-
-cat >> /etc/heat/heat.conf <<EOF
-
-[keystone_authtoken]
-www_authenticate_uri = http://controller:5000
-auth_url = http://controller:5000
-memcached_servers = controller:11211
-auth_type = password
-project_domain_name = Default
-project_name = service
-user_domain_name = Default
-username = heat
-password = 2fac8b8307cabd60f3b8
-EOF
 ```
 
 ## データベースの構築
@@ -412,9 +414,9 @@ openstack orchestration service list
 +-----------------------+-------------+--------------------------------------+-----------------------+--------+----------------------------+--------+
 | Hostname              | Binary      | Engine ID                            | Host                  | Topic  | Updated At                 | Status |
 +-----------------------+-------------+--------------------------------------+-----------------------+--------+----------------------------+--------+
-| controller.home.local | heat-engine | 2dc00945-3c46-45ac-907a-a24c65c78fc4 | controller.home.local | engine | 2024-04-28T02:11:35.000000 | up     |
-| controller.home.local | heat-engine | 0893d2be-3c62-43a1-86cd-2291f21ac133 | controller.home.local | engine | 2024-04-28T02:11:35.000000 | up     |
-| controller.home.local | heat-engine | 44c8d9f4-8634-4d6e-b307-57cbf6b75c1c | controller.home.local | engine | 2024-04-28T02:11:35.000000 | up     |
-| controller.home.local | heat-engine | 14e8a72e-9fef-4b4c-9ae2-a15a0ee38127 | controller.home.local | engine | 2024-04-28T02:11:35.000000 | up     |
+| controller.home.local | heat-engine | ec7d98a1-62c2-45ce-bdfc-e0d3c461327a | controller.home.local | engine | 2024-05-18T02:49:16.000000 | up     |
+| controller.home.local | heat-engine | 7d7b10b9-3585-4f10-b162-1261b80bab53 | controller.home.local | engine | 2024-05-18T02:49:16.000000 | up     |
+| controller.home.local | heat-engine | c72cd696-53fe-4c5e-aece-462e5abf2136 | controller.home.local | engine | 2024-05-18T02:49:16.000000 | up     |
+| controller.home.local | heat-engine | f741590f-0023-49ff-8f29-38c4c99d23bf | controller.home.local | engine | 2024-05-18T02:49:16.000000 | up     |
 +-----------------------+-------------+--------------------------------------+-----------------------+--------+----------------------------+--------+
 ```

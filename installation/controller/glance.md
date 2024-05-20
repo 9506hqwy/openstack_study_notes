@@ -1,4 +1,4 @@
-# OpenStack Image Service (Glance)
+# Image (Glance)
 
 ## データベースの作成
 
@@ -30,14 +30,14 @@ openstack user create --domain default --password 7a69c4834de4f3ed2cfa glance
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | 79c03c2f523b479ab98565add8c72552 |
+| id                  | ba5fd9acb1ca4f5fbab866ad888f74c2 |
 | name                | glance                           |
 | options             | {}                               |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 ```
 
-プロジェクト service にロール admin 権限でユーザ glance を追加する。
+プロジェクト service でユーザ glance にロール admin 権限を追加する。
 
 ```sh
 openstack role add --project service --user glance admin
@@ -48,16 +48,16 @@ openstack role add --project service --user glance admin
 image サービスを作成する。
 
 ```sh
-openstack service create --name glance --description "OpenStack Image" image
+openstack service create --name glance --description "Image" image
 ```
 
 ```
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
-| description | OpenStack Image                  |
+| description | Image                            |
 | enabled     | True                             |
-| id          | 1207733aef284c37a3d4e26952802528 |
+| id          | 2b1559b0cef34d43800eca074985191d |
 | name        | glance                           |
 | type        | image                            |
 +-------------+----------------------------------+
@@ -76,11 +76,11 @@ openstack endpoint create --region RegionOne image public http://controller:9292
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | e11c6bc806fa46878cef909b83f681bc |
+| id           | 613c9f5e7008483fa148626b2def8ed3 |
 | interface    | public                           |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 1207733aef284c37a3d4e26952802528 |
+| service_id   | 2b1559b0cef34d43800eca074985191d |
 | service_name | glance                           |
 | service_type | image                            |
 | url          | http://controller:9292           |
@@ -96,11 +96,11 @@ openstack endpoint create --region RegionOne image internal http://controller:92
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | f991841602d84c248f5c81b20cf233c5 |
+| id           | c9c5b8bc019e42f38c9f01cfb5686193 |
 | interface    | internal                         |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 1207733aef284c37a3d4e26952802528 |
+| service_id   | 2b1559b0cef34d43800eca074985191d |
 | service_name | glance                           |
 | service_type | image                            |
 | url          | http://controller:9292           |
@@ -116,11 +116,11 @@ openstack endpoint create --region RegionOne image admin http://controller:9292
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | e81ca38e2fa5474597b26f8b6863ad48 |
+| id           | 496c44c7aed9485ba05ce1fb2e137118 |
 | interface    | admin                            |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 1207733aef284c37a3d4e26952802528 |
+| service_id   | 2b1559b0cef34d43800eca074985191d |
 | service_name | glance                           |
 | service_type | image                            |
 | url          | http://controller:9292           |
@@ -139,7 +139,7 @@ firewall-cmd --reload
 glance をインストールする。
 
 ```sh
-dnf install -y openstack-glance
+dnf install -y openstack-glance python3-glanceclient
 ```
 
 ## Glance の設定
@@ -148,6 +148,10 @@ dnf install -y openstack-glance
 
 ```sh
 sed \
+    -e '/^\[DEFAULT]/,/^\[/ {
+      /^enabled_backends =/d
+      /^#enabled_backends =/aenabled_backends = fs:file
+    }' \
     -e '/^\[database]/,/^\[/ {
       /^connection =/d
       /^#connection =/aconnection = mysql+pymysql://glance:5ba24787139e1a1a86b8@controller/glance
@@ -159,17 +163,17 @@ sed \
       /^#memcached_servers =/amemcached_servers = controller:11211
       /^auth_type =/d
       /^#auth_type =/aauth_type = password
-      /^auth_url=/d
+      /^auth_url =/d
       /^\[keystone_authtoken]/aauth_url = http://controller:5000
-      /^project_domain_name=/d
+      /^project_domain_name =/d
       /^\[keystone_authtoken]/aproject_domain_name = Default
-      /^project_name=/d
+      /^project_name =/d
       /^\[keystone_authtoken]/aproject_name = service
-      /^user_domain_name=/d
+      /^user_domain_name =/d
       /^\[keystone_authtoken]/auser_domain_name = Default
-      /^username=/d
+      /^username =/d
       /^\[keystone_authtoken]/ausername = glance
-      /^password=/d
+      /^password =/d
       /^\[keystone_authtoken]/apassword = 7a69c4834de4f3ed2cfa
     }' \
     -e '/^\[paste_deploy]/,/^\[/ {
@@ -177,10 +181,10 @@ sed \
       /^#flavor =/aflavor = keystone
     }' \
     -e '/^\[glance_store]/,/^\[/ {
-      /^stores =/d
-      /^#stores =/astores = file,http
-      /^default_store =/d
-      /^#default_store =/adefault_store = file
+      /^default_backend =/d
+      /^#default_backend =/adefault_backend = fs
+    }' \
+    -e '/^\[file]/,/^\[/ {
       /^filesystem_store_datadir =/d
       /^#filesystem_store_datadir =/afilesystem_store_datadir = /var/lib/glance/images
     }' \
@@ -207,21 +211,25 @@ systemctl enable --now openstack-glance-api
 
 cirros をダウンロードする。
 
+```{tip}
+v0.4.0 は SSH 公開鍵をインポートしても公開鍵認証が機能しないため v0.6.2 を使用する。
+```
+
 ```sh
-curl -sSLO http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img
-file cirros-0.4.0-x86_64-disk.img
+curl -sSLO http://download.cirros-cloud.net/0.6.2/cirros-0.6.2-x86_64-disk.img
+file cirros-0.6.2-x86_64-disk.img
 ```
 
 ```
-cirros-0.4.0-x86_64-disk.img: QEMU QCOW Image (v3), 46137344 bytes
+cirros-0.6.2-x86_64-disk.img: QEMU QCOW2 Image (v3), 117440512 bytes
 ```
 
 イメージを作成する。
 
 ```sh
 glance image-create \
-    --name "cirros" \
-    --file cirros-0.4.0-x86_64-disk.img \
+    --name "cirros062" \
+    --file cirros-0.6.2-x86_64-disk.img \
     --disk-format qcow2 \
     --container-format bare \
     --visibility=public
@@ -231,25 +239,26 @@ glance image-create \
 +------------------+----------------------------------------------------------------------------------+
 | Property         | Value                                                                            |
 +------------------+----------------------------------------------------------------------------------+
-| checksum         | 443b7623e27ecf03dc9e01ee93f67afe                                                 |
+| checksum         | c8fc807773e5354afe61636071771906                                                 |
 | container_format | bare                                                                             |
-| created_at       | 2024-04-13T05:38:27Z                                                             |
+| created_at       | 2024-05-10T15:53:21Z                                                             |
 | disk_format      | qcow2                                                                            |
-| id               | e83903c4-7fa8-42a7-b693-f5034bc33603                                             |
+| id               | 18b72eca-3cf5-40fb-b4fa-441938b13964                                             |
 | min_disk         | 0                                                                                |
 | min_ram          | 0                                                                                |
-| name             | cirros                                                                           |
+| name             | cirros062                                                                        |
 | os_hash_algo     | sha512                                                                           |
-| os_hash_value    | 6513f21e44aa3da349f248188a44bc304a3653a04122d8fb4535423c8e1d14cd6a153f735bb0982e |
-|                  | 2161b5b5186106570c17a9e58b64dd39390617cd5a350f78                                 |
+| os_hash_value    | 1103b92ce8ad966e41235a4de260deb791ff571670c0342666c8582fbb9caefe6af07ebb11d34f44 |
+|                  | f8414b609b29c1bdf1d72ffa6faa39c88e8721d09847952b                                 |
 | os_hidden        | False                                                                            |
-| owner            | 1e3ac7ae10e24515a0956beaa1d8073c                                                 |
+| owner            | be94f4411bd74f249f5e25f642209b82                                                 |
 | protected        | False                                                                            |
-| size             | 12716032                                                                         |
+| size             | 21430272                                                                         |
 | status           | active                                                                           |
+| stores           | fs                                                                               |
 | tags             | []                                                                               |
-| updated_at       | 2024-04-13T05:38:28Z                                                             |
-| virtual_size     | 46137344                                                                         |
+| updated_at       | 2024-05-10T15:53:21Z                                                             |
+| virtual_size     | 117440512                                                                        |
 | visibility       | public                                                                           |
 +------------------+----------------------------------------------------------------------------------+
 ```
@@ -262,7 +271,13 @@ ls -R /var/lib/glance/images/
 
 ```
 /var/lib/glance/images/:
-e83903c4-7fa8-42a7-b693-f5034bc33603
+18b72eca-3cf5-40fb-b4fa-441938b13964
+```
+
+virtio ビデオドライバをサポートしていないため vga に変更する。
+
+```sh
+openstack image set --property hw_video_model=vga cirros062
 ```
 
 イメージの登録を確認する。
@@ -272,9 +287,9 @@ openstack image list
 ```
 
 ```
-+--------------------------------------+--------+--------+
-| ID                                   | Name   | Status |
-+--------------------------------------+--------+--------+
-| e83903c4-7fa8-42a7-b693-f5034bc33603 | cirros | active |
-+--------------------------------------+--------+--------+
++--------------------------------------+-----------+--------+
+| ID                                   | Name      | Status |
++--------------------------------------+-----------+--------+
+| 18b72eca-3cf5-40fb-b4fa-441938b13964 | cirros062 | active |
++--------------------------------------+-----------+--------+
 ```

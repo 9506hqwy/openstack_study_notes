@@ -1,4 +1,4 @@
-# OpenStack Block Storage Service (Cinder)
+# Block Storage (Cinder)
 
 ## データベースの作成
 
@@ -30,14 +30,14 @@ openstack user create --domain default --password e2c046c01e44c27725c3 cinder
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | 13d54d4164a941fd9588067c3286b659 |
+| id                  | 340253b003604fcf8f16f45da4338528 |
 | name                | cinder                           |
 | options             | {}                               |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 ```
 
-プロジェクト service にロール admin 権限でユーザ cinder を追加する。
+プロジェクト service でユーザ cinder にロール admin 権限を追加する。
 
 ```sh
 openstack role add --project service --user cinder admin
@@ -46,16 +46,16 @@ openstack role add --project service --user cinder admin
 ## サービスの作成
 
 ```sh
-openstack service create --name cinderv3 --description "OpenStack Block Storage" volumev3
+openstack service create --name cinderv3 --description "Block Storage" volumev3
 ```
 
 ```
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
-| description | OpenStack Block Storage          |
+| description | Block Storage                    |
 | enabled     | True                             |
-| id          | 1eb6adc61d874d9282653d9a08daaacd |
+| id          | 24c8854b87f6413b8d1ced5314edb942 |
 | name        | cinderv3                         |
 | type        | volumev3                         |
 +-------------+----------------------------------+
@@ -74,11 +74,11 @@ openstack endpoint create --region RegionOne volumev3 public http://controller:8
 | Field        | Value                                    |
 +--------------+------------------------------------------+
 | enabled      | True                                     |
-| id           | cd773f35515f4643acd37a3f28dbeeb3         |
+| id           | 487b1f9bcb304f3ab54cad462f77032b         |
 | interface    | public                                   |
 | region       | RegionOne                                |
 | region_id    | RegionOne                                |
-| service_id   | 1eb6adc61d874d9282653d9a08daaacd         |
+| service_id   | 24c8854b87f6413b8d1ced5314edb942         |
 | service_name | cinderv3                                 |
 | service_type | volumev3                                 |
 | url          | http://controller:8776/v3/%(project_id)s |
@@ -94,11 +94,11 @@ openstack endpoint create --region RegionOne volumev3 internal http://controller
 | Field        | Value                                    |
 +--------------+------------------------------------------+
 | enabled      | True                                     |
-| id           | 6fc42d1e1d4340789698600211688866         |
+| id           | 56c19b3d68c64f49a9ea4d5dc101ecb2         |
 | interface    | internal                                 |
 | region       | RegionOne                                |
 | region_id    | RegionOne                                |
-| service_id   | 1eb6adc61d874d9282653d9a08daaacd         |
+| service_id   | 24c8854b87f6413b8d1ced5314edb942         |
 | service_name | cinderv3                                 |
 | service_type | volumev3                                 |
 | url          | http://controller:8776/v3/%(project_id)s |
@@ -114,11 +114,11 @@ openstack endpoint create --region RegionOne volumev3 admin http://controller:87
 | Field        | Value                                    |
 +--------------+------------------------------------------+
 | enabled      | True                                     |
-| id           | 01000c0ed0b24127b27785d7a076e52e         |
+| id           | e962d34aaec7488fab9d542b70b1634e         |
 | interface    | admin                                    |
 | region       | RegionOne                                |
 | region_id    | RegionOne                                |
-| service_id   | 1eb6adc61d874d9282653d9a08daaacd         |
+| service_id   | 24c8854b87f6413b8d1ced5314edb942         |
 | service_name | cinderv3                                 |
 | service_type | volumev3                                 |
 | url          | http://controller:8776/v3/%(project_id)s |
@@ -155,7 +155,7 @@ openstack role create service
 +-------------+----------------------------------+
 ```
 
-プロジェクト service にロール service 権限でユーザ cinder を追加する。
+プロジェクト service でユーザ cinder にロール service 権限を追加する。
 
 ```sh
 openstack role add --user cinder --project service service
@@ -176,7 +176,7 @@ openstack role assignment list --user cinder --project service --names
 +---------+----------------+-------+-----------------+--------+--------+-----------+
 ```
 
-プロジェクト service にロール service 権限でユーザ nova を追加する。
+プロジェクト service でユーザ nova にロール service 権限を追加する。
 
 ```sh
 openstack role add --user nova --project service service
@@ -302,20 +302,20 @@ dnf install -y targetcli
 
 ### LVM ボリュームグループの作成
 
-*/dev/sdb* を物理ボリュームとして作成する。
+*/dev/sda* を物理ボリュームとして作成する。
 
 ```sh
-pvcreate /dev/sdb
+pvcreate /dev/sda
 ```
 
 ```
-  Physical volume "/dev/sdb" successfully created.
+  Physical volume "/dev/sda" successfully created.
 ```
 
 物理ボリュームから LVM ボリュームグループを作成する。
 
 ```sh
-vgcreate cinder-volumes /dev/sdb
+vgcreate cinder-volumes /dev/sda
 ```
 
 ```
@@ -343,12 +343,12 @@ vgdisplay cinder-volumes
   Max PV                0
   Cur PV                1
   Act PV                1
-  VG Size               <64.00 GiB
+  VG Size               <32.00 GiB
   PE Size               4.00 MiB
-  Total PE              16383
+  Total PE              8191
   Alloc PE / Size       0 / 0
-  Free  PE / Size       16383 / <64.00 GiB
-  VG UUID               Ui4RxS-nXv2-dLbl-xTc3-JZ8B-jsTg-CFRRXT
+  Free  PE / Size       8191 / <32.00 GiB
+  VG UUID               rvw5jA-EYOu-TJNl-kLsa-DyQP-m60z-46yLGS
 ```
 
 ### Cinder の設定
@@ -402,6 +402,12 @@ systemctl restart openstack-cinder-api openstack-cinder-scheduler
 systemctl enable --now openstack-cinder-volume
 ```
 
+Compute Node で iSCSI イニシエータを起動する。
+
+```sh
+systemctl enable --now iscsid
+```
+
 ## 動作確認
 
 サービスを表示する。
@@ -414,7 +420,7 @@ openstack volume service list
 +------------------+---------------------------+------+---------+-------+----------------------------+
 | Binary           | Host                      | Zone | Status  | State | Updated At                 |
 +------------------+---------------------------+------+---------+-------+----------------------------+
-| cinder-scheduler | controller.home.local     | nova | enabled | up    | 2024-04-29T00:50:29.000000 |
-| cinder-volume    | controller.home.local@lvm | nova | enabled | up    | 2024-04-29T00:50:29.000000 |
+| cinder-scheduler | controller.home.local     | nova | enabled | up    | 2024-05-18T04:08:35.000000 |
+| cinder-volume    | controller.home.local@lvm | nova | enabled | up    | 2024-05-18T04:08:41.000000 |
 +------------------+---------------------------+------+---------+-------+----------------------------+
 ```

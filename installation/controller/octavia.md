@@ -1,4 +1,4 @@
-# OpenStack Load Balancing Service (Octavia)
+# Load Balancing (Octavia)
 
 ## データベースの作成
 
@@ -30,14 +30,14 @@ openstack user create --domain default --password 1672b62e6cd2c1682425 octavia
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | a431e053e30549958b1e1012cc5d67b8 |
+| id                  | 059395d65dbc4ad8ab32861ca485462d |
 | name                | octavia                          |
 | options             | {}                               |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 ```
 
-プロジェクト service にロール admin 権限でユーザ octavia を追加する。
+プロジェクト service でユーザ octavia にロール admin 権限を追加する。
 
 ```sh
 openstack role add --project service --user octavia admin
@@ -48,16 +48,16 @@ openstack role add --project service --user octavia admin
 load-balancer サービスを作成する。
 
 ```sh
-openstack service create --name octavia --description "OpenStack Octavia" load-balancer
+openstack service create --name octavia --description "Load Balancing" load-balancer
 ```
 
 ```
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
-| description | OpenStack Octavia                |
+| description | Load Balancing                   |
 | enabled     | True                             |
-| id          | 6995bf70a67b4eec89273b32f5d0d726 |
+| id          | 1ec33bcdbacf431385fe5eec5217b52b |
 | name        | octavia                          |
 | type        | load-balancer                    |
 +-------------+----------------------------------+
@@ -76,11 +76,11 @@ openstack endpoint create --region RegionOne load-balancer public http://control
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | a997d4911e6944df83dd5a912bc48363 |
+| id           | 8e0376865adb4c3aac57001f7a474ec9 |
 | interface    | public                           |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 6995bf70a67b4eec89273b32f5d0d726 |
+| service_id   | 1ec33bcdbacf431385fe5eec5217b52b |
 | service_name | octavia                          |
 | service_type | load-balancer                    |
 | url          | http://controller:9876           |
@@ -96,11 +96,11 @@ openstack endpoint create --region RegionOne load-balancer internal http://contr
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 2fa3ae5ea44f4cdd9dc85989324c1cc4 |
+| id           | df0b3b6e352d43c5a030f565b6b67fd0 |
 | interface    | internal                         |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 6995bf70a67b4eec89273b32f5d0d726 |
+| service_id   | 1ec33bcdbacf431385fe5eec5217b52b |
 | service_name | octavia                          |
 | service_type | load-balancer                    |
 | url          | http://controller:9876           |
@@ -116,11 +116,11 @@ openstack endpoint create --region RegionOne load-balancer admin http://controll
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 7fe875144ec546b7a60dc8e7d07cce1a |
+| id           | 9259e6fe7dd54041b16112c7521667e5 |
 | interface    | admin                            |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 6995bf70a67b4eec89273b32f5d0d726 |
+| service_id   | 1ec33bcdbacf431385fe5eec5217b52b |
 | service_name | octavia                          |
 | service_type | load-balancer                    |
 | url          | http://controller:9876           |
@@ -138,7 +138,7 @@ firewall-cmd --reload
 ユーザ octavia で OpenStack を操作するための環境設定ファイルを作成して読み込む。
 
 ```sh
-cat << EOF >> ~/octavia-openrc
+cat > ~/octavia-openrc <<EOF
 export OS_USERNAME=octavia
 export OS_PASSWORD=1672b62e6cd2c1682425
 export OS_PROJECT_NAME=service
@@ -173,7 +173,10 @@ source ./disk_image_create/bin/activate
 cd diskimage-create/
 pip install -r requirements.txt
 
+setenforce 0
 ./diskimage-create.sh -a amd64 -i centos-minimal
+setenforce 1
+
 deactivate
 ```
 
@@ -181,7 +184,7 @@ deactivate
 (...)
 
 Successfully built the amphora image using amphora-agent from the master branch.
-Amphora image size: /root/octavia/diskimage-create/amphora-x64-haproxy.qcow2 549275648
+Amphora image size: /root/octavia/diskimage-create/amphora-x64-haproxy.qcow2 553363968
 ```
 
 ### イメージの登録
@@ -203,22 +206,28 @@ openstack image create \
 | Field            | Value                                                                                                                                                   |
 +------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
 | container_format | bare                                                                                                                                                    |
-| created_at       | 2024-04-17T15:38:22Z                                                                                                                                    |
+| created_at       | 2024-05-13T10:55:50Z                                                                                                                                    |
 | disk_format      | qcow2                                                                                                                                                   |
-| file             | /v2/images/cb6ac2cc-5dc6-4735-9735-c8f4ccd0fa5e/file                                                                                                    |
-| id               | cb6ac2cc-5dc6-4735-9735-c8f4ccd0fa5e                                                                                                                    |
+| file             | /v2/images/c710d612-fb1b-4334-a46e-00e839dc5917/file                                                                                                    |
+| id               | c710d612-fb1b-4334-a46e-00e839dc5917                                                                                                                    |
 | min_disk         | 0                                                                                                                                                       |
 | min_ram          | 0                                                                                                                                                       |
 | name             | amphora-x64-haproxy                                                                                                                                     |
-| owner            | 39dd96b7af3a420096b892fabd45900a                                                                                                                        |
+| owner            | bb6848524614439b9b0f89f69ca98c37                                                                                                                        |
 | properties       | os_hidden='False', owner_specified.openstack.md5='', owner_specified.openstack.object='images/amphora-x64-haproxy', owner_specified.openstack.sha256='' |
 | protected        | False                                                                                                                                                   |
 | schema           | /v2/schemas/image                                                                                                                                       |
 | status           | queued                                                                                                                                                  |
 | tags             | amphora                                                                                                                                                 |
-| updated_at       | 2024-04-17T15:38:22Z                                                                                                                                    |
+| updated_at       | 2024-05-13T10:55:50Z                                                                                                                                    |
 | visibility       | private                                                                                                                                                 |
 +------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+```
+
+virtio ビデオドライバをサポートしていないため vga に変更する。
+
+```sh
+openstack image set --property hw_video_model=vga amphora-x64-haproxy
 ```
 
 ### flavor の作成
@@ -249,7 +258,7 @@ openstack flavor create \
 | properties                 |         |
 | ram                        | 1024    |
 | rxtx_factor                | 1.0     |
-| swap                       |         |
+| swap                       | 0       |
 | vcpus                      | 1       |
 +----------------------------+---------+
 ```
@@ -263,21 +272,22 @@ openstack security group create lb-mgmt-sec-grp
 ```
 
 ```
-+-----------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Field           | Value                                                                                                                                                                                                                      |
-+-----------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| created_at      | 2024-04-18T11:07:00Z                                                                                                                                                                                                       |
-| description     | lb-mgmt-sec-grp                                                                                                                                                                                                            |
-| id              | 560176ef-81fa-4deb-8699-75aa8304d47e                                                                                                                                                                                       |
-| name            | lb-mgmt-sec-grp                                                                                                                                                                                                            |
-| project_id      | 39dd96b7af3a420096b892fabd45900a                                                                                                                                                                                           |
-| revision_number | 1                                                                                                                                                                                                                          |
-| rules           | created_at='2024-04-18T11:07:00Z', direction='egress', ethertype='IPv6', id='341b7471-f28b-48f4-855a-e2b7f021c61e', standard_attr_id='60', tenant_id='39dd96b7af3a420096b892fabd45900a', updated_at='2024-04-18T11:07:00Z' |
-|                 | created_at='2024-04-18T11:07:00Z', direction='egress', ethertype='IPv4', id='6472eac6-aea6-4eef-92fe-a8bf2997ae71', standard_attr_id='59', tenant_id='39dd96b7af3a420096b892fabd45900a', updated_at='2024-04-18T11:07:00Z' |
-| stateful        | True                                                                                                                                                                                                                       |
-| tags            | []                                                                                                                                                                                                                         |
-| updated_at      | 2024-04-18T11:07:00Z                                                                                                                                                                                                       |
-+-----------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Field           | Value                                                                                                                                                                        |
++-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| created_at      | 2024-05-13T10:56:44Z                                                                                                                                                         |
+| description     | lb-mgmt-sec-grp                                                                                                                                                              |
+| id              | 96205ce0-aea5-4acd-9a27-36352618e5ab                                                                                                                                         |
+| name            | lb-mgmt-sec-grp                                                                                                                                                              |
+| project_id      | bb6848524614439b9b0f89f69ca98c37                                                                                                                                             |
+| revision_number | 1                                                                                                                                                                            |
+| rules           | created_at='2024-05-13T10:56:44Z', direction='egress', ethertype='IPv6', id='965fbc08-d559-4c95-9b33-b5aa65bbeab3', standard_attr_id='86', updated_at='2024-05-13T10:56:44Z' |
+|                 | created_at='2024-05-13T10:56:44Z', direction='egress', ethertype='IPv4', id='a18dc531-9197-483d-bba4-087d3ce7176a', standard_attr_id='87', updated_at='2024-05-13T10:56:44Z' |
+| shared          | False                                                                                                                                                                        |
+| stateful        | True                                                                                                                                                                         |
+| tags            | []                                                                                                                                                                           |
+| updated_at      | 2024-05-13T10:56:44Z                                                                                                                                                         |
++-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ```
 
 ICMP を許可するルールを作成する。
@@ -290,24 +300,25 @@ openstack security group rule create --protocol icmp lb-mgmt-sec-grp
 +-------------------------+--------------------------------------+
 | Field                   | Value                                |
 +-------------------------+--------------------------------------+
-| created_at              | 2024-04-18T11:08:07Z                 |
+| belongs_to_default_sg   | False                                |
+| created_at              | 2024-05-13T10:57:02Z                 |
 | description             |                                      |
 | direction               | ingress                              |
 | ether_type              | IPv4                                 |
-| id                      | 925f6405-f269-41dd-b0db-85651eee62ba |
+| id                      | 629cd56a-6c1d-48b0-a4a0-d9ea628c00e7 |
 | name                    | None                                 |
+| normalized_cidr         | 0.0.0.0/0                            |
 | port_range_max          | None                                 |
 | port_range_min          | None                                 |
-| project_id              | 39dd96b7af3a420096b892fabd45900a     |
+| project_id              | bb6848524614439b9b0f89f69ca98c37     |
 | protocol                | icmp                                 |
 | remote_address_group_id | None                                 |
 | remote_group_id         | None                                 |
 | remote_ip_prefix        | 0.0.0.0/0                            |
 | revision_number         | 0                                    |
-| security_group_id       | 560176ef-81fa-4deb-8699-75aa8304d47e |
+| security_group_id       | 96205ce0-aea5-4acd-9a27-36352618e5ab |
 | tags                    | []                                   |
-| tenant_id               | 39dd96b7af3a420096b892fabd45900a     |
-| updated_at              | 2024-04-18T11:08:07Z                 |
+| updated_at              | 2024-05-13T10:57:02Z                 |
 +-------------------------+--------------------------------------+
 ```
 
@@ -321,24 +332,25 @@ openstack security group rule create --protocol tcp --dst-port 22 lb-mgmt-sec-gr
 +-------------------------+--------------------------------------+
 | Field                   | Value                                |
 +-------------------------+--------------------------------------+
-| created_at              | 2024-04-18T11:08:39Z                 |
+| belongs_to_default_sg   | False                                |
+| created_at              | 2024-05-13T10:57:18Z                 |
 | description             |                                      |
 | direction               | ingress                              |
 | ether_type              | IPv4                                 |
-| id                      | 2cf46f72-57ee-4094-945d-73e265437f5c |
+| id                      | 0501de92-cc79-43ab-9889-f5c65a44d300 |
 | name                    | None                                 |
+| normalized_cidr         | 0.0.0.0/0                            |
 | port_range_max          | 22                                   |
 | port_range_min          | 22                                   |
-| project_id              | 39dd96b7af3a420096b892fabd45900a     |
+| project_id              | bb6848524614439b9b0f89f69ca98c37     |
 | protocol                | tcp                                  |
 | remote_address_group_id | None                                 |
 | remote_group_id         | None                                 |
 | remote_ip_prefix        | 0.0.0.0/0                            |
 | revision_number         | 0                                    |
-| security_group_id       | 560176ef-81fa-4deb-8699-75aa8304d47e |
+| security_group_id       | 96205ce0-aea5-4acd-9a27-36352618e5ab |
 | tags                    | []                                   |
-| tenant_id               | 39dd96b7af3a420096b892fabd45900a     |
-| updated_at              | 2024-04-18T11:08:39Z                 |
+| updated_at              | 2024-05-13T10:57:18Z                 |
 +-------------------------+--------------------------------------+
 ```
 
@@ -352,24 +364,25 @@ openstack security group rule create --protocol tcp --dst-port 9443 lb-mgmt-sec-
 +-------------------------+--------------------------------------+
 | Field                   | Value                                |
 +-------------------------+--------------------------------------+
-| created_at              | 2024-04-18T11:09:28Z                 |
+| belongs_to_default_sg   | False                                |
+| created_at              | 2024-05-13T10:57:33Z                 |
 | description             |                                      |
 | direction               | ingress                              |
 | ether_type              | IPv4                                 |
-| id                      | b367ffc9-b959-4e83-a6b8-3702bf6c2c33 |
+| id                      | 4f319afb-4c4e-41eb-a7bf-9bf3c70753a7 |
 | name                    | None                                 |
+| normalized_cidr         | 0.0.0.0/0                            |
 | port_range_max          | 9443                                 |
 | port_range_min          | 9443                                 |
-| project_id              | 39dd96b7af3a420096b892fabd45900a     |
+| project_id              | bb6848524614439b9b0f89f69ca98c37     |
 | protocol                | tcp                                  |
 | remote_address_group_id | None                                 |
 | remote_group_id         | None                                 |
 | remote_ip_prefix        | 0.0.0.0/0                            |
 | revision_number         | 0                                    |
-| security_group_id       | 560176ef-81fa-4deb-8699-75aa8304d47e |
+| security_group_id       | 96205ce0-aea5-4acd-9a27-36352618e5ab |
 | tags                    | []                                   |
-| tenant_id               | 39dd96b7af3a420096b892fabd45900a     |
-| updated_at              | 2024-04-18T11:09:28Z                 |
+| updated_at              | 2024-05-13T10:57:33Z                 |
 +-------------------------+--------------------------------------+
 ```
 
@@ -393,10 +406,10 @@ openstack network create \
 | admin_state_up            | UP                                   |
 | availability_zone_hints   |                                      |
 | availability_zones        |                                      |
-| created_at                | 2024-04-20T04:00:29Z                 |
+| created_at                | 2024-05-13T10:58:17Z                 |
 | description               |                                      |
 | dns_domain                | None                                 |
-| id                        | 2549b734-562a-483c-92bf-f15621dcd30e |
+| id                        | 6d947ca8-d41e-443a-b99b-3f82e4781b30 |
 | ipv4_address_scope        | None                                 |
 | ipv6_address_scope        | None                                 |
 | is_default                | False                                |
@@ -404,7 +417,7 @@ openstack network create \
 | mtu                       | 1500                                 |
 | name                      | mgmt                                 |
 | port_security_enabled     | True                                 |
-| project_id                | 1e3ac7ae10e24515a0956beaa1d8073c     |
+| project_id                | be94f4411bd74f249f5e25f642209b82     |
 | provider:network_type     | flat                                 |
 | provider:physical_network | mgmt                                 |
 | provider:segmentation_id  | None                                 |
@@ -416,7 +429,8 @@ openstack network create \
 | status                    | ACTIVE                               |
 | subnets                   |                                      |
 | tags                      |                                      |
-| updated_at                | 2024-04-20T04:00:29Z                 |
+| tenant_id                 | be94f4411bd74f249f5e25f642209b82     |
+| updated_at                | 2024-05-13T10:58:17Z                 |
 +---------------------------+--------------------------------------+
 ```
 
@@ -426,8 +440,8 @@ openstack network create \
 openstack subnet create \
     --network mgmt \
     --allocation-pool start=10.0.0.200,end=10.0.0.219 \
-    --gateway 10.0.0.1 \
-    --dns-nameserver 10.0.0.1 \
+    --gateway 10.0.0.254 \
+    --dns-nameserver 10.0.0.254 \
     --subnet-range 10.0.0.0/24 \
     mgmt
 ```
@@ -438,26 +452,26 @@ openstack subnet create \
 +----------------------+--------------------------------------+
 | allocation_pools     | 10.0.0.200-10.0.0.219                |
 | cidr                 | 10.0.0.0/24                          |
-| created_at           | 2024-04-20T04:03:45Z                 |
+| created_at           | 2024-05-13T10:58:34Z                 |
 | description          |                                      |
-| dns_nameservers      | 10.0.0.1                             |
+| dns_nameservers      | 10.0.0.254                           |
 | dns_publish_fixed_ip | None                                 |
 | enable_dhcp          | True                                 |
-| gateway_ip           | 10.0.0.1                             |
+| gateway_ip           | 10.0.0.254                           |
 | host_routes          |                                      |
-| id                   | 8997aff8-3491-43e6-bd2c-36f2152cee12 |
+| id                   | d4fb593a-45e0-4b68-8455-b43128ba78b1 |
 | ip_version           | 4                                    |
 | ipv6_address_mode    | None                                 |
 | ipv6_ra_mode         | None                                 |
 | name                 | mgmt                                 |
-| network_id           | 2549b734-562a-483c-92bf-f15621dcd30e |
-| project_id           | 1e3ac7ae10e24515a0956beaa1d8073c     |
+| network_id           | 6d947ca8-d41e-443a-b99b-3f82e4781b30 |
+| project_id           | be94f4411bd74f249f5e25f642209b82     |
 | revision_number      | 0                                    |
 | segment_id           | None                                 |
 | service_types        |                                      |
 | subnetpool_id        | None                                 |
 | tags                 |                                      |
-| updated_at           | 2024-04-20T04:03:45Z                 |
+| updated_at           | 2024-05-13T10:58:34Z                 |
 +----------------------+--------------------------------------+
 ```
 
@@ -526,101 +540,99 @@ amphora から Controller Node の UDP/5555 に接続できる必要がある。
 sed \
     -e '/^\[DEFAULT]/,/^\[/ {
       /^transport_url =/d
-      /^# transport_url =/atransport_url = rabbit://openstack:3c17215fe69ba1dad320@controller:5672/
+      /^#transport_url =/atransport_url = rabbit://openstack:3c17215fe69ba1dad320@controller:5672/
     }' \
     -e '/^\[database]/,/^\[/ {
       /^connection =/d
-      /^# connection = mysql+pymysql:\/\/$/aconnection = mysql+pymysql://octavia:37cf176d919e31c90e43@controller/octavia
+      /^#connection =/aconnection = mysql+pymysql://octavia:37cf176d919e31c90e43@controller/octavia
     }' \
     -e '/^\[keystone_authtoken]/,/^\[/ {
       /^www_authenticate_uri =/d
-      /^# www_authenticate_uri =/awww_authenticate_uri = http://controller:5000
-      /^auth_url =/d
-      /^# auth_url =/aauth_url = http://controller:5000
-      /^project_domain_name =/d
-      /^# project_domain_name =/aproject_domain_name = Default
-      /^project_name =/d
-      /^# project_name =/aproject_name = service
-      /^user_domain_name =/d
-      /^# user_domain_name =/auser_domain_name = Default
-      /^username =/d
-      /^# username =/ausername = octavia
-      /^password =/d
-      /^# password =/apassword = 1672b62e6cd2c1682425
+      /^#www_authenticate_uri =/awww_authenticate_uri = http://controller:5000
       /^memcached_servers =/d
-      /^\[keystone_authtoken]/amemcached_servers = controller:11211
+      /^#memcached_servers =/amemcached_servers = controller:11211
       /^auth_type =/d
-      /^\[keystone_authtoken]/aauth_type = password
+      /^#auth_type =/aauth_type = password
+      /^auth_url =/d
+      /^\[keystone_authtoken]/aauth_url = http://controller:5000
+      /^project_domain_name =/d
+      /^\[keystone_authtoken]/aproject_domain_name = Default
+      /^project_name =/d
+      /^\[keystone_authtoken]/aproject_name = service
+      /^user_domain_name =/d
+      /^\[keystone_authtoken]/auser_domain_name = Default
+      /^username =/d
+      /^\[keystone_authtoken]/ausername = octavia
+      /^password =/d
+      /^\[keystone_authtoken]/apassword = 1672b62e6cd2c1682425
     }' \
     -e '/^\[service_auth]/,/^\[/ {
       /^auth_url =/d
-      /^# auth_url =/aauth_url = http://controller:5000
-      /^memcached_servers =/d
-      /^# memcached_servers =/amemcached_servers = controller:11211
+      /^#auth_url =/aauth_url = http://controller:5000
       /^auth_type =/d
-      /^# auth_type =/aauth_type = password
+      /^#auth_type =/aauth_type = password
       /^project_domain_name =/d
-      /^# project_domain_name =/aproject_domain_name = Default
+      /^#project_domain_name =/aproject_domain_name = Default
       /^project_name =/d
-      /^# project_name =/aproject_name = service
+      /^#project_name =/aproject_name = service
       /^user_domain_name =/d
-      /^# user_domain_name =/auser_domain_name = Default
+      /^#user_domain_name =/auser_domain_name = Default
       /^username =/d
-      /^# username =/ausername = octavia
+      /^#username =/ausername = octavia
       /^password =/d
-      /^# password =/apassword = 1672b62e6cd2c1682425
+      /^#password =/apassword = 1672b62e6cd2c1682425
     }' \
     -e '/^\[api_settings]/,/^\[/ {
       /^bind_host =/d
-      /^# bind_host =/abind_host = 0.0.0.0
+      /^#bind_host =/abind_host = 0.0.0.0
       /^auth_strategy =/d
       /^# auth_strategy =/aauth_strategy = keystone
       /^api_base_uri =/d
-      /^# api_base_uri =/aapi_base_uri = http://controller:9876
+      /^#api_base_uri =/aapi_base_uri = http://controller:9876
     }' \
     -e '/^\[health_manager]/,/^\[/ {
       /^bind_ip =/d
-      /^# bind_ip =/abind_ip = 0.0.0.0
+      /^#bind_ip =/abind_ip = 0.0.0.0
       /^controller_ip_port_list =/d
-      /^# controller_ip_port_list =$/acontroller_ip_port_list = 10.0.0.11:5555
+      /^#controller_ip_port_list =$/acontroller_ip_port_list = 10.0.0.11:5555
     }' \
     -e '/^\[oslo_messaging]/,/^\[/ {
       /^topic =/d
-      /^# topic =/atopic = octavia_prov
+      /^#topic =/atopic = octavia_prov
     }' \
     -e '/^\[certificates]/,/^\[/ {
       /^server_certs_key_passphrase =/d
-      /^# server_certs_key_passphrase =/aserver_certs_key_passphrase = insecure-key-do-not-use-this-key
+      /^#server_certs_key_passphrase =/aserver_certs_key_passphrase = insecure-key-do-not-use-this-key
       /^ca_private_key_passphrase =/d
-      /^# ca_private_key_passphrase =/aca_private_key_passphrase = not-secure-passphrase
+      /^#ca_private_key_passphrase =/aca_private_key_passphrase = not-secure-passphrase
       /^ca_private_key =/d
-      /^# ca_private_key =/aca_private_key = /etc/octavia/certs/private/server_ca.key.pem
+      /^#ca_private_key =/aca_private_key = /etc/octavia/certs/private/server_ca.key.pem
       /^ca_certificate =/d
-      /^# ca_certificate =/aca_certificate = /etc/octavia/certs/server_ca.cert.pem
+      /^#ca_certificate =/aca_certificate = /etc/octavia/certs/server_ca.cert.pem
     }' \
     -e '/^\[haproxy_amphora]/,/^\[/ {
       /^bind_host =/d
-      /^# bind_host =/abind_host = 0.0.0.0
+      /^#bind_host =/abind_host = 0.0.0.0
       /^server_ca =/d
-      /^# server_ca =/aserver_ca = /etc/octavia/certs/server_ca-chain.cert.pem
+      /^#server_ca =/aserver_ca = /etc/octavia/certs/server_ca-chain.cert.pem
       /^client_cert =/d
-      /^# client_cert =/aclient_cert = /etc/octavia/certs/private/client.cert-and-key.pem
+      /^#client_cert =/aclient_cert = /etc/octavia/certs/private/client.cert-and-key.pem
     }' \
     -e '/^\[controller_worker]/,/^\[/ {
       /^amp_image_owner_id =/d
-      /^# amp_image_owner_id =/aamp_image_owner_id = 39dd96b7af3a420096b892fabd45900a
+      /^#amp_image_owner_id =/aamp_image_owner_id = bb6848524614439b9b0f89f69ca98c37
       /^amp_image_tag =/d
-      /^# amp_image_tag =/aamp_image_tag = amphora
+      /^#amp_image_tag =/aamp_image_tag = amphora
       /^amp_ssh_key_name =/d
-      /^# amp_ssh_key_name =/aamp_ssh_key_name = mykey
+      /^#amp_ssh_key_name =/aamp_ssh_key_name = mykey
       /^amp_boot_network_list =/d
-      /^# amp_boot_network_list =/aamp_boot_network_list = 2549b734-562a-483c-92bf-f15621dcd30e
+      /^#amp_boot_network_list =/aamp_boot_network_list = 6d947ca8-d41e-443a-b99b-3f82e4781b30
       /^amp_flavor_id =/d
-      /^# amp_flavor_id =/aamp_flavor_id = 200
+      /^#amp_flavor_id =/aamp_flavor_id = 200
       /^amp_secgroup_list =/d
-      /^# amp_secgroup_list =/aamp_secgroup_list = 560176ef-81fa-4deb-8699-75aa8304d47e
+      /^#amp_secgroup_list =/aamp_secgroup_list = 96205ce0-aea5-4acd-9a27-36352618e5ab
       /^client_ca =/d
-      /^# client_ca =/aclient_ca = /etc/octavia/certs/client_ca.cert.pem
+      /^#client_ca =/aclient_ca = /etc/octavia/certs/client_ca.cert.pem
     }' \
     -i /etc/octavia/octavia.conf
 ```

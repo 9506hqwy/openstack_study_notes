@@ -1,4 +1,4 @@
-# OpenStack Bare Metal Provisioning (Ironic)
+# Bare Metal Provisioning (Ironic)
 
 ## データベースの作成
 
@@ -30,14 +30,14 @@ openstack user create --domain default --password bdda64a33b3a75728a9c ironic
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | 87dcf50b3c0140f8926908cb652da440 |
+| id                  | dabbb8a2ad1849e98e8f4910f8b0e1ad |
 | name                | ironic                           |
 | options             | {}                               |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 ```
 
-プロジェクト service にロール admin 権限でユーザ ironic を追加する。
+プロジェクト service でユーザ ironic にロール admin 権限を追加する。
 
 ```sh
 openstack role add --project service --user ironic admin
@@ -48,16 +48,16 @@ openstack role add --project service --user ironic admin
 サービス baremetal を作成する。
 
 ```sh
-openstack service create --name ironic --description "OpenStack Bare Metal" baremetal
+openstack service create --name ironic --description "Bare Metal Provisioning" baremetal
 ```
 
 ```
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
-| description | OpenStack Bare Metal             |
+| description | Bare Metal Provisioning          |
 | enabled     | True                             |
-| id          | 8cfff9b140264c058778c66d21a9d7e2 |
+| id          | 2f754716a0b44a6292f7d4d593a3c7b3 |
 | name        | ironic                           |
 | type        | baremetal                        |
 +-------------+----------------------------------+
@@ -76,11 +76,11 @@ openstack endpoint create --region RegionOne baremetal public http://controller:
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 8b6d462f29934bd2aa12cf317d5277ee |
+| id           | c23ada8824e04450a53962941ee9e31a |
 | interface    | public                           |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 8cfff9b140264c058778c66d21a9d7e2 |
+| service_id   | 2f754716a0b44a6292f7d4d593a3c7b3 |
 | service_name | ironic                           |
 | service_type | baremetal                        |
 | url          | http://controller:6385/          |
@@ -96,11 +96,11 @@ openstack endpoint create --region RegionOne baremetal internal http://controlle
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 535dc54865934417a78b4346a907d816 |
+| id           | 9044e6f45c514e838451b00b31dd799b |
 | interface    | internal                         |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 8cfff9b140264c058778c66d21a9d7e2 |
+| service_id   | 2f754716a0b44a6292f7d4d593a3c7b3 |
 | service_name | ironic                           |
 | service_type | baremetal                        |
 | url          | http://controller:6385/          |
@@ -116,11 +116,11 @@ openstack endpoint create --region RegionOne baremetal admin http://controller:6
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | af4377422d984fbe83834f27c6e05096 |
+| id           | 25b079194ca1424bb265a56e61bfd0a9 |
 | interface    | admin                            |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 8cfff9b140264c058778c66d21a9d7e2 |
+| service_id   | 2f754716a0b44a6292f7d4d593a3c7b3 |
 | service_name | ironic                           |
 | service_type | baremetal                        |
 | url          | http://controller:6385/          |
@@ -131,6 +131,7 @@ openstack endpoint create --region RegionOne baremetal admin http://controller:6
 
 ```sh
 firewall-cmd --permanent --zone=internal --add-port=6385/tcp
+firewall-cmd --permanent --zone=internal --add-port=8080/tcp
 firewall-cmd --reload
 ```
 
@@ -139,8 +140,8 @@ firewall-cmd --reload
 デプロイイメージをダウンロードする。
 
 ```sh
-curl -sSOL https://tarballs.opendev.org/openstack/ironic-python-agent/tinyipa/files/tinyipa-stable-yoga.gz
-curl -sSOL https://tarballs.opendev.org/openstack/ironic-python-agent/tinyipa/files/tinyipa-stable-yoga.vmlinuz
+curl -sSOL https://tarballs.opendev.org/openstack/ironic-python-agent/tinyipa/files/tinyipa-stable-2024.1.gz
+curl -sSOL https://tarballs.opendev.org/openstack/ironic-python-agent/tinyipa/files/tinytinyipa-stable-2024.1.vmlinuz
 ```
 
 イメージを登録する。
@@ -149,73 +150,73 @@ curl -sSOL https://tarballs.opendev.org/openstack/ironic-python-agent/tinyipa/fi
 ```sh
 glance image-create \
     --name "deploy-vmlinuz" \
-    --file tinyipa-stable-yoga.vmlinuz \
+    --file tinyipa-stable-2024.1.vmlinuz \
     --disk-format aki  \
     --container-format aki \
     --visibility=public
 ```
 
 ```
-+------------------+----------------------------------------------------------------------------------+
-| Property         | Value                                                                            |
-+------------------+----------------------------------------------------------------------------------+
-| checksum         | ab718135381e05da26455c216ca698a3                                                 |
-| container_format | aki                                                                              |
-| created_at       | 2024-04-30T12:12:58Z                                                             |
-| disk_format      | aki                                                                              |
-| id               | 8ab4a55e-01d7-4d1e-98d6-188478edeae2                                             |
-| min_disk         | 0                                                                                |
-| min_ram          | 0                                                                                |
-| name             | deploy-vmlinuz                                                                   |
-| os_hash_algo     | sha512                                                                           |
-| os_hash_value    | 4d423b2d5fb3095597b1b1ec5fb77efc5b7a3fe6758d31b25da65d77e1d30cf7ba2e984bfd278123 |
-|                  | 5b411abc4b01c4b4edd50c92513edd7761aeac2d2e0c38cb                                 |
-| os_hidden        | False                                                                            |
-| owner            | 1e3ac7ae10e24515a0956beaa1d8073c                                                 |
-| protected        | False                                                                            |
-| size             | 5521344                                                                          |
-| status           | active                                                                           |
-| tags             | []                                                                               |
-| updated_at       | 2024-04-30T12:12:59Z                                                             |
-| virtual_size     | Not available                                                                    |
-| visibility       | public                                                                           |
-+------------------+----------------------------------------------------------------------------------+
++------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Field            | Value                                                                                                                                                   |
++------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| checksum         | 872001fdd5d80dee905654241cc6b4e7                                                                                                                        |
+| container_format | aki                                                                                                                                                     |
+| created_at       | 2024-05-18T05:52:42Z                                                                                                                                    |
+| disk_format      | aki                                                                                                                                                     |
+| file             | /v2/images/403d8dde-5ad7-43a5-a3fb-7bf39b6f8d9f/file                                                                                                    |
+| id               | 403d8dde-5ad7-43a5-a3fb-7bf39b6f8d9f                                                                                                                    |
+| min_disk         | 0                                                                                                                                                       |
+| min_ram          | 0                                                                                                                                                       |
+| name             | deploy-vmlinuz                                                                                                                                          |
+| owner            | be94f4411bd74f249f5e25f642209b82                                                                                                                        |
+| properties       | os_hash_algo='sha512',                                                                                                                                  |
+|                  | os_hash_value='f9c40c5847d4d985d7ab955636db2701ed97d5f388f4b0ce8333567f5f39f89689c6c57dd5221826da8bc94c14fbb49ed37db96abe3587157082b809c6de3f57',       |
+|                  | os_hidden='False', stores='fs'                                                                                                                          |
+| protected        | False                                                                                                                                                   |
+| schema           | /v2/schemas/image                                                                                                                                       |
+| size             | 5924896                                                                                                                                                 |
+| status           | active                                                                                                                                                  |
+| tags             |                                                                                                                                                         |
+| updated_at       | 2024-05-18T05:52:42Z                                                                                                                                    |
+| visibility       | public                                                                                                                                                  |
++------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
 ```
 
 ```sh
 glance image-create \
     --name "deploy-initrd" \
-    --file tinyipa-stable-yoga.gz \
+    --file tinyipa-stable-2024.1.gz \
     --disk-format ari  \
     --container-format ari \
     --visibility=public
 ```
 
 ```
-+------------------+----------------------------------------------------------------------------------+
-| Property         | Value                                                                            |
-+------------------+----------------------------------------------------------------------------------+
-| checksum         | 29cfc9ea71ef4dd8254be5c1de407b32                                                 |
-| container_format | ari                                                                              |
-| created_at       | 2024-04-30T12:14:08Z                                                             |
-| disk_format      | ari                                                                              |
-| id               | af500ca4-7f4e-4496-870b-8a9064e89c8d                                             |
-| min_disk         | 0                                                                                |
-| min_ram          | 0                                                                                |
-| name             | deploy-initrd                                                                    |
-| os_hash_algo     | sha512                                                                           |
-| os_hash_value    | 9b6b151a769f1ac7054810f98f204635f7fe61532ff657aacc2178305d1a0930da856461eb83b07e |
-|                  | 9fa55f3cb6e4ee44b0ce6ce1501f45ef69008cfb8d50a50b                                 |
-| os_hidden        | False                                                                            |
-| owner            | 1e3ac7ae10e24515a0956beaa1d8073c                                                 |
-| protected        | False                                                                            |
-| size             | 76779172                                                                         |
-| status           | active                                                                           |
-| tags             | []                                                                               |
-| updated_at       | 2024-04-30T12:14:09Z                                                             |
-| virtual_size     | Not available                                                                    |
-| visibility       | public                                                                           |
-+------------------+----------------------------------------------------------------------------------+
++------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Field            | Value                                                                                                                                                   |
++------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| checksum         | 093ecf129d93df24464dfb781f5b5b61                                                                                                                        |
+| container_format | ari                                                                                                                                                     |
+| created_at       | 2024-05-18T05:52:59Z                                                                                                                                    |
+| disk_format      | ari                                                                                                                                                     |
+| file             | /v2/images/7c856f98-5e4d-466e-bdc0-53024851ecd0/file                                                                                                    |
+| id               | 7c856f98-5e4d-466e-bdc0-53024851ecd0                                                                                                                    |
+| min_disk         | 0                                                                                                                                                       |
+| min_ram          | 0                                                                                                                                                       |
+| name             | deploy-initrd                                                                                                                                           |
+| owner            | be94f4411bd74f249f5e25f642209b82                                                                                                                        |
+| properties       | os_hash_algo='sha512',                                                                                                                                  |
+|                  | os_hash_value='473335bfcdf48110cb03a7b79c2bd3e7ec732cd7051805450045d41c6deee47c7eb260bf331448035c6781281a43d60215c61d6585081929e222762483f5775b',       |
+|                  | os_hidden='False', stores='fs'                                                                                                                          |
+| protected        | False                                                                                                                                                   |
+| schema           | /v2/schemas/image                                                                                                                                       |
+| size             | 97912241                                                                                                                                                |
+| status           | active                                                                                                                                                  |
+| tags             |                                                                                                                                                         |
+| updated_at       | 2024-05-18T05:52:59Z                                                                                                                                    |
+| visibility       | public                                                                                                                                                  |
++------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
 ```
 
 ## インストール
@@ -305,9 +306,9 @@ sed \
       /^user_domain_name =/d
       /^#user_domain_name =/auser_domain_name = Default
       /^username =/d
-      /^#username =/ausername = ironic
+      /^#username =/ausername = glance
       /^password =/d
-      /^#password =/apassword = bdda64a33b3a75728a9c
+      /^#password =/apassword = 7a69c4834de4f3ed2cfa
     }' \
     -e '/^\[neutron]/,/^\[/ {
       /^auth_url =/d
@@ -321,11 +322,11 @@ sed \
       /^user_domain_name =/d
       /^#user_domain_name =/auser_domain_name = Default
       /^username =/d
-      /^#username =/ausername = ironic
+      /^#username =/ausername = neutron
       /^password =/d
-      /^#password =/apassword = bdda64a33b3a75728a9c
+      /^#password =/apassword = 76283d854fd24b78f90b
       /^cleaning_network =/d
-      /^#cleaning_network =/acleaning_network = eda78c59-6bc0-4302-927f-3df79bdf57de
+      /^#cleaning_network =/acleaning_network = 02451125-f735-49a4-b41a-31d962d6a1c0
     }' \
     -e '/^\[service_catalog]/,/^\[/ {
       /^auth_url =/d
@@ -345,12 +346,30 @@ sed \
     }' \
     -e '/^\[conductor]/,/^\[/ {
       /^deploy_kernel =/d
-      /^#deploy_kernel =/adeploy_kernel = 8ab4a55e-01d7-4d1e-98d6-188478edeae2
+      /^#deploy_kernel =/adeploy_kernel = 403d8dde-5ad7-43a5-a3fb-7bf39b6f8d9f
       /^deploy_ramdisk =/d
-      /^#deploy_ramdisk =/adeploy_ramdisk = af500ca4-7f4e-4496-870b-8a9064e89c8d
+      /^#deploy_ramdisk =/adeploy_ramdisk = 7c856f98-5e4d-466e-bdc0-53024851ecd0
+    }' \
+    -e '/^\[agent]/,/^\[/ {
+      /^image_download_source =/d
+      /^#image_download_source =/aimage_download_source = http
+    }' \
+    -e '/^\[deploy]/,/^\[/ {
+      /^http_url =/d
+      /^#http_url =/ahttp_url = http://10.0.0.11:8080
+    }' \
+    -e '/^\[oslo_policy]/,/^\[/ {
+      /^enforce_scope =/d
+      /^#enforce_scope =/aenforce_scope = false
+      /^enforce_new_defaults =/d
+      /^#enforce_new_defaults =/aenforce_new_defaults = false
     }' \
     -i /etc/ironic/ironic.conf
 ```
+
+`oslo_policy` は
+[Upgrade Notes](https://docs.openstack.org/releasenotes/ironic/2024.1.html#relnotes-24-0-0-stable-2024-1-upgrade-notes)
+を参照。
 
 ## nova の設定
 
@@ -368,23 +387,23 @@ sed \
       /^track_instance_changes=/d
       /^#track_instance_changes=/atrack_instance_changes = false
     }' \
+    -e '/^\[ironic]/,/^\[/ {
+      /^auth_type=/d
+      /^#auth_type=/aauth_type=password
+      /^auth_url=/d
+      /^#auth_url=/aauth_url=http://controller:5000
+      /^project_domain_name=/d
+      /^#project_domain_name=/aproject_domain_name=Default
+      /^project_name=/d
+      /^#project_name=/aproject_name=service
+      /^user_domain_name=/d
+      /^#user_domain_name=/auser_domain_name=Default
+      /^username=/d
+      /^#username=/ausername=ironic
+      /^password=/d
+      /^#password=/apassword=bdda64a33b3a75728a9c
+    }' \
     -i /etc/nova/nova.conf
-
-sed \
-    -e '/^\[ironic]/,/^\[/d' \
-    -i /etc/nova/nova.conf
-
-cat >> /etc/nova/nova.conf <<EOF
-
-[ironic]
-auth_url = http://controller:5000
-auth_type = password
-project_domain_name = Default
-project_name = service
-user_domain_name = Default
-username = ironic
-password = bdda64a33b3a75728a9c
-EOF
 ```
 
 サービスを再起動する。
@@ -392,6 +411,18 @@ EOF
 ```sh
 systemctl restart openstack-nova-scheduler
 ```
+
+## Neutron の設定
+
+既定の Policy では Neutron Port の作成に失敗するためポリシーを変更する。
+
+```sh
+cat > /etc/neutron/policy.yaml <<EOF
+"create_port:binding:profile": "rule:admin_only or rule:service_api"
+"update_port:binding:profile": "rule:admin_only or rule:service_api"
+EOF
+```
+[Policy: binding operations are prohibited for service role](https://bugs.launchpad.net/neutron/+bug/2052937) を参照。
 
 ## TFTP の設定
 
@@ -407,8 +438,10 @@ sed \
 権限を更新する。
 
 ```sh
-restorecon -R /tftpboot
+mkdir -p /tftpboot/grub
 chown -R ironic /tftpboot
+chgrp -R ironic /tftpboot
+restorecon -R /tftpboot
 ```
 
 ファイアウォールを開ける。
@@ -423,8 +456,9 @@ firewall-cmd --reload
 イメージを配信するための HTTP サーバを用意する。
 
 ```sh
-mkdir /httpboot
-chown ironic /httpboot
+mkdir -p /httpboot/grub
+chown -R ironic /httpboot
+chgrp -R ironic /httpboot
 restorecon -R /httpboot
 ```
 
@@ -477,10 +511,8 @@ su -s /bin/sh -c "nova-manage cell_v2 discover_hosts --verbose" nova
 ```
 Found 2 cell mappings.
 Skipping cell0 since it does not contain hosts.
-Getting computes from cell 'cell1': 3d7b9db7-4e4a-4f7a-b91a-e054e57906c3
-Checking host mapping for compute host 'controller.home.local': 803559b8-3a5b-4e80-b23d-7bd99fbbc5da
-Creating host mapping for compute host 'controller.home.local': 803559b8-3a5b-4e80-b23d-7bd99fbbc5da
-Found 1 unmapped computes in cell: 3d7b9db7-4e4a-4f7a-b91a-e054e57906c3
+Getting computes from cell 'cell1': f97c2c7f-5010-4b97-aef3-7f910006d261
+Found 0 unmapped computes in cell: f97c2c7f-5010-4b97-aef3-7f910006d261
 ```
 
 登録を確認する。
@@ -493,10 +525,10 @@ openstack compute service list
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+
 | ID                                   | Binary         | Host                  | Zone     | Status  | State | Updated At                 |
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+
-| dfd02086-0a60-42bc-8555-6b2aa8bc5e39 | nova-scheduler | controller.home.local | internal | enabled | up    | 2024-05-02T03:27:57.000000 |
-| 704c4065-cc51-4f1d-80e9-45f8ba3ceed2 | nova-conductor | controller.home.local | internal | enabled | up    | 2024-05-02T03:27:58.000000 |
-| 920d37ad-0984-42ef-907d-26cf205858ca | nova-compute   | compute.home.local    | nova     | enabled | up    | 2024-05-02T03:27:59.000000 |
-| 91b41c79-a125-49b3-b160-560f1e38c4a1 | nova-compute   | controller.home.local | nova     | enabled | up    | 2024-05-02T03:27:56.000000 |
+| 85f4f538-7249-4871-a558-4576809b11e2 | nova-scheduler | controller.home.local | internal | enabled | up    | 2024-05-19T01:42:15.000000 |
+| 3c2f4649-7236-4289-bb16-7558dde4a791 | nova-conductor | controller.home.local | internal | enabled | up    | 2024-05-19T01:42:14.000000 |
+| a02d831e-cac8-468e-86d4-0074af0f31d7 | nova-compute   | compute.home.local    | nova     | enabled | up    | 2024-05-19T01:42:20.000000 |
+| 624dac1e-2bd6-4f11-9c98-fabbc197c7c3 | nova-compute   | controller.home.local | nova     | enabled | up    | 2024-05-19T01:42:13.000000 |
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+
 ```
 
@@ -504,8 +536,14 @@ openstack compute service list
 
 ドライバを表示する。
 
+```{note}
+`oslo_policy` で以前のリリースの動作に戻していない場合は System Scoped で確認する。
+```
+
 ```sh
-openstack baremetal driver list
+OS_PROJECT_NAME="" \
+OS_PROJECT_DOMAIN_NAME="" \
+openstack --os-system-scope all baremetal driver list
 ```
 
 ```

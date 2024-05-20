@@ -1,4 +1,9 @@
-# OpenStack Dashboard (Horizon)
+# Dashboard (Horizon)
+
+## 前提条件
+
+* [](./nova) を構築していること。
+* [](./neutron) を構築していること。
 
 ## インストール
 

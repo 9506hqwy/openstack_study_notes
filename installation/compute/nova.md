@@ -1,16 +1,18 @@
-# OpenStack Compute (Nova)
+# Compute (Nova)
 
 ## インストール
 
 nova をインストールする。
 
 ```sh
-dnf install -y openstack-nova-compute
+dnf install -y libvirt openstack-nova-compute
 ```
 
 ## Nova の設定
 
 設定ファイルを更新する。
+
+`novncproxy_base_url` はコンソールを表示するクライントが解決できるホスト名を指定する。
 
 ```sh
 sed \
@@ -143,7 +145,7 @@ openstack compute service list --service nova-compute
 +--------------------------------------+--------------+--------------------+------+---------+-------+----------------------------+
 | ID                                   | Binary       | Host               | Zone | Status  | State | Updated At                 |
 +--------------------------------------+--------------+--------------------+------+---------+-------+----------------------------+
-| 920d37ad-0984-42ef-907d-26cf205858ca | nova-compute | compute.home.local | nova | enabled | up    | 2024-04-13T07:06:11.000000 |
+| a6339453-5193-4fdf-948b-c25d1c05944c | nova-compute | compute.home.local | nova | enabled | up    | 2024-05-09T11:58:34.000000 |
 +--------------------------------------+--------------+--------------------+------+---------+-------+----------------------------+
 ```
 
@@ -156,10 +158,10 @@ su -s /bin/sh -c "nova-manage cell_v2 discover_hosts --verbose" nova
 ```
 Found 2 cell mappings.
 Skipping cell0 since it does not contain hosts.
-Getting computes from cell 'cell1': 3d7b9db7-4e4a-4f7a-b91a-e054e57906c3
-Checking host mapping for compute host 'compute.home.local': 30cb800f-e095-4a5c-a05a-fdfafdeb435a
-Creating host mapping for compute host 'compute.home.local': 30cb800f-e095-4a5c-a05a-fdfafdeb435a
-Found 1 unmapped computes in cell: 3d7b9db7-4e4a-4f7a-b91a-e054e57906c3
+Getting computes from cell 'cell1': f97c2c7f-5010-4b97-aef3-7f910006d261
+Checking host mapping for compute host 'compute.home.local': 6c53c76c-39d1-45dc-a5f5-293e91abd3e4
+Creating host mapping for compute host 'compute.home.local': 6c53c76c-39d1-45dc-a5f5-293e91abd3e4
+Found 1 unmapped computes in cell: f97c2c7f-5010-4b97-aef3-7f910006d261
 ```
 
 ## 動作確認
@@ -174,8 +176,8 @@ openstack compute service list
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+
 | ID                                   | Binary         | Host                  | Zone     | Status  | State | Updated At                 |
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+
-| dfd02086-0a60-42bc-8555-6b2aa8bc5e39 | nova-scheduler | controller.home.local | internal | enabled | up    | 2024-04-13T07:12:51.000000 |
-| 704c4065-cc51-4f1d-80e9-45f8ba3ceed2 | nova-conductor | controller.home.local | internal | enabled | up    | 2024-04-13T07:12:51.000000 |
-| 920d37ad-0984-42ef-907d-26cf205858ca | nova-compute   | compute.home.local    | nova     | enabled | up    | 2024-04-13T07:12:50.000000 |
+| 85f4f538-7249-4871-a558-4576809b11e2 | nova-scheduler | controller.home.local | internal | enabled | up    | 2024-05-09T12:00:02.000000 |
+| 3c2f4649-7236-4289-bb16-7558dde4a791 | nova-conductor | controller.home.local | internal | enabled | up    | 2024-05-09T12:00:02.000000 |
+| a6339453-5193-4fdf-948b-c25d1c05944c | nova-compute   | compute.home.local    | nova     | enabled | up    | 2024-05-09T12:00:04.000000 |
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+
 ```

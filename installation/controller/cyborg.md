@@ -1,4 +1,4 @@
-# OpenStack Accelerator (Cyborg)
+# Accelerator (Cyborg)
 
 ## データベースの作成
 
@@ -30,14 +30,14 @@ openstack user create --domain default --password 2927e8e7587d5ccaf836 cyborg
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | 8c6c3ced52c749c7820371b7a31eed81 |
+| id                  | 24a53e2b6a9945778af0a335f179f9cf |
 | name                | cyborg                           |
 | options             | {}                               |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 ```
 
-プロジェクト service にロール admin 権限でユーザ cyborg を追加する。
+プロジェクト service でユーザ cyborg にロール admin 権限を追加する。
 
 ```sh
 openstack role add --project service --user cyborg admin
@@ -48,16 +48,16 @@ openstack role add --project service --user cyborg admin
 サービス accelerator を作成する。
 
 ```sh
-openstack service create --name cyborg --description "OpenStack Acceleration Service" accelerator
+openstack service create --name cyborg --description "Acceleration" accelerator
 ```
 
 ```
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
-| description | OpenStack Acceleration Service   |
+| description | Acceleration                     |
 | enabled     | True                             |
-| id          | 00ac66d1a2d34531a5660cb9bffc51a4 |
+| id          | 40b4834a2f0842658d4b98d1789db484 |
 | name        | cyborg                           |
 | type        | accelerator                      |
 +-------------+----------------------------------+
@@ -66,7 +66,6 @@ openstack service create --name cyborg --description "OpenStack Acceleration Ser
 ## エンドポイントの作成
 
 API エンドポイントを作成する。
-
 
 ```sh
 openstack endpoint create --region RegionOne accelerator public http://controller:6666/v2
@@ -77,11 +76,11 @@ openstack endpoint create --region RegionOne accelerator public http://controlle
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 13c69ead54ae48b58b6ed0887b763e7b |
+| id           | 4f76f93e9c1347d9bdbd4f9987347945 |
 | interface    | public                           |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 00ac66d1a2d34531a5660cb9bffc51a4 |
+| service_id   | 40b4834a2f0842658d4b98d1789db484 |
 | service_name | cyborg                           |
 | service_type | accelerator                      |
 | url          | http://controller:6666/v2        |
@@ -97,11 +96,11 @@ openstack endpoint create --region RegionOne accelerator internal http://control
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | d3e31cb1c7be4fd18fe4114b0373bbf1 |
+| id           | 43f2042dd0804c3080a0c9ad30eebb89 |
 | interface    | internal                         |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 00ac66d1a2d34531a5660cb9bffc51a4 |
+| service_id   | 40b4834a2f0842658d4b98d1789db484 |
 | service_name | cyborg                           |
 | service_type | accelerator                      |
 | url          | http://controller:6666/v2        |
@@ -117,11 +116,11 @@ openstack endpoint create --region RegionOne accelerator admin http://controller
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | d07ce309610345b3b151efb59de71603 |
+| id           | e52c2c115fc34ccdae6c4a5c387fd3cb |
 | interface    | admin                            |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 00ac66d1a2d34531a5660cb9bffc51a4 |
+| service_id   | 40b4834a2f0842658d4b98d1789db484 |
 | service_name | cyborg                           |
 | service_type | accelerator                      |
 | url          | http://controller:6666/v2        |
@@ -194,8 +193,8 @@ host_ip = 0.0.0.0
 
 [database]
 connection = mysql+pymysql://cyborg:da7c58277dc7e86d72a0@controller/cyborg
-max_pool_size = 5
-max_overflow = 100
+max_pool_size = 20
+max_overflow = 200
 
 [service_catalog]
 auth_type = password

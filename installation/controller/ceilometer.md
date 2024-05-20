@@ -1,4 +1,4 @@
-# OpenStack Telemetry Data Collection Service (Ceilometer)
+# Telemetry Data Collection (Ceilometer)
 
 ## データベースの作成
 
@@ -30,14 +30,14 @@ openstack user create --domain default --password eb5b4e528d0e10669cfa ceilomete
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | 734cf77af2224faeb078f0f6f288e95b |
+| id                  | 60dbaf021d1446e7983ff4a0b133497b |
 | name                | ceilometer                       |
 | options             | {}                               |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 ```
 
-プロジェクト service にロール admin 権限でユーザ ceilometer を追加する。
+プロジェクト service でユーザ ceilometer にロール admin 権限を追加する。
 
 ```sh
 openstack role add --project service --user ceilometer admin
@@ -55,14 +55,14 @@ openstack user create --domain default --password e760d03f9f03f676c9e2 gnocchi
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | 6dc05ca3821746b581ff68a81a2ce40d |
+| id                  | 7a0b967aff5348fab02238ff18b2b83e |
 | name                | gnocchi                          |
 | options             | {}                               |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 ```
 
-プロジェクト service にロール admin 権限でユーザ gnocchi を追加する。
+プロジェクト service でユーザ gnocchi にロール admin 権限を追加する。
 
 ```sh
 openstack role add --project service --user gnocchi admin
@@ -73,16 +73,16 @@ openstack role add --project service --user gnocchi admin
 サービス metering を作成する。
 
 ```sh
-openstack service create --name ceilometer --description "OpenStack Telemetry" metering
+openstack service create --name ceilometer --description "Telemetry Data Collection" metering
 ```
 
 ```
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
-| description | OpenStack Telemetry              |
+| description | Telemetry Data Collection        |
 | enabled     | True                             |
-| id          | 81042649a15b42dba7119e7cf348b647 |
+| id          | 9a677e1d74604221bd969748c523bf33 |
 | name        | ceilometer                       |
 | type        | metering                         |
 +-------------+----------------------------------+
@@ -100,7 +100,7 @@ openstack service create --name gnocchi --description "OpenStack Metric Service"
 +-------------+----------------------------------+
 | description | OpenStack Metric Service         |
 | enabled     | True                             |
-| id          | 653fe2117d7f44739905148c6949c0f9 |
+| id          | 79d07753d398465f9a9208fbe9e83a17 |
 | name        | gnocchi                          |
 | type        | metric                           |
 +-------------+----------------------------------+
@@ -119,11 +119,11 @@ openstack endpoint create --region RegionOne metric public http://controller:804
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 8dbe3d618c1941459b73fb447549882e |
+| id           | 5092ef2b13b346b79035e6136823eb3b |
 | interface    | public                           |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 653fe2117d7f44739905148c6949c0f9 |
+| service_id   | 79d07753d398465f9a9208fbe9e83a17 |
 | service_name | gnocchi                          |
 | service_type | metric                           |
 | url          | http://controller:8041           |
@@ -139,11 +139,11 @@ openstack endpoint create --region RegionOne metric internal http://controller:8
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 8460448c9f3d4157b1becd0efecfb6fc |
+| id           | 69b3b20cfeed4b00a3f0ce62128db80a |
 | interface    | internal                         |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 653fe2117d7f44739905148c6949c0f9 |
+| service_id   | 79d07753d398465f9a9208fbe9e83a17 |
 | service_name | gnocchi                          |
 | service_type | metric                           |
 | url          | http://controller:8041           |
@@ -159,11 +159,11 @@ openstack endpoint create --region RegionOne metric admin http://controller:8041
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 2cb3afa742994b4da2ca762e1c1906e6 |
+| id           | 3822f677ae834309805c72507de4426d |
 | interface    | admin                            |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 653fe2117d7f44739905148c6949c0f9 |
+| service_id   | 79d07753d398465f9a9208fbe9e83a17 |
 | service_name | gnocchi                          |
 | service_type | metric                           |
 | url          | http://controller:8041           |
@@ -242,6 +242,7 @@ EOF
 
 ```sh
 chown -R gnocchi /var/lib/gnocchi
+chgrp -R gnocchi /var/lib/gnocchi
 restorecon -R /var/lib/gnocchi
 ```
 
@@ -476,60 +477,62 @@ openstack metric resource list
 ```
 
 ```
-+--------------------------------------+----------------------------+----------------------------------+----------------------------------+-----------------------------------------------------------------------+----------------------------------+----------+----------------------------------+--------------+-------------------------------------------------------------------+
-| id                                   | type                       | project_id                       | user_id                          | original_resource_id                                                  | started_at                       | ended_at | revision_start                   | revision_end | creator                                                           |
-+--------------------------------------+----------------------------+----------------------------------+----------------------------------+-----------------------------------------------------------------------+----------------------------------+----------+----------------------------------+--------------+-------------------------------------------------------------------+
-| 2c6cc641-295d-5c93-88f9-979ed5816158 | volume_provider_pool       | None                             | None                             | controller.home.local@lvm#LVM                                         | 2024-05-04T00:53:47.422208+00:00 | None     | 2024-05-04T00:53:47.422215+00:00 | None         | 734cf77af2224faeb078f0f6f288e95b:39dd96b7af3a420096b892fabd45900a |
-| a5aa1fc8-fcef-5098-9d43-0f808abbbc92 | volume_provider            | None                             | None                             | controller.home.local@lvm                                             | 2024-05-04T00:53:47.480495+00:00 | None     | 2024-05-04T00:53:47.480507+00:00 | None         | 734cf77af2224faeb078f0f6f288e95b:39dd96b7af3a420096b892fabd45900a |
-| 45ee5234-e888-4ab8-91d1-d8d646a382ae | instance                   | f2aeffb34ff34ffb8959f1cd813655c6 | 71b5948c75f24c0f841dbf1c4eb4c4a7 | 45ee5234-e888-4ab8-91d1-d8d646a382ae                                  | 2024-05-04T01:15:56.975016+00:00 | None     | 2024-05-04T01:15:56.975080+00:00 | None         | 734cf77af2224faeb078f0f6f288e95b:39dd96b7af3a420096b892fabd45900a |
-| 5aa817f3-b106-42b0-95d6-f2a8d1b6bea0 | instance                   | f2aeffb34ff34ffb8959f1cd813655c6 | 71b5948c75f24c0f841dbf1c4eb4c4a7 | 5aa817f3-b106-42b0-95d6-f2a8d1b6bea0                                  | 2024-05-04T01:15:57.241725+00:00 | None     | 2024-05-04T01:15:57.241733+00:00 | None         | 734cf77af2224faeb078f0f6f288e95b:39dd96b7af3a420096b892fabd45900a |
-| 36b496b2-4976-4bf1-88c0-09f44385fd19 | instance                   | f2aeffb34ff34ffb8959f1cd813655c6 | 71b5948c75f24c0f841dbf1c4eb4c4a7 | 36b496b2-4976-4bf1-88c0-09f44385fd19                                  | 2024-05-04T01:15:57.816804+00:00 | None     | 2024-05-04T01:15:57.816810+00:00 | None         | 734cf77af2224faeb078f0f6f288e95b:39dd96b7af3a420096b892fabd45900a |
-| ca9841dc-3768-4544-9d99-1a452ff99eff | instance                   | f2aeffb34ff34ffb8959f1cd813655c6 | 71b5948c75f24c0f841dbf1c4eb4c4a7 | ca9841dc-3768-4544-9d99-1a452ff99eff                                  | 2024-05-04T01:15:58.053447+00:00 | None     | 2024-05-04T01:15:58.053453+00:00 | None         | 734cf77af2224faeb078f0f6f288e95b:39dd96b7af3a420096b892fabd45900a |
-| 97b95570-f21d-4ea0-a2f9-0c1541f87d96 | instance                   | f2aeffb34ff34ffb8959f1cd813655c6 | 71b5948c75f24c0f841dbf1c4eb4c4a7 | 97b95570-f21d-4ea0-a2f9-0c1541f87d96                                  | 2024-05-04T01:15:58.056011+00:00 | None     | 2024-05-04T01:15:58.056020+00:00 | None         | 734cf77af2224faeb078f0f6f288e95b:39dd96b7af3a420096b892fabd45900a |
-| fd18af2f-9ff2-5f00-9546-2fb0149c4908 | instance_disk              | f2aeffb34ff34ffb8959f1cd813655c6 | 71b5948c75f24c0f841dbf1c4eb4c4a7 | 36b496b2-4976-4bf1-88c0-09f44385fd19-vda                              | 2024-05-04T01:19:52.964157+00:00 | None     | 2024-05-04T01:19:52.964163+00:00 | None         | 734cf77af2224faeb078f0f6f288e95b:39dd96b7af3a420096b892fabd45900a |
-| a564ecb0-1ea0-5e74-812d-749242f06834 | instance_network_interface | f2aeffb34ff34ffb8959f1cd813655c6 | 71b5948c75f24c0f841dbf1c4eb4c4a7 | instance-00000029-36b496b2-4976-4bf1-88c0-09f44385fd19-tap8811e933-5c | 2024-05-04T01:19:53.161558+00:00 | None     | 2024-05-04T01:19:53.161564+00:00 | None         | 734cf77af2224faeb078f0f6f288e95b:39dd96b7af3a420096b892fabd45900a |
-+--------------------------------------+----------------------------+----------------------------------+----------------------------------+-----------------------------------------------------------------------+----------------------------------+----------+----------------------------------+--------------+-------------------------------------------------------------------+
+------------------+-----------------+------------------+------------------+----------------------+------------------+----------+------------------+--------------+-----------------------+
+| id               | type            | project_id       | user_id          | original_resource_id | started_at       | ended_at | revision_start   | revision_end | creator               |
++------------------+-----------------+------------------+------------------+----------------------+------------------+----------+------------------+--------------+-----------------------+
+| fb4470ac-e504-49 | volume          | bccf406c045d401b | 7f3acb28d26943ba | fb4470ac-e504-4959-9 | 2024-05-18T12:14 | None     | 2024-05-18T12:14 | None         | 60dbaf021d1446e7983ff |
+| 59-939c-7f4b22fd |                 | 91ba5c7552a124ae | b9510df3a6edf3b0 | 39c-7f4b22fd07b4     | :40.365335+00:00 |          | :40.365342+00:00 |              | 4a0b133497b:bb6848524 |
+| 07b4             |                 |                  |                  |                      |                  |          |                  |              | 614439b9b0f89f69ca98c |
+|                  |                 |                  |                  |                      |                  |          |                  |              | 37                    |
+| 612d7ce9-3030-59 | volume_provider | None             | None             | controller.home.loca | 2024-05-18T12:15 | None     | 2024-05-18T12:15 | None         | 60dbaf021d1446e7983ff |
+| 96-b06f-dfc51b2d |                 |                  |                  | l@lvm                | :47.688311+00:00 |          | :47.688320+00:00 |              | 4a0b133497b:bb6848524 |
+| 1f74             |                 |                  |                  |                      |                  |          |                  |              | 614439b9b0f89f69ca98c |
+|                  |                 |                  |                  |                      |                  |          |                  |              | 37                    |
+| a8fbb935-7f2b-49 | instance        | bccf406c045d401b | 7f3acb28d26943ba | a8fbb935-7f2b-49a5-9 | 2024-05-18T12:19 | None     | 2024-05-18T12:19 | None         | 60dbaf021d1446e7983ff |
+| a5-983a-1f6e78a1 |                 | 91ba5c7552a124ae | b9510df3a6edf3b0 | 83a-1f6e78a1e0ed     | :30.527068+00:00 |          | :30.527078+00:00 |              | 4a0b133497b:bb6848524 |
+| e0ed             |                 |                  |                  |                      |                  |          |                  |              | 614439b9b0f89f69ca98c |
+|                  |                 |                  |                  |                      |                  |          |                  |              | 37                    |
++------------------+-----------------+------------------+------------------+----------------------+------------------+----------+------------------+--------------+-----------------------+
 ```
 
 ```sh
-openstack metric resource show 36b496b2-4976-4bf1-88c0-09f44385fd19
+openstack metric resource show a8fbb935-7f2b-49a5-983a-1f6e78a1e0ed
 ```
 
 ```
-+-----------------------+-------------------------------------------------------------------+
-| Field                 | Value                                                             |
-+-----------------------+-------------------------------------------------------------------+
-| created_by_project_id | 39dd96b7af3a420096b892fabd45900a                                  |
-| created_by_user_id    | 734cf77af2224faeb078f0f6f288e95b                                  |
-| creator               | 734cf77af2224faeb078f0f6f288e95b:39dd96b7af3a420096b892fabd45900a |
-| ended_at              | None                                                              |
-| id                    | 36b496b2-4976-4bf1-88c0-09f44385fd19                              |
-| metrics               | cpu: 2b63ad10-0ef3-48ec-97e6-57656a691595                         |
-|                       | disk.ephemeral.size: f5232beb-0cb2-4a9a-bd63-12111cc4ef6e         |
-|                       | disk.root.size: c6120ff7-875a-4620-8436-550c7247db10              |
-|                       | memory.usage: 42f1714f-cdd8-4bd5-a0ee-53707fb57345                |
-|                       | memory: d1396e85-e41e-4d04-b3e5-03d4f31362d5                      |
-|                       | vcpus: 326660e5-501b-4993-8008-fa20c0c292b0                       |
-| original_resource_id  | 36b496b2-4976-4bf1-88c0-09f44385fd19                              |
-| project_id            | f2aeffb34ff34ffb8959f1cd813655c6                                  |
-| revision_end          | None                                                              |
-| revision_start        | 2024-05-04T01:15:57.816810+00:00                                  |
-| started_at            | 2024-05-04T01:15:57.816804+00:00                                  |
-| type                  | instance                                                          |
-| user_id               | 71b5948c75f24c0f841dbf1c4eb4c4a7                                  |
-+-----------------------+-------------------------------------------------------------------+
++-----------------------+---------------------------------------------------------------------+
+| Field                 | Value                                                               |
++-----------------------+---------------------------------------------------------------------+
+| created_by_project_id | bb6848524614439b9b0f89f69ca98c37                                    |
+| created_by_user_id    | 60dbaf021d1446e7983ff4a0b133497b                                    |
+| creator               | 60dbaf021d1446e7983ff4a0b133497b:bb6848524614439b9b0f89f69ca98c37   |
+| ended_at              | None                                                                |
+| id                    | a8fbb935-7f2b-49a5-983a-1f6e78a1e0ed                                |
+| metrics               | compute.instance.booting.time: 4f218cd6-aeb9-467b-9da3-f999a290e0c2 |
+|                       | disk.ephemeral.size: b5d232ea-f477-4d82-a619-ddce96c15377           |
+|                       | disk.root.size: f816b4d8-0ef4-423c-9260-9b4177b9199a                |
+|                       | memory: 76ea9f63-fc18-4e14-b006-0e960e292d8a                        |
+|                       | vcpus: 0fe132c9-32e7-4181-9a40-65cdb2736231                         |
+| original_resource_id  | a8fbb935-7f2b-49a5-983a-1f6e78a1e0ed                                |
+| project_id            | bccf406c045d401b91ba5c7552a124ae                                    |
+| revision_end          | None                                                                |
+| revision_start        | 2024-05-18T12:19:30.527078+00:00                                    |
+| started_at            | 2024-05-18T12:19:30.527068+00:00                                    |
+| type                  | instance                                                            |
+| user_id               | 7f3acb28d26943bab9510df3a6edf3b0                                    |
++-----------------------+---------------------------------------------------------------------+
 ```
 
 メトリクスの値を表示する。
 
 ```sh
-openstack metric measures show 2b63ad10-0ef3-48ec-97e6-57656a691595
+openstack metric measures show 76ea9f63-fc18-4e14-b006-0e960e292d8a
 ```
 
 ```
-+---------------------------+-------------+---------------+
-| timestamp                 | granularity |         value |
-+---------------------------+-------------+---------------+
-| 2024-05-04T11:35:00+09:00 |       300.0 | 47200000000.0 |
-+---------------------------+-------------+---------------+
++---------------------------+-------------+-------+
+| timestamp                 | granularity | value |
++---------------------------+-------------+-------+
+| 2024-05-18T23:00:00+09:00 |       300.0 | 256.0 |
++---------------------------+-------------+-------+
 ```

@@ -48,17 +48,26 @@ NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
       SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
 
 In order to log into MariaDB to secure it, we'll need the current
-password for the root user.  If you've just installed MariaDB, and
-you haven't set the root password yet, the password will be blank,
-so you should just press enter here.
+password for the root user. If you've just installed MariaDB, and
+haven't set the root password yet, you should just press enter here.
 
 Enter current password for root (enter for none):
 OK, successfully used password, moving on...
 
-Setting the root password ensures that nobody can log into the MariaDB
-root user without the proper authorisation.
+Setting the root password or using the unix_socket ensures that nobody
+can log into the MariaDB root user without the proper authorisation.
 
-Set root password? [Y/n]
+You already have your root account protected, so you can safely answer 'n'.
+
+Switch to unix_socket authentication [Y/n]
+Enabled successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+You already have your root account protected, so you can safely answer 'n'.
+
+Change the root password? [Y/n]
 New password:
 Re-enter new password:
 Password updated successfully!

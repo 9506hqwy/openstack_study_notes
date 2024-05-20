@@ -1,4 +1,4 @@
-# OpenStack Compute (Nova)
+# Compute (Nova)
 
 ## データベースの作成
 
@@ -38,14 +38,14 @@ openstack user create --domain default --password 5c5cfbce3214db530456 nova
 +---------------------+----------------------------------+
 | domain_id           | default                          |
 | enabled             | True                             |
-| id                  | e48c9286086f469ebaf9c492bed365ce |
+| id                  | d03e6be570334f70b066fd351b4df533 |
 | name                | nova                             |
 | options             | {}                               |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 ```
 
-プロジェクト service にロール admin 権限でユーザ nova を追加する。
+プロジェクト service でユーザ nova にロール admin 権限を追加する。
 
 ```sh
 openstack role add --project service --user nova admin
@@ -56,16 +56,16 @@ openstack role add --project service --user nova admin
 nova サービスを作成する。
 
 ```sh
-openstack service create --name nova --description "OpenStack Compute" compute
+openstack service create --name nova --description "Compute" compute
 ```
 
 ```
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
-| description | OpenStack Compute                |
+| description | Compute                          |
 | enabled     | True                             |
-| id          | 76e6426236084edd8643d5f1c64c858b |
+| id          | 227428b0c6854e5e9c1c70badd10f728 |
 | name        | nova                             |
 | type        | compute                          |
 +-------------+----------------------------------+
@@ -74,7 +74,6 @@ openstack service create --name nova --description "OpenStack Compute" compute
 ## エンドポイントの作成
 
 API エンドポイントを作成する。
-
 
 ```sh
 openstack endpoint create --region RegionOne compute public http://controller:8774/v2.1
@@ -85,11 +84,11 @@ openstack endpoint create --region RegionOne compute public http://controller:87
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 6f8cc58e54464cc29d35e12344e7abdb |
+| id           | 2238472409a242e899a78bba8f2eb72a |
 | interface    | public                           |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 76e6426236084edd8643d5f1c64c858b |
+| service_id   | 227428b0c6854e5e9c1c70badd10f728 |
 | service_name | nova                             |
 | service_type | compute                          |
 | url          | http://controller:8774/v2.1      |
@@ -105,11 +104,11 @@ openstack endpoint create --region RegionOne compute internal http://controller:
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 17af5e954037419d92f255ddbc8dbb72 |
+| id           | 5d0c5246423742dd8b1bf51daf1a3d58 |
 | interface    | internal                         |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 76e6426236084edd8643d5f1c64c858b |
+| service_id   | 227428b0c6854e5e9c1c70badd10f728 |
 | service_name | nova                             |
 | service_type | compute                          |
 | url          | http://controller:8774/v2.1      |
@@ -125,11 +124,11 @@ openstack endpoint create --region RegionOne compute admin http://controller:877
 | Field        | Value                            |
 +--------------+----------------------------------+
 | enabled      | True                             |
-| id           | 96b7a84dab9c4e66819ea0ffae800b0d |
+| id           | b0017b87180e406e997125d5c4a031d8 |
 | interface    | admin                            |
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
-| service_id   | 76e6426236084edd8643d5f1c64c858b |
+| service_id   | 227428b0c6854e5e9c1c70badd10f728 |
 | service_name | nova                             |
 | service_type | compute                          |
 | url          | http://controller:8774/v2.1      |
@@ -283,7 +282,7 @@ su -s /bin/sh -c "nova-manage cell_v2 list_cells" nova
 |  Name |                 UUID                 |              Transport URL               |               Database Connection               | Disabled |
 +-------+--------------------------------------+------------------------------------------+-------------------------------------------------+----------+
 | cell0 | 00000000-0000-0000-0000-000000000000 |                  none:/                  | mysql+pymysql://nova:****@controller/nova_cell0 |  False   |
-| cell1 | 3d7b9db7-4e4a-4f7a-b91a-e054e57906c3 | rabbit://openstack:****@controller:5672/ |    mysql+pymysql://nova:****@controller/nova    |  False   |
+| cell1 | f97c2c7f-5010-4b97-aef3-7f910006d261 | rabbit://openstack:****@controller:5672/ |    mysql+pymysql://nova:****@controller/nova    |  False   |
 +-------+--------------------------------------+------------------------------------------+-------------------------------------------------+----------+
 ```
 
@@ -310,7 +309,7 @@ openstack compute service list
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+
 | ID                                   | Binary         | Host                  | Zone     | Status  | State | Updated At                 |
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+
-| dfd02086-0a60-42bc-8555-6b2aa8bc5e39 | nova-scheduler | controller.home.local | internal | enabled | up    | 2024-04-13T06:16:36.000000 |
-| 704c4065-cc51-4f1d-80e9-45f8ba3ceed2 | nova-conductor | controller.home.local | internal | enabled | up    | 2024-04-13T06:16:30.000000 |
+| 85f4f538-7249-4871-a558-4576809b11e2 | nova-scheduler | controller.home.local | internal | enabled | up    | 2024-05-08T13:55:45.000000 |
+| 3c2f4649-7236-4289-bb16-7558dde4a791 | nova-conductor | controller.home.local | internal | enabled | up    | 2024-05-08T13:55:47.000000 |
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+
 ```

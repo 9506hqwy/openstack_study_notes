@@ -23,6 +23,18 @@ firewall-cmd --permanent --zone=internal --add-service=memcache
 firewall-cmd --reload
 ```
 
+## systemd ユニットファイルの設定
+
+マシン起動時にサービスの起動が失敗するためネットワークが起動した後で memcached を起動する。
+
+```sh
+sed \
+    -e 's/^\(After\)/#\1/' \
+    -e '/^#After/aAfter=network-online.target' \
+    -e '/^#After/aRequires=network-online.target' \
+    -i /usr/lib/systemd/system/memcached.service
+```
+
 ## 起動
 
 マシン起動時の自動起動設定とサービスを起動する。

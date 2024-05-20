@@ -13,8 +13,8 @@
 |          | Controller Node | Computer Node | Baremetal Node | Gateway |
 | -------- | --------------- | ------------- | -------------- | ------- |
 | CPU 数   | 2               | 1             | 1              | 1       |
-| メモリ   | 12GiB           | 4Gib          | 4GiB           | 2GiB    |
-| ディスク | 128GiB          | 64Gib         | 64GiB          | 16GiB   |
+| メモリ   | 12GiB           | 4Gib          | 4GiB           | 1GiB    |
+| ディスク | 64GiB           | 32Gib         | 32GiB          | 16GiB   |
 
 ## ソフトウェア構成図
 

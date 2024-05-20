@@ -1,13 +1,5 @@
 # 時刻同期
 
-## インストール
-
-chrony をインストールする。
-
-```sh
-dnf install -y chrony
-```
-
 ## 設定
 
 NTP サーバは gateway を参照する。
@@ -23,14 +15,20 @@ sed \
 
 ## 起動
 
-マシン起動時の自動起動設定とサービスを起動する。
+サービスを再起動する。
 
 ```sh
-systemctl enable --now chronyd
+systemctl restart chronyd
 ```
 
 設定を確認する。
 
 ```sh
 chronyc sources
+```
+
+```
+MS Name/IP address         Stratum Poll Reach LastRx Last sample
+===============================================================================
+^* gateway.home.local            2   6     7     1    -79us[-1056ms] +/-   12ms
 ```
