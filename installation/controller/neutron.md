@@ -156,6 +156,15 @@ Open vSwitch を使用する場合は下記をインストールする。
 dnf install -y openstack-neutron-openvswitch NetworkManager-ovs
 ```
 
+Open Virtual Network を使用する場合は下記をインストールする。
+
+```sh
+dnf install -y \
+    ovn24.03-central \
+    ovn24.03-host \
+    NetworkManager-ovs
+```
+
 ## Neutron の設定
 
 設定ファイルを更新する。
@@ -231,9 +240,20 @@ sed \
     -i /etc/neutron/neutron.conf
 ```
 
+Open Virtual Network の使用する場合は `service_plugins` を設定する必要がある。
+
+```sh
+sed \
+    -e '/^\[DEFAULT]/,/^\[/ {
+      /^service_plugins =/d
+      /^#service_plugins =/aservice_plugins = ovn-router
+    }' \
+    -i /etc/neutron/neutron.conf
+```
+
 ## メカニズムドライバの設定
 
-Linux Bridge と Open vSwitch のどちらかを設定する。
+Linux Bridge, Open vSwitch, Open Virtual Network のいずれかを設定する。
 
 ### Linux Bridge の場合
 
@@ -247,9 +267,14 @@ Linux Bridge と Open vSwitch のどちらかを設定する。
 * [](./neutron_ovs/agent.md)
 * [](./neutron_ovs/dhcp.md)
 
+### Open Virtual Network の場合
+
+* [](./neutron_ovn/ml2_plugin.md)
+* [](./neutron_ovn/ovs.md)
+
 ## メタデータの設定
 
-設定ファイルを更新する。
+Linux Bridge または Open vSwitch を使用する場合は設定ファイルを更新する。
 
 ```sh
 sed \
@@ -260,6 +285,13 @@ sed \
       /^#metadata_proxy_shared_secret =/ametadata_proxy_shared_secret = 44cb41ccbed49e089ab4
     }' \
     -i /etc/neutron/metadata_agent.ini
+```
+
+Open Virtual Network を使用する場合は Nova メタデータサーバ用のファイアウォールを開ける。
+
+```sh
+firewall-cmd --permanent --zone=internal --add-port=8775/tcp
+firewall-cmd --reload
 ```
 
 ## Nova の設定
@@ -299,6 +331,11 @@ sed \
 
 ```sh
 setsebool -P os_neutron_dac_override on
+```
+
+Linux Bridge または Open vSwitch を使用する場合は以下のポリシーを変更する。
+
+```sh
 setsebool -P os_dnsmasq_dac_override on
 ```
 
@@ -327,6 +364,7 @@ su -s /bin/sh -c "neutron-db-manage \
 
 * [](./neutron_linuxbridge/startup.md)
 * [](./neutron_ovs/startup.md)
+* [](./neutron_ovn/startup.md)
 
 ## 動作確認
 

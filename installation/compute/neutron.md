@@ -18,6 +18,15 @@ Open vSwitch を使用する場合は下記をインストールする。
 dnf install -y openstack-neutron-openvswitch NetworkManager-ovs
 ```
 
+Open Virtual Network を使用する場合は下記をインストールする。
+
+```sh
+dnf install -y \
+    openstack-neutron-ovn-metadata-agent \
+    ovn24.03-host \
+    NetworkManager-ovs
+```
+
 ## Neutron の設定
 
 設定ファイルを更新する。
@@ -65,7 +74,7 @@ sed \
 
 ## メカニズムドライバの設定
 
-Linux Bridge と Open vSwitch のどちらかを設定する。
+Linux Bridge, Open vSwitch, Open Virtual Network のいずれかを設定する。
 
 ### Linux Bridge の場合
 
@@ -74,6 +83,43 @@ Linux Bridge と Open vSwitch のどちらかを設定する。
 ### Open vSwitch の場合
 
 * [](./neutron_ovs/agent.md)
+
+### Open Virtual Network の場合
+
+* [](./neutron_ovn/ovs.md)
+
+## メタデータの設定
+
+Open Virtual Network を使用する場合は設定ファイルを更新する。
+
+```sh
+sed \
+    -e '/^\[DEFAULT]/,/^\[/ {
+      /^nova_metadata_host =/d
+      /^#nova_metadata_host =/anova_metadata_host = controller
+      /^metadata_proxy_shared_secret =/d
+      /^#metadata_proxy_shared_secret =/ametadata_proxy_shared_secret = 44cb41ccbed49e089ab4
+    }' \
+    -e '/^\[ovs]/,/^\[/ {
+      /^ovsdb_connection =/d
+      /^#ovsdb_connection =/aovsdb_connection = tcp:127.0.0.1:6640
+    }' \
+    -i /etc/neutron/neutron_ovn_metadata_agent.ini
+
+sed \
+    -e '/^\[ovn]/,/^\[/d' \
+    -e '/^\[agent]/,/^\[/d' \
+    -i /etc/neutron/neutron_ovn_metadata_agent.ini
+
+cat >> /etc/neutron/neutron_ovn_metadata_agent.ini <<EOF
+
+[ovn]
+ovn_sb_connection = tcp:10.0.0.11:6642
+
+[agent]
+root_helper = sudo /usr/bin/neutron-rootwrap /etc/neutron/rootwrap.conf
+EOF
+```
 
 ## Nova の設定
 
@@ -124,6 +170,7 @@ setsebool -P os_neutron_dac_override on
 
 * [](./neutron_linuxbridge/startup.md)
 * [](./neutron_ovs/startup.md)
+* [](./neutron_ovn/startup.md)
 
 ## 動作確認
 
@@ -131,6 +178,7 @@ setsebool -P os_neutron_dac_override on
 
 * [](./neutron_linuxbridge/confirm.md)
 * [](./neutron_ovs/confirm.md)
+* [](./neutron_ovn/confirm.md)
 
 ## VXLAN ネットワークの設定
 
