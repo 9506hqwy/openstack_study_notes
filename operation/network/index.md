@@ -13,4 +13,5 @@ ovs_vxlan
 ovs_router
 ovs_fip
 ovs_lb
+ovn_flat
 ```
