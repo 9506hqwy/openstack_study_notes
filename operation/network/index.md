@@ -14,4 +14,5 @@ ovs_router
 ovs_fip
 ovs_lb
 ovn_flat
+ovn_vlan
 ```

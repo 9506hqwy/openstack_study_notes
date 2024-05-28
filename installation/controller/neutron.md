@@ -379,6 +379,7 @@ VLAN ネットワークを使用する場合はメカニズムドライバの種
 
 * [](./neutron_linuxbridge/vlan.md)
 * [](./neutron_ovs/vlan.md)
+* [](./neutron_ovn/vlan.md)
 
 ## VXLAN ネットワークの設定
 

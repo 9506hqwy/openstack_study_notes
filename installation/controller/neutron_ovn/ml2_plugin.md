@@ -6,7 +6,7 @@
 sed \
     -e '/^\[ml2]/,/^\[/ {
       /^type_drivers =/d
-      /^#type_drivers =/atype_drivers = flat,geneve
+      /^#type_drivers =/atype_drivers = flat,vlan,geneve
       /^tenant_network_types =/d
       /^#tenant_network_types =/atenant_network_types = geneve
       /^mechanism_drivers =/d
