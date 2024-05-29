@@ -9,4 +9,5 @@ ovs_vlan
 ovs_vxlan
 fpga
 ovn_flat
+ovn_vlan
 ```
