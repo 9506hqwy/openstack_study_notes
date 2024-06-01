@@ -1,6 +1,6 @@
 # インスタンスの作成 (flat/Open Virtual Network)
 
-flat ネットワーク(Open vSwitch)に接続するインスタンスを作成する。
+flat ネットワーク(Open Viirtual Network)に接続するインスタンスを作成する。
 
 ## 前提条件
 

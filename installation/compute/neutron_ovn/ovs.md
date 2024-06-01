@@ -39,8 +39,19 @@ firewall-cmd --permanent --zone=public --add-port=6081/udp
 firewall-cmd --reload
 ```
 
-トンネルの接続先に Controller Node を指定する。
+トンネルに使用する IP アドレスを指定する。
 
 ```sh
 ovs-vsctl set open . external-ids:ovn-encap-ip=172.16.0.31
+```
+
+```{warning}
+Gateway_Chassis が空になるため L3 ルータポートが起動しない。
+以降は再確認。
+```
+
+Compute Node を OVS のゲートウェイとして設定する。
+
+```sh
+ovs-vsctl set open . external-ids:ovn-cms-options=enable-chassis-as-gw
 ```

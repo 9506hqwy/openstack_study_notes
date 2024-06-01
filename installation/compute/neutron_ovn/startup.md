@@ -1,5 +1,12 @@
 # 起動 (Open Virtual Network)
 
+nova を再起動する。
+
+```sh
+systemctl restart NetworkManager
+systemctl restart openstack-nova-compute
+```
+
 マシン起動時の自動起動設定とサービスを起動する。
 
 ```sh

@@ -6,6 +6,10 @@
 openstack network agent list
 ```
 
+```{note}
+OVN Metadata agent はインスタンスが起動するまで存在しない？再確認。
+```
+
 ```
 +--------------------------------------+----------------------+--------------------+-------------------+-------+-------+----------------------------+
 | ID                                   | Agent Type           | Host               | Availability Zone | Alive | State | Binary                     |
