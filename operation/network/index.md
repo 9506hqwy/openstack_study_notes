@@ -17,4 +17,5 @@ ovn_flat
 ovn_vlan
 ovn_geneve
 ovn_router
+ovn_fip
 ```
