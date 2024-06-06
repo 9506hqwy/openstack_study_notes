@@ -72,3 +72,15 @@ systemctl stop firewalld
 ```python
 tostring(..., encoding='unicode')
 ```
+
+## nova-compute が起動しない
+
+Compute Node のホスト名を変更すると下記のエラーで openstack-nova-compute サービスが起動しない。
+
+```
+nova.exception.InvalidConfiguration: My hypervisor has existing instances, but I appear to be a new service in this database. Possible database configuration error, refusing to start!
+```
+
+```
+nova.exception.InvalidConfiguration: My compute node 6c53c76c-39d1-45dc-a5f5-293e91abd3e4 has hypervisor_hostname compute.home.local but virt driver reports it should be localhost.localdomain. Possible rename detected, refusing to start!
+```
