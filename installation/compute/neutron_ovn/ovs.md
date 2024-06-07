@@ -44,14 +44,3 @@ firewall-cmd --reload
 ```sh
 ovs-vsctl set open . external-ids:ovn-encap-ip=172.16.0.31
 ```
-
-```{warning}
-Gateway_Chassis が空になるため L3 ルータポートが起動しない。
-以降は再確認。
-```
-
-Compute Node を OVS のゲートウェイとして設定する。
-
-```sh
-ovs-vsctl set open . external-ids:ovn-cms-options=enable-chassis-as-gw
-```

@@ -372,6 +372,7 @@ su -s /bin/sh -c "neutron-db-manage \
 
 * [](./neutron_linuxbridge/confirm.md)
 * [](./neutron_ovs/confirm.md)
+* [](./neutron_ovn/confirm.md)
 
 ## VLAN ネットワークの設定
 

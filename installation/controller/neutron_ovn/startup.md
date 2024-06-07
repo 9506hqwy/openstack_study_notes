@@ -17,17 +17,13 @@ systemctl restart ovn-northd
 マシン起動時の自動起動設定とサービスを起動する。
 
 ```sh
-systemctl enable --now neutron-server
 systemctl enable --now openvswitch
 systemctl enable --now ovn-northd
+systemctl enable --now ovn-controller
+systemctl enable --now neutron-server
 ```
 
 ## flat ネットワーク用ブリッジの作成
-
-```{warning}
-Gateway_Chassis が空になるため L3 ルータポートが起動しない。
-以降は再確認。
-```
 
 eth2 と接続するブリッジ be-provider を作成する。
 

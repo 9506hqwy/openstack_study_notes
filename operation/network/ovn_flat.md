@@ -29,10 +29,10 @@ openstack network create \
 | admin_state_up            | UP                                   |
 | availability_zone_hints   |                                      |
 | availability_zones        |                                      |
-| created_at                | 2024-05-25T00:24:05Z                 |
+| created_at                | 2024-06-04T13:32:13Z                 |
 | description               |                                      |
 | dns_domain                | None                                 |
-| id                        | ec6ba68e-47d4-4ece-a233-718a902e68e6 |
+| id                        | a6370456-5bb9-4dde-8b73-3fe5ba0c414a |
 | ipv4_address_scope        | None                                 |
 | ipv6_address_scope        | None                                 |
 | is_default                | False                                |
@@ -53,7 +53,7 @@ openstack network create \
 | subnets                   |                                      |
 | tags                      |                                      |
 | tenant_id                 | be94f4411bd74f249f5e25f642209b82     |
-| updated_at                | 2024-05-25T00:24:05Z                 |
+| updated_at                | 2024-06-04T13:32:13Z                 |
 +---------------------------+--------------------------------------+
 ```
 
@@ -67,12 +67,12 @@ openstack port list
 +--------------------------------------+------+-------------------+--------------------+--------+
 | ID                                   | Name | MAC Address       | Fixed IP Addresses | Status |
 +--------------------------------------+------+-------------------+--------------------+--------+
-| 9241e97d-8312-471c-9765-48f657442262 |      | fa:16:3e:ee:57:9a |                    | DOWN   |
+| 465fdd06-6fa7-4fb9-8d66-35595337ff6a |      | fa:16:3e:61:51:6f |                    | DOWN   |
 +--------------------------------------+------+-------------------+--------------------+--------+
 ```
 
 ```sh
-openstack port show 9241e97d-8312-471c-9765-48f657442262
+openstack port show 465fdd06-6fa7-4fb9-8d66-35595337ff6a
 ```
 
 ```
@@ -86,10 +86,10 @@ openstack port show 9241e97d-8312-471c-9765-48f657442262
 | binding_vif_details     |                                              |
 | binding_vif_type        | unbound                                      |
 | binding_vnic_type       | normal                                       |
-| created_at              | 2024-05-25T00:24:06Z                         |
+| created_at              | 2024-06-04T13:32:13Z                         |
 | data_plane_status       | None                                         |
 | description             |                                              |
-| device_id               | ovnmeta-ec6ba68e-47d4-4ece-a233-718a902e68e6 |
+| device_id               | ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a |
 | device_owner            | network:distributed                          |
 | device_profile          | None                                         |
 | dns_assignment          | None                                         |
@@ -99,11 +99,11 @@ openstack port show 9241e97d-8312-471c-9765-48f657442262
 | fixed_ips               |                                              |
 | hardware_offload_type   | None                                         |
 | hints                   |                                              |
-| id                      | 9241e97d-8312-471c-9765-48f657442262         |
+| id                      | 465fdd06-6fa7-4fb9-8d66-35595337ff6a         |
 | ip_allocation           | None                                         |
-| mac_address             | fa:16:3e:ee:57:9a                            |
+| mac_address             | fa:16:3e:61:51:6f                            |
 | name                    |                                              |
-| network_id              | ec6ba68e-47d4-4ece-a233-718a902e68e6         |
+| network_id              | a6370456-5bb9-4dde-8b73-3fe5ba0c414a         |
 | numa_affinity_policy    | None                                         |
 | port_security_enabled   | False                                        |
 | project_id              | be94f4411bd74f249f5e25f642209b82             |
@@ -116,7 +116,7 @@ openstack port show 9241e97d-8312-471c-9765-48f657442262
 | status                  | DOWN                                         |
 | tags                    |                                              |
 | trunk_details           | None                                         |
-| updated_at              | 2024-05-25T00:24:06Z                         |
+| updated_at              | 2024-06-04T13:32:13Z                         |
 +-------------------------+----------------------------------------------+
 ```
 
@@ -137,7 +137,7 @@ ovn-nbctl list Logical_Switch
 ```
 
 ```
-_uuid               : 8f3ec596-41e0-43f2-a4b7-7befbab52e40
+_uuid               : 6c84a035-ea9a-4c8a-a1e4-aba91462d704
 acls                : []
 copp                : []
 dns_records         : []
@@ -145,9 +145,9 @@ external_ids        : {"neutron:availability_zone_hints"="", "neutron:mtu"="1500
 forwarding_groups   : []
 load_balancer       : []
 load_balancer_group : []
-name                : neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6
+name                : neutron-a6370456-5bb9-4dde-8b73-3fe5ba0c414a
 other_config        : {fdb_age_threshold="0", mcast_flood_unregistered="false", mcast_snoop="false", vlan-passthru="false"}
-ports               : [769582de-9c0f-406b-9dbe-70d5f5204934, f4e9a1f0-e912-4158-9030-be3c8a238795]
+ports               : [6679b27b-68b5-42e6-9053-2dd493b252d9, 85fb967c-89c3-49ac-970d-f1c008cfa476]
 qos_rules           : []
 ```
 
@@ -158,7 +158,25 @@ ovn-nbctl list Logical_Switch_Port
 ```
 
 ```
-_uuid               : f4e9a1f0-e912-4158-9030-be3c8a238795
+_uuid               : 85fb967c-89c3-49ac-970d-f1c008cfa476
+addresses           : ["fa:16:3e:61:51:6f"]
+dhcpv4_options      : []
+dhcpv6_options      : []
+dynamic_addresses   : []
+enabled             : true
+external_ids        : {"neutron:cidrs"="", "neutron:device_id"=ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a, "neutron:device_owner"="network:distributed", "neutron:mtu"="", "neutron:network_name"=neutron-a6370456-5bb9-4dde-8b73-3fe5ba0c414a, "neutron:port_capabilities"="", "neutron:port_name"="", "neutron:project_id"=be94f4411bd74f249f5e25f642209b82, "neutron:revision_number"="1", "neutron:security_group_ids"="", "neutron:subnet_pool_addr_scope4"="", "neutron:subnet_pool_addr_scope6"="", "neutron:vnic_type"=normal}
+ha_chassis_group    : []
+mirror_rules        : []
+name                : "465fdd06-6fa7-4fb9-8d66-35595337ff6a"
+options             : {}
+parent_name         : []
+port_security       : []
+tag                 : []
+tag_request         : []
+type                : localport
+up                  : false
+
+_uuid               : 6679b27b-68b5-42e6-9053-2dd493b252d9
 addresses           : [unknown]
 dhcpv4_options      : []
 dhcpv6_options      : []
@@ -167,7 +185,7 @@ enabled             : []
 external_ids        : {}
 ha_chassis_group    : []
 mirror_rules        : []
-name                : provnet-698fbbf6-da6f-4d59-8259-60d87eb5e697
+name                : provnet-ac334841-8877-453f-91de-38264a45b3bf
 options             : {localnet_learn_fdb="false", mcast_flood="false", mcast_flood_reports="true", network_name=provider}
 parent_name         : []
 port_security       : []
@@ -175,68 +193,22 @@ tag                 : []
 tag_request         : []
 type                : localnet
 up                  : false
-
-_uuid               : 769582de-9c0f-406b-9dbe-70d5f5204934
-addresses           : ["fa:16:3e:ee:57:9a"]
-dhcpv4_options      : []
-dhcpv6_options      : []
-dynamic_addresses   : []
-enabled             : true
-external_ids        : {"neutron:cidrs"="", "neutron:device_id"=ovnmeta-ec6ba68e-47d4-4ece-a233-718a902e68e6, "neutron:device_owner"="network:distributed", "neutron:mtu"="", "neutron:network_name"=neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6, "neutron:port_capabilities"="", "neutron:port_name"="", "neutron:project_id"=be94f4411bd74f249f5e25f642209b82, "neutron:revision_number"="1", "neutron:security_group_ids"="", "neutron:subnet_pool_addr_scope4"="", "neutron:subnet_pool_addr_scope6"="", "neutron:vnic_type"=normal}
-ha_chassis_group    : []
-mirror_rules        : []
-name                : "9241e97d-8312-471c-9765-48f657442262"
-options             : {}
-parent_name         : []
-port_security       : []
-tag                 : []
-tag_request         : []
-type                : localport
-up                  : false
 ```
 
-セキュリティグループの設定を確認する。
+セキュリティグループを確認する。
 
 ```sh
 ovn-nbctl list ACL
 ```
 
 ```
-_uuid               : 5c253e91-9c9d-4ce6-840b-1db3d7e29015
-action              : allow-related
-direction           : to-lport
-external_ids        : {"neutron:security_group_rule_id"="64a457e0-829a-4118-aae3-6d48a28b377f"}
-label               : 0
-log                 : false
-match               : "outport == @pg_a1b42dfb_939f_49e6_bcd3_493e2e3edbc0 && ip6 && ip6.src == $pg_a1b42dfb_939f_49e6_bcd3_493e2e3edbc0_ip6"
-meter               : []
-name                : []
-options             : {}
-priority            : 1002
-severity            : []
-tier                : 0
-
-_uuid               : 29e28c69-b2e9-46d5-8519-be84292c255d
-action              : allow-related
-direction           : to-lport
-external_ids        : {"neutron:security_group_rule_id"="c8082036-fb98-47a4-af34-7e88aac07f79"}
-label               : 0
-log                 : false
-match               : "outport == @pg_a1b42dfb_939f_49e6_bcd3_493e2e3edbc0 && ip4 && ip4.src == $pg_a1b42dfb_939f_49e6_bcd3_493e2e3edbc0_ip4"
-meter               : []
-name                : []
-options             : {}
-priority            : 1002
-severity            : []
-tier                : 0
-
-_uuid               : 3588d152-70fd-4789-b22d-5c248d02a20e
+_uuid               : 2e9f13d4-032a-4301-a04a-5551d0e792ad
 action              : allow-related
 direction           : from-lport
-external_ids        : {"neutron:security_group_rule_id"="4ff9dca5-ccd4-4eea-be42-bcd0b7f17060"}
+external_ids        : {"neutron:security_group_rule_id"="ef2b2f41-234d-4693-b427-a9fcfeea849d"}
 label               : 0
 log                 : false
-match               : "inport == @pg_a1b42dfb_939f_49e6_bcd3_493e2e3edbc0 && ip6"
+match               : "inport == @pg_10343956_af05_47e3_8a7a_8022d9a85945 && ip6"
 meter               : []
 name                : []
 options             : {}
@@ -244,27 +216,13 @@ priority            : 1002
 severity            : []
 tier                : 0
 
-_uuid               : a800a64a-93c6-4608-8a48-2142357adde4
-action              : allow-related
-direction           : to-lport
-external_ids        : {"neutron:security_group_rule_id"="2d69318e-8455-4e9a-9c80-f5d0cfad0bc0"}
-label               : 0
-log                 : false
-match               : "outport == @pg_dcf5b841_bca6_4d31_98b5_1e41d4bf4472 && ip6 && ip6.src == $pg_dcf5b841_bca6_4d31_98b5_1e41d4bf4472_ip6"
-meter               : []
-name                : []
-options             : {}
-priority            : 1002
-severity            : []
-tier                : 0
-
-_uuid               : 472a9f32-7b90-4552-a846-1a7662a35dc6
+_uuid               : d2413d59-4e1a-4585-b1f0-267b763f3d0b
 action              : allow-related
 direction           : from-lport
-external_ids        : {"neutron:security_group_rule_id"="f52115e6-ae60-4fd9-ab69-c856641c96cc"}
+external_ids        : {"neutron:security_group_rule_id"="2f926dd1-f804-42dd-8660-31c201486a93"}
 label               : 0
 log                 : false
-match               : "inport == @pg_dcf5b841_bca6_4d31_98b5_1e41d4bf4472 && ip4"
+match               : "inport == @pg_10343956_af05_47e3_8a7a_8022d9a85945 && ip4"
 meter               : []
 name                : []
 options             : {}
@@ -272,21 +230,7 @@ priority            : 1002
 severity            : []
 tier                : 0
 
-_uuid               : 054add72-4335-48e3-af9d-4ec6ccf7eeaf
-action              : allow-related
-direction           : to-lport
-external_ids        : {"neutron:security_group_rule_id"="ef15382c-9918-4218-97e2-b7b64d985641"}
-label               : 0
-log                 : false
-match               : "outport == @pg_20a04bf0_dc15_4813_941c_3bba803605e8 && ip4 && ip4.src == $pg_20a04bf0_dc15_4813_941c_3bba803605e8_ip4"
-meter               : []
-name                : []
-options             : {}
-priority            : 1002
-severity            : []
-tier                : 0
-
-_uuid               : 655423fa-e375-41de-b063-40507c2ef83d
+_uuid               : 3b1768c2-3f33-4e57-a614-427811758daf
 action              : drop
 direction           : from-lport
 external_ids        : {}
@@ -300,41 +244,13 @@ priority            : 1001
 severity            : []
 tier                : 0
 
-_uuid               : 380e1843-4c00-4549-bc99-8cd02cc4fe47
-action              : allow-related
-direction           : from-lport
-external_ids        : {"neutron:security_group_rule_id"="386e33c0-3d7e-49fd-a168-3c244bd2ca2d"}
-label               : 0
-log                 : false
-match               : "inport == @pg_dcf5b841_bca6_4d31_98b5_1e41d4bf4472 && ip6"
-meter               : []
-name                : []
-options             : {}
-priority            : 1002
-severity            : []
-tier                : 0
-
-_uuid               : 89909a2b-d545-4026-b270-3b2bc9a948f9
-action              : allow-related
-direction           : from-lport
-external_ids        : {"neutron:security_group_rule_id"="a2980711-49ad-4028-8cf8-37afd65fccd8"}
-label               : 0
-log                 : false
-match               : "inport == @pg_20a04bf0_dc15_4813_941c_3bba803605e8 && ip6"
-meter               : []
-name                : []
-options             : {}
-priority            : 1002
-severity            : []
-tier                : 0
-
-_uuid               : c8261cbc-473a-44c4-8950-4325ed3fc75a
+_uuid               : 64fbccaf-1326-4a91-8ac6-5b1ff4ecc4e0
 action              : allow-related
 direction           : to-lport
-external_ids        : {"neutron:security_group_rule_id"="7d682bde-565b-4c97-b22f-1f8bb9f8e176"}
+external_ids        : {"neutron:security_group_rule_id"="748ef95f-0095-4065-b97f-5d27a601ffcb"}
 label               : 0
 log                 : false
-match               : "outport == @pg_20a04bf0_dc15_4813_941c_3bba803605e8 && ip6 && ip6.src == $pg_20a04bf0_dc15_4813_941c_3bba803605e8_ip6"
+match               : "outport == @pg_10343956_af05_47e3_8a7a_8022d9a85945 && ip4 && ip4.src == $pg_10343956_af05_47e3_8a7a_8022d9a85945_ip4"
 meter               : []
 name                : []
 options             : {}
@@ -342,7 +258,21 @@ priority            : 1002
 severity            : []
 tier                : 0
 
-_uuid               : 17be7dac-406b-4fb3-a036-238248cbcff7
+_uuid               : 6c5f59b3-6eae-4662-bcdf-3088eaf83095
+action              : allow-related
+direction           : to-lport
+external_ids        : {"neutron:security_group_rule_id"="41a78521-61f9-4a1a-8148-7d5b7eb38219"}
+label               : 0
+log                 : false
+match               : "outport == @pg_10343956_af05_47e3_8a7a_8022d9a85945 && ip6 && ip6.src == $pg_10343956_af05_47e3_8a7a_8022d9a85945_ip6"
+meter               : []
+name                : []
+options             : {}
+priority            : 1002
+severity            : []
+tier                : 0
+
+_uuid               : 3c8b2fef-ddd1-4040-8e26-ea373222b198
 action              : drop
 direction           : to-lport
 external_ids        : {}
@@ -355,51 +285,37 @@ options             : {}
 priority            : 1001
 severity            : []
 tier                : 0
-
-_uuid               : f3a5a37c-ea4a-4d45-bebd-bf8e1795a502
-action              : allow-related
-direction           : from-lport
-external_ids        : {"neutron:security_group_rule_id"="4a672c1f-fa4a-4623-95f6-7a390b2fb0b2"}
-label               : 0
-log                 : false
-match               : "inport == @pg_a1b42dfb_939f_49e6_bcd3_493e2e3edbc0 && ip4"
-meter               : []
-name                : []
-options             : {}
-priority            : 1002
-severity            : []
-tier                : 0
-
-_uuid               : 633a039c-a369-4cae-b6ce-bc96e0596136
-action              : allow-related
-direction           : to-lport
-external_ids        : {"neutron:security_group_rule_id"="f400ed5b-d2cd-4179-bad7-b6099640aa72"}
-label               : 0
-log                 : false
-match               : "outport == @pg_dcf5b841_bca6_4d31_98b5_1e41d4bf4472 && ip4 && ip4.src == $pg_dcf5b841_bca6_4d31_98b5_1e41d4bf4472_ip4"
-meter               : []
-name                : []
-options             : {}
-priority            : 1002
-severity            : []
-tier                : 0
-
-_uuid               : ba161ff7-0dd4-4ec5-95bc-39bcdf5de62f
-action              : allow-related
-direction           : from-lport
-external_ids        : {"neutron:security_group_rule_id"="8a7930bf-fa4d-4501-bb07-b24e2aab5efa"}
-label               : 0
-log                 : false
-match               : "inport == @pg_20a04bf0_dc15_4813_941c_3bba803605e8 && ip4"
-meter               : []
-name                : []
-options             : {}
-priority            : 1002
-severity            : []
-tier                : 0
 ```
 
 #### Southbound データベース
+
+アドレスセットを確認する。
+
+```sh
+ovn-sbctl list Address_Set
+```
+
+```
+_uuid               : 11f9d440-b848-436b-89a8-15b0a7474cc5
+addresses           : []
+name                : pg_10343956_af05_47e3_8a7a_8022d9a85945_ip6
+
+_uuid               : d0cae968-1582-4c82-8324-88900c57b6ec
+addresses           : ["2a:91:79:ab:04:2d"]
+name                : svc_monitor_mac
+
+_uuid               : 840d070d-12a7-4434-8047-95526f7b0186
+addresses           : []
+name                : neutron_pg_drop_ip6
+
+_uuid               : 8c00b67a-a5af-4829-8b0f-aefcd6c5abd7
+addresses           : []
+name                : pg_10343956_af05_47e3_8a7a_8022d9a85945_ip4
+
+_uuid               : a0eda553-388f-4810-b31e-63d7edf879f8
+addresses           : []
+name                : neutron_pg_drop_ip4
+```
 
 フローを確認する。
 
@@ -408,7 +324,7 @@ ovn-sbctl lflow-list
 ```
 
 ```
-Datapath: "neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6" aka "provider" (fa81dc7d-3704-41ab-9e5b-266d1fddcfba)  Pipeline: ingress
+Datapath: "neutron-a6370456-5bb9-4dde-8b73-3fe5ba0c414a" aka "provider" (a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe)  Pipeline: ingress
   table=0 (ls_in_check_port_sec), priority=110  , match=(((ip4 && icmp4.type == 3 && icmp4.code == 4) || (ip6 && icmp6.type == 2 && icmp6.code == 0)) && flags.tunnel_rx == 1), action=(drop;)
   table=0 (ls_in_check_port_sec), priority=100  , match=(eth.src[40]), action=(drop;)
   table=0 (ls_in_check_port_sec), priority=100  , match=(vlan.present), action=(drop;)
@@ -421,7 +337,7 @@ Datapath: "neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6" aka "provider" (fa81dc7
   table=4 (ls_in_pre_acl      ), priority=0    , match=(1), action=(next;)
   table=5 (ls_in_pre_lb       ), priority=110  , match=(eth.dst == $svc_monitor_mac), action=(next;)
   table=5 (ls_in_pre_lb       ), priority=110  , match=(eth.mcast), action=(next;)
-  table=5 (ls_in_pre_lb       ), priority=110  , match=(ip && inport == "provnet-698fbbf6-da6f-4d59-8259-60d87eb5e697"), action=(next;)
+  table=5 (ls_in_pre_lb       ), priority=110  , match=(ip && inport == "provnet-ac334841-8877-453f-91de-38264a45b3bf"), action=(next;)
   table=5 (ls_in_pre_lb       ), priority=110  , match=(nd || nd_rs || nd_ra || mldv1 || mldv2), action=(next;)
   table=5 (ls_in_pre_lb       ), priority=110  , match=(reg0[16] == 1), action=(next;)
   table=5 (ls_in_pre_lb       ), priority=0    , match=(1), action=(next;)
@@ -446,7 +362,7 @@ Datapath: "neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6" aka "provider" (fa81dc7
   table=20(ls_in_stateful     ), priority=100  , match=(reg0[1] == 1 && reg0[13] == 0), action=(ct_commit { ct_mark.blocked = 0; }; next;)
   table=20(ls_in_stateful     ), priority=100  , match=(reg0[1] == 1 && reg0[13] == 1), action=(ct_commit { ct_mark.blocked = 0; ct_label.label = reg3; }; next;)
   table=20(ls_in_stateful     ), priority=0    , match=(1), action=(next;)
-  table=21(ls_in_arp_rsp      ), priority=100  , match=(inport == "provnet-698fbbf6-da6f-4d59-8259-60d87eb5e697"), action=(next;)
+  table=21(ls_in_arp_rsp      ), priority=100  , match=(inport == "provnet-ac334841-8877-453f-91de-38264a45b3bf"), action=(next;)
   table=21(ls_in_arp_rsp      ), priority=0    , match=(1), action=(next;)
   table=22(ls_in_dhcp_options ), priority=0    , match=(1), action=(next;)
   table=23(ls_in_dhcp_response), priority=0    , match=(1), action=(next;)
@@ -455,16 +371,16 @@ Datapath: "neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6" aka "provider" (fa81dc7
   table=26(ls_in_external_port), priority=0    , match=(1), action=(next;)
   table=27(ls_in_l2_lkup      ), priority=110  , match=(eth.dst == $svc_monitor_mac && (tcp || icmp || icmp6)), action=(handle_svc_check(inport);)
   table=27(ls_in_l2_lkup      ), priority=70   , match=(eth.mcast), action=(outport = "_MC_flood"; output;)
-  table=27(ls_in_l2_lkup      ), priority=50   , match=(eth.dst == fa:16:3e:ee:57:9a), action=(outport = "9241e97d-8312-471c-9765-48f657442262"; output;)
+  table=27(ls_in_l2_lkup      ), priority=50   , match=(eth.dst == fa:16:3e:61:51:6f), action=(outport = "465fdd06-6fa7-4fb9-8d66-35595337ff6a"; output;)
   table=27(ls_in_l2_lkup      ), priority=0    , match=(1), action=(outport = get_fdb(eth.dst); next;)
   table=28(ls_in_l2_unknown   ), priority=50   , match=(outport == "none"), action=(outport = "_MC_unknown"; output;)
   table=28(ls_in_l2_unknown   ), priority=0    , match=(1), action=(output;)
-Datapath: "neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6" aka "provider" (fa81dc7d-3704-41ab-9e5b-266d1fddcfba)  Pipeline: egress
+Datapath: "neutron-a6370456-5bb9-4dde-8b73-3fe5ba0c414a" aka "provider" (a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe)  Pipeline: egress
   table=0 (ls_out_pre_acl     ), priority=110  , match=(eth.src == $svc_monitor_mac), action=(next;)
   table=0 (ls_out_pre_acl     ), priority=0    , match=(1), action=(next;)
   table=1 (ls_out_pre_lb      ), priority=110  , match=(eth.mcast), action=(next;)
   table=1 (ls_out_pre_lb      ), priority=110  , match=(eth.src == $svc_monitor_mac), action=(next;)
-  table=1 (ls_out_pre_lb      ), priority=110  , match=(ip && outport == "provnet-698fbbf6-da6f-4d59-8259-60d87eb5e697"), action=(ct_clear; next;)
+  table=1 (ls_out_pre_lb      ), priority=110  , match=(ip && outport == "provnet-ac334841-8877-453f-91de-38264a45b3bf"), action=(ct_clear; next;)
   table=1 (ls_out_pre_lb      ), priority=110  , match=(nd || nd_rs || nd_ra || mldv1 || mldv2), action=(next;)
   table=1 (ls_out_pre_lb      ), priority=110  , match=(reg0[16] == 1), action=(next;)
   table=1 (ls_out_pre_lb      ), priority=0    , match=(1), action=(next;)
@@ -493,29 +409,29 @@ ovn-sbctl list Multicast_Group
 ```
 
 ```
-_uuid               : 148f8e38-662b-4759-8e9b-94a1179d5771
-datapath            : fa81dc7d-3704-41ab-9e5b-266d1fddcfba
-name                : _MC_flood_l2
-ports               : [3c1e627e-3849-4a58-9d23-8db1a7288f6f, 856a3a05-69a1-4a7a-93a3-2d150b5cf40d]
-tunnel_key          : 32772
+_uuid               : 2677d319-557d-406b-91de-e5c9cc7f1b3b
+datapath            : a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe
+name                : _MC_flood
+ports               : [479775c9-8632-4e1c-b6c2-5562759e4fb5, 9e39cafe-0eb6-461b-92c2-e7f699e9963b]
+tunnel_key          : 32768
 
-_uuid               : 97bbc64c-fe4a-41d9-95ab-f259f8724a55
-datapath            : fa81dc7d-3704-41ab-9e5b-266d1fddcfba
-name                : _MC_mrouter_flood
-ports               : [3c1e627e-3849-4a58-9d23-8db1a7288f6f]
-tunnel_key          : 32770
-
-_uuid               : 4d7eedea-f419-477c-824c-a9395a9add1d
-datapath            : fa81dc7d-3704-41ab-9e5b-266d1fddcfba
+_uuid               : 4dafb955-9f7a-4912-96b5-8a0e70339051
+datapath            : a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe
 name                : _MC_unknown
-ports               : [3c1e627e-3849-4a58-9d23-8db1a7288f6f]
+ports               : [9e39cafe-0eb6-461b-92c2-e7f699e9963b]
 tunnel_key          : 32769
 
-_uuid               : 8712f73f-31b1-408d-a0f7-8a5f535b98ff
-datapath            : fa81dc7d-3704-41ab-9e5b-266d1fddcfba
-name                : _MC_flood
-ports               : [3c1e627e-3849-4a58-9d23-8db1a7288f6f, 856a3a05-69a1-4a7a-93a3-2d150b5cf40d]
-tunnel_key          : 32768
+_uuid               : 3f08aaea-32b3-4c0e-adca-1a9465c4131b
+datapath            : a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe
+name                : _MC_mrouter_flood
+ports               : [9e39cafe-0eb6-461b-92c2-e7f699e9963b]
+tunnel_key          : 32770
+
+_uuid               : d1184936-e20e-40b5-8e69-5e0e8af04735
+datapath            : a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe
+name                : _MC_flood_l2
+ports               : [479775c9-8632-4e1c-b6c2-5562759e4fb5, 9e39cafe-0eb6-461b-92c2-e7f699e9963b]
+tunnel_key          : 32772
 ```
 
 データパスを確認する。
@@ -525,8 +441,8 @@ ovn-sbctl list Datapath_Binding
 ```
 
 ```
-_uuid               : fa81dc7d-3704-41ab-9e5b-266d1fddcfba
-external_ids        : {logical-switch="8f3ec596-41e0-43f2-a4b7-7befbab52e40", name=neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6, name2=provider}
+_uuid               : a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe
+external_ids        : {logical-switch="6c84a035-ea9a-4c8a-a1e4-aba91462d704", name=neutron-a6370456-5bb9-4dde-8b73-3fe5ba0c414a, name2=provider}
 load_balancers      : []
 tunnel_key          : 1
 ```
@@ -538,17 +454,17 @@ ovn-sbctl list Port_Binding
 ```
 
 ```
-_uuid               : 856a3a05-69a1-4a7a-93a3-2d150b5cf40d
+_uuid               : 479775c9-8632-4e1c-b6c2-5562759e4fb5
 additional_chassis  : []
 additional_encap    : []
 chassis             : []
-datapath            : fa81dc7d-3704-41ab-9e5b-266d1fddcfba
+datapath            : a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe
 encap               : []
-external_ids        : {"neutron:cidrs"="", "neutron:device_id"=ovnmeta-ec6ba68e-47d4-4ece-a233-718a902e68e6, "neutron:device_owner"="network:distributed", "neutron:mtu"="", "neutron:network_name"=neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6, "neutron:port_capabilities"="", "neutron:port_name"="", "neutron:project_id"=be94f4411bd74f249f5e25f642209b82, "neutron:revision_number"="1", "neutron:security_group_ids"="", "neutron:subnet_pool_addr_scope4"="", "neutron:subnet_pool_addr_scope6"="", "neutron:vnic_type"=normal}
+external_ids        : {"neutron:cidrs"="", "neutron:device_id"=ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a, "neutron:device_owner"="network:distributed", "neutron:mtu"="", "neutron:network_name"=neutron-a6370456-5bb9-4dde-8b73-3fe5ba0c414a, "neutron:port_capabilities"="", "neutron:port_name"="", "neutron:project_id"=be94f4411bd74f249f5e25f642209b82, "neutron:revision_number"="1", "neutron:security_group_ids"="", "neutron:subnet_pool_addr_scope4"="", "neutron:subnet_pool_addr_scope6"="", "neutron:vnic_type"=normal}
 gateway_chassis     : []
 ha_chassis_group    : []
-logical_port        : "9241e97d-8312-471c-9765-48f657442262"
-mac                 : ["fa:16:3e:ee:57:9a"]
+logical_port        : "465fdd06-6fa7-4fb9-8d66-35595337ff6a"
+mac                 : ["fa:16:3e:61:51:6f"]
 mirror_rules        : []
 nat_addresses       : []
 options             : {}
@@ -562,16 +478,16 @@ type                : localport
 up                  : false
 virtual_parent      : []
 
-_uuid               : 3c1e627e-3849-4a58-9d23-8db1a7288f6f
+_uuid               : 9e39cafe-0eb6-461b-92c2-e7f699e9963b
 additional_chassis  : []
 additional_encap    : []
 chassis             : []
-datapath            : fa81dc7d-3704-41ab-9e5b-266d1fddcfba
+datapath            : a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe
 encap               : []
 external_ids        : {}
 gateway_chassis     : []
 ha_chassis_group    : []
-logical_port        : provnet-698fbbf6-da6f-4d59-8259-60d87eb5e697
+logical_port        : provnet-ac334841-8877-453f-91de-38264a45b3bf
 mac                 : [unknown]
 mirror_rules        : []
 nat_addresses       : []
@@ -589,15 +505,107 @@ virtual_parent      : []
 
 #### Open vSwitch
 
-Open vSwitch にブリッジは作成されない。
+ブリッジを確認する。
 
 ```sh
 ovs-vsctl show
 ```
 
 ```
-f6d63fd3-3bf4-45eb-afc6-603984ff8667
+9869c49f-a522-47dc-a744-bf85afff8b76
+    Bridge br-int
+        fail_mode: secure
+        datapath_type: system
+        Port ovn-32a2f4-0
+            Interface ovn-32a2f4-0
+                type: geneve
+                options: {csum="true", key=flow, remote_ip="172.16.0.31"}
+        Port br-int
+            Interface br-int
+                type: internal
+    Bridge br-provider
+        Port eth2
+            Interface eth2
+                type: system
+    Bridge br-mgmt
+        Port eth3
+            Interface eth3
+                type: system
     ovs_version: "3.3.1"
+```
+
+データパスを確認する。
+
+```sh
+ovs-dpctl show
+```
+
+```
+system@ovs-system:
+  lookups: hit:627 missed:298 lost:0
+  flows: 0
+  masks: hit:1006 total:0 hit/pkt:1.09
+  cache: hit:350 hit-rate:37.84%
+  caches:
+    masks-cache: size:256
+  port 0: ovs-system (internal)
+  port 1: br-int (internal)
+  port 2: eth2
+  port 3: eth3
+  port 4: genev_sys_6081 (geneve: packet_type=ptap)
+```
+
+ブリッジ br-int のフローのエントリを確認する。
+
+```sh
+ovs-ofctl dump-flows br-int
+```
+
+```
+ cookie=0x0, duration=5124.343s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-32a2f4-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
+ cookie=0x0, duration=5124.343s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-32a2f4-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
+ cookie=0x0, duration=5124.343s, table=0, n_packets=0, n_bytes=0, priority=100,in_port="ovn-32a2f4-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
+ cookie=0x0, duration=6605.126s, table=0, n_packets=0, n_bytes=0, priority=0 actions=drop
+ cookie=0x0, duration=6605.126s, table=37, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,39)
+ cookie=0x0, duration=6605.126s, table=38, n_packets=0, n_bytes=0, priority=10,reg10=0x1/0x1 actions=resubmit(,40)
+ cookie=0x0, duration=6605.126s, table=38, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,39)
+ cookie=0x0, duration=6605.126s, table=39, n_packets=0, n_bytes=0, priority=150,reg10=0x10/0x10 actions=resubmit(,40)
+ cookie=0x0, duration=6605.126s, table=39, n_packets=0, n_bytes=0, priority=150,reg10=0x2/0x3 actions=resubmit(,40)
+ cookie=0x0, duration=6605.126s, table=39, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,40)
+ cookie=0x0, duration=6605.126s, table=40, n_packets=0, n_bytes=0, priority=0 actions=drop
+ cookie=0x0, duration=6605.126s, table=41, n_packets=0, n_bytes=0, priority=0 actions=load:0->NXM_NX_REG0[],load:0->NXM_NX_REG1[],load:0->NXM_NX_REG2[],load:0->NXM_NX_REG3[],load:0->NXM_NX_REG4[],load:0->NXM_NX_REG5[],load:0->NXM_NX_REG6[],load:0->NXM_NX_REG7[],load:0->NXM_NX_REG8[],load:0->NXM_NX_REG9[],resubmit(,42)
+ cookie=0x0, duration=6605.126s, table=64, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,65)
+ cookie=0x0, duration=6605.126s, table=65, n_packets=0, n_bytes=0, priority=0 actions=drop
+```
+
+ブリッジ br-provider のフローのエントリを確認する。
+
+```sh
+ovs-ofctl dump-flows br-provider
+```
+
+```
+ cookie=0x0, duration=6612.411s, table=0, n_packets=449, n_bytes=80868, priority=0 actions=NORMAL
+```
+
+ブリッジ br-mgmt のフローのエントリを確認する。
+
+```sh
+ovs-ofctl dump-flows br-mgmt
+```
+
+```
+ cookie=0x0, duration=6617.362s, table=0, n_packets=476, n_bytes=83862, priority=0 actions=NORMAL
+```
+
+トンネルを確認する。
+
+```sh
+ovs-appctl ofproto/list-tunnels
+```
+
+```
+port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, ttl=64, csum=true)
 ```
 
 ### Compute Node
@@ -615,7 +623,7 @@ ovs-vsctl show
 ```
 
 ```
-210309a0-2cc9-4a7f-96af-960f78c1c32d
+46423187-0689-4323-afe2-2ad6d689596b
     Bridge br-mgmt
         Port eth3
             Interface eth3
@@ -623,21 +631,17 @@ ovs-vsctl show
     Bridge br-int
         fail_mode: secure
         datapath_type: system
+        Port ovn-3732c7-0
+            Interface ovn-3732c7-0
+                type: geneve
+                options: {csum="true", key=flow, remote_ip="172.16.0.11"}
         Port br-int
             Interface br-int
                 type: internal
-        Port patch-br-int-to-provnet-81e3db3d-dcce-4f30-9232-7240c8c66f77
-            Interface patch-br-int-to-provnet-81e3db3d-dcce-4f30-9232-7240c8c66f77
-                type: patch
-                options: {peer=patch-provnet-81e3db3d-dcce-4f30-9232-7240c8c66f77-to-br-int}
     Bridge br-provider
         Port eth2
             Interface eth2
                 type: system
-        Port patch-provnet-81e3db3d-dcce-4f30-9232-7240c8c66f77-to-br-int
-            Interface patch-provnet-81e3db3d-dcce-4f30-9232-7240c8c66f77-to-br-int
-                type: patch
-                options: {peer=patch-br-int-to-provnet-81e3db3d-dcce-4f30-9232-7240c8c66f77}
     ovs_version: "3.3.1"
 ```
 
@@ -649,16 +653,17 @@ ovs-dpctl show
 
 ```
 system@ovs-system:
-  lookups: hit:85 missed:59 lost:0
+  lookups: hit:355 missed:120 lost:0
   flows: 0
-  masks: hit:199 total:0 hit/pkt:1.38
-  cache: hit:52 hit-rate:36.11%
+  masks: hit:386 total:0 hit/pkt:0.81
+  cache: hit:235 hit-rate:49.47%
   caches:
     masks-cache: size:256
   port 0: ovs-system (internal)
-  port 1: eth2
-  port 2: eth3
-  port 3: br-int (internal)
+  port 1: br-int (internal)
+  port 2: genev_sys_6081 (geneve: packet_type=ptap)
+  port 3: eth2
+  port 4: eth3
 ```
 
 ブリッジ br-int のフローのエントリを確認する。
@@ -668,17 +673,20 @@ ovs-ofctl dump-flows br-int
 ```
 
 ```
- cookie=0x0, duration=303.456s, table=0, n_packets=70, n_bytes=12064, priority=0 actions=drop
- cookie=0x0, duration=303.456s, table=37, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,39)
- cookie=0x0, duration=303.457s, table=38, n_packets=0, n_bytes=0, priority=10,reg10=0x1/0x1 actions=resubmit(,40)
- cookie=0x0, duration=303.456s, table=38, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,39)
- cookie=0x0, duration=303.456s, table=39, n_packets=0, n_bytes=0, priority=150,reg10=0x2/0x3 actions=resubmit(,40)
- cookie=0x0, duration=303.456s, table=39, n_packets=0, n_bytes=0, priority=150,reg10=0x10/0x10 actions=resubmit(,40)
- cookie=0x0, duration=303.456s, table=39, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,40)
- cookie=0x0, duration=303.457s, table=40, n_packets=0, n_bytes=0, priority=0 actions=drop
- cookie=0x0, duration=303.456s, table=41, n_packets=0, n_bytes=0, priority=0 actions=load:0->NXM_NX_REG0[],load:0->NXM_NX_REG1[],load:0->NXM_NX_REG2[],load:0->NXM_NX_REG3[],load:0->NXM_NX_REG4[],load:0->NXM_NX_REG5[],load:0->NXM_NX_REG6[],load:0->NXM_NX_REG7[],load:0->NXM_NX_REG8[],load:0->NXM_NX_REG9[],resubmit(,42)
- cookie=0x0, duration=303.457s, table=64, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,65)
- cookie=0x0, duration=303.457s, table=65, n_packets=0, n_bytes=0, priority=0 actions=drop
+ cookie=0x0, duration=5256.531s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-3732c7-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
+ cookie=0x0, duration=5256.531s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-3732c7-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
+ cookie=0x0, duration=5256.531s, table=0, n_packets=0, n_bytes=0, priority=100,in_port="ovn-3732c7-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
+ cookie=0x0, duration=5256.531s, table=0, n_packets=0, n_bytes=0, priority=0 actions=drop
+ cookie=0x0, duration=5256.531s, table=37, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,39)
+ cookie=0x0, duration=5256.531s, table=38, n_packets=0, n_bytes=0, priority=10,reg10=0x1/0x1 actions=resubmit(,40)
+ cookie=0x0, duration=5256.531s, table=38, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,39)
+ cookie=0x0, duration=5256.531s, table=39, n_packets=0, n_bytes=0, priority=150,reg10=0x10/0x10 actions=resubmit(,40)
+ cookie=0x0, duration=5256.531s, table=39, n_packets=0, n_bytes=0, priority=150,reg10=0x2/0x3 actions=resubmit(,40)
+ cookie=0x0, duration=5256.531s, table=39, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,40)
+ cookie=0x0, duration=5256.531s, table=40, n_packets=0, n_bytes=0, priority=0 actions=drop
+ cookie=0x0, duration=5256.531s, table=41, n_packets=0, n_bytes=0, priority=0 actions=load:0->NXM_NX_REG0[],load:0->NXM_NX_REG1[],load:0->NXM_NX_REG2[],load:0->NXM_NX_REG3[],load:0->NXM_NX_REG4[],load:0->NXM_NX_REG5[],load:0->NXM_NX_REG6[],load:0->NXM_NX_REG7[],load:0->NXM_NX_REG8[],load:0->NXM_NX_REG9[],resubmit(,42)
+ cookie=0x0, duration=5256.531s, table=64, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,65)
+ cookie=0x0, duration=5256.531s, table=65, n_packets=0, n_bytes=0, priority=0 actions=drop
 ```
 
 ブリッジ br-provider のフローのエントリを確認する。
@@ -688,7 +696,7 @@ ovs-ofctl dump-flows br-provider
 ```
 
 ```
- cookie=0x0, duration=319.867s, table=0, n_packets=70, n_bytes=12064, priority=0 actions=NORMAL
+ cookie=0x0, duration=5264.915s, table=0, n_packets=224, n_bytes=41858, priority=0 actions=NORMAL
 ```
 
 ブリッジ br-mgmt のフローのエントリを確認する。
@@ -698,7 +706,17 @@ ovs-ofctl dump-flows br-mgmt
 ```
 
 ```
- cookie=0x0, duration=327.811s, table=0, n_packets=74, n_bytes=12232, priority=0 actions=NORMAL
+ cookie=0x0, duration=5270.046s, table=0, n_packets=251, n_bytes=44900, priority=0 actions=NORMAL
+```
+
+トンネルを確認する。
+
+```sh
+ovs-appctl ofproto/list-tunnels
+```
+
+```
+port 2: ovn-3732c7-0 (geneve: ::->172.16.0.11, key=flow, legacy_l2, dp port=2, ttl=64, csum=true)
 ```
 
 ## サブネットの作成
@@ -727,26 +745,26 @@ openstack subnet create \
 +----------------------+--------------------------------------+
 | allocation_pools     | 172.16.0.100-172.16.0.199            |
 | cidr                 | 172.16.0.0/24                        |
-| created_at           | 2024-05-25T00:55:24Z                 |
+| created_at           | 2024-06-04T13:52:45Z                 |
 | description          |                                      |
 | dns_nameservers      |                                      |
 | dns_publish_fixed_ip | None                                 |
 | enable_dhcp          | True                                 |
 | gateway_ip           | 172.16.0.254                         |
 | host_routes          |                                      |
-| id                   | c2616a6d-bb5d-48b6-b80f-284954a3b7b5 |
+| id                   | be32ef49-5ab1-4ba7-ab26-9518dc2b063f |
 | ip_version           | 4                                    |
 | ipv6_address_mode    | None                                 |
 | ipv6_ra_mode         | None                                 |
 | name                 | provider                             |
-| network_id           | ec6ba68e-47d4-4ece-a233-718a902e68e6 |
+| network_id           | a6370456-5bb9-4dde-8b73-3fe5ba0c414a |
 | project_id           | be94f4411bd74f249f5e25f642209b82     |
 | revision_number      | 0                                    |
 | segment_id           | None                                 |
 | service_types        |                                      |
 | subnetpool_id        | None                                 |
 | tags                 |                                      |
-| updated_at           | 2024-05-25T00:55:24Z                 |
+| updated_at           | 2024-06-04T13:52:45Z                 |
 +----------------------+--------------------------------------+
 ```
 
@@ -760,12 +778,12 @@ openstack port list
 +--------------------------------------+------+-------------------+-----------------------------------------------------------------------------+--------+
 | ID                                   | Name | MAC Address       | Fixed IP Addresses                                                          | Status |
 +--------------------------------------+------+-------------------+-----------------------------------------------------------------------------+--------+
-| 9241e97d-8312-471c-9765-48f657442262 |      | fa:16:3e:ee:57:9a | ip_address='172.16.0.100', subnet_id='c2616a6d-bb5d-48b6-b80f-284954a3b7b5' | DOWN   |
+| 465fdd06-6fa7-4fb9-8d66-35595337ff6a |      | fa:16:3e:61:51:6f | ip_address='172.16.0.100', subnet_id='be32ef49-5ab1-4ba7-ab26-9518dc2b063f' | DOWN   |
 +--------------------------------------+------+-------------------+-----------------------------------------------------------------------------+--------+
 ```
 
 ```sh
-openstack port show 9241e97d-8312-471c-9765-48f657442262
+openstack port show 465fdd06-6fa7-4fb9-8d66-35595337ff6a
 ```
 
 ```
@@ -779,24 +797,24 @@ openstack port show 9241e97d-8312-471c-9765-48f657442262
 | binding_vif_details     |                                                                             |
 | binding_vif_type        | unbound                                                                     |
 | binding_vnic_type       | normal                                                                      |
-| created_at              | 2024-05-25T00:24:06Z                                                        |
+| created_at              | 2024-06-04T13:32:13Z                                                        |
 | data_plane_status       | None                                                                        |
 | description             |                                                                             |
-| device_id               | ovnmeta-ec6ba68e-47d4-4ece-a233-718a902e68e6                                |
+| device_id               | ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a                                |
 | device_owner            | network:distributed                                                         |
 | device_profile          | None                                                                        |
 | dns_assignment          | None                                                                        |
 | dns_domain              | None                                                                        |
 | dns_name                | None                                                                        |
 | extra_dhcp_opts         |                                                                             |
-| fixed_ips               | ip_address='172.16.0.100', subnet_id='c2616a6d-bb5d-48b6-b80f-284954a3b7b5' |
+| fixed_ips               | ip_address='172.16.0.100', subnet_id='be32ef49-5ab1-4ba7-ab26-9518dc2b063f' |
 | hardware_offload_type   | None                                                                        |
 | hints                   |                                                                             |
-| id                      | 9241e97d-8312-471c-9765-48f657442262                                        |
+| id                      | 465fdd06-6fa7-4fb9-8d66-35595337ff6a                                        |
 | ip_allocation           | None                                                                        |
-| mac_address             | fa:16:3e:ee:57:9a                                                           |
+| mac_address             | fa:16:3e:61:51:6f                                                           |
 | name                    |                                                                             |
-| network_id              | ec6ba68e-47d4-4ece-a233-718a902e68e6                                        |
+| network_id              | a6370456-5bb9-4dde-8b73-3fe5ba0c414a                                        |
 | numa_affinity_policy    | None                                                                        |
 | port_security_enabled   | False                                                                       |
 | project_id              | be94f4411bd74f249f5e25f642209b82                                            |
@@ -809,7 +827,7 @@ openstack port show 9241e97d-8312-471c-9765-48f657442262
 | status                  | DOWN                                                                        |
 | tags                    |                                                                             |
 | trunk_details           | None                                                                        |
-| updated_at              | 2024-05-25T00:55:25Z                                                        |
+| updated_at              | 2024-06-04T13:52:45Z                                                        |
 +-------------------------+-----------------------------------------------------------------------------+
 ```
 
@@ -830,7 +848,25 @@ ovn-nbctl list Logical_Switch_Port
 ```
 
 ```
-_uuid               : f4e9a1f0-e912-4158-9030-be3c8a238795
+_uuid               : 85fb967c-89c3-49ac-970d-f1c008cfa476
+addresses           : ["fa:16:3e:61:51:6f 172.16.0.100"]
+dhcpv4_options      : []
+dhcpv6_options      : []
+dynamic_addresses   : []
+enabled             : true
+external_ids        : {"neutron:cidrs"="172.16.0.100/24", "neutron:device_id"=ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a, "neutron:device_owner"="network:distributed", "neutron:mtu"="", "neutron:network_name"=neutron-a6370456-5bb9-4dde-8b73-3fe5ba0c414a, "neutron:port_capabilities"="", "neutron:port_name"="", "neutron:project_id"=be94f4411bd74f249f5e25f642209b82, "neutron:revision_number"="2", "neutron:security_group_ids"="", "neutron:subnet_pool_addr_scope4"="", "neutron:subnet_pool_addr_scope6"="", "neutron:vnic_type"=normal}
+ha_chassis_group    : []
+mirror_rules        : []
+name                : "465fdd06-6fa7-4fb9-8d66-35595337ff6a"
+options             : {}
+parent_name         : []
+port_security       : []
+tag                 : []
+tag_request         : []
+type                : localport
+up                  : false
+
+_uuid               : 6679b27b-68b5-42e6-9053-2dd493b252d9
 addresses           : [unknown]
 dhcpv4_options      : []
 dhcpv6_options      : []
@@ -839,31 +875,13 @@ enabled             : []
 external_ids        : {}
 ha_chassis_group    : []
 mirror_rules        : []
-name                : provnet-698fbbf6-da6f-4d59-8259-60d87eb5e697
+name                : provnet-ac334841-8877-453f-91de-38264a45b3bf
 options             : {localnet_learn_fdb="false", mcast_flood="false", mcast_flood_reports="true", network_name=provider}
 parent_name         : []
 port_security       : []
 tag                 : []
 tag_request         : []
 type                : localnet
-up                  : false
-
-_uuid               : 769582de-9c0f-406b-9dbe-70d5f5204934
-addresses           : ["fa:16:3e:ee:57:9a 172.16.0.100"]
-dhcpv4_options      : []
-dhcpv6_options      : []
-dynamic_addresses   : []
-enabled             : true
-external_ids        : {"neutron:cidrs"="172.16.0.100/24", "neutron:device_id"=ovnmeta-ec6ba68e-47d4-4ece-a233-718a902e68e6, "neutron:device_owner"="network:distributed", "neutron:mtu"="", "neutron:network_name"=neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6, "neutron:port_capabilities"="", "neutron:port_name"="", "neutron:project_id"=be94f4411bd74f249f5e25f642209b82, "neutron:revision_number"="2", "neutron:security_group_ids"="", "neutron:subnet_pool_addr_scope4"="", "neutron:subnet_pool_addr_scope6"="", "neutron:vnic_type"=normal}
-ha_chassis_group    : []
-mirror_rules        : []
-name                : "9241e97d-8312-471c-9765-48f657442262"
-options             : {}
-parent_name         : []
-port_security       : []
-tag                 : []
-tag_request         : []
-type                : localport
 up                  : false
 ```
 
@@ -876,7 +894,7 @@ ovn-sbctl lflow-list
 ```
 
 ```
-Datapath: "neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6" aka "provider" (fa81dc7d-3704-41ab-9e5b-266d1fddcfba)  Pipeline: ingress
+Datapath: "neutron-a6370456-5bb9-4dde-8b73-3fe5ba0c414a" aka "provider" (a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe)  Pipeline: ingress
   table=0 (ls_in_check_port_sec), priority=110  , match=(((ip4 && icmp4.type == 3 && icmp4.code == 4) || (ip6 && icmp6.type == 2 && icmp6.code == 0)) && flags.tunnel_rx == 1), action=(drop;)
   table=0 (ls_in_check_port_sec), priority=100  , match=(eth.src[40]), action=(drop;)
   table=0 (ls_in_check_port_sec), priority=100  , match=(vlan.present), action=(drop;)
@@ -889,7 +907,7 @@ Datapath: "neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6" aka "provider" (fa81dc7
   table=4 (ls_in_pre_acl      ), priority=0    , match=(1), action=(next;)
   table=5 (ls_in_pre_lb       ), priority=110  , match=(eth.dst == $svc_monitor_mac), action=(next;)
   table=5 (ls_in_pre_lb       ), priority=110  , match=(eth.mcast), action=(next;)
-  table=5 (ls_in_pre_lb       ), priority=110  , match=(ip && inport == "provnet-698fbbf6-da6f-4d59-8259-60d87eb5e697"), action=(next;)
+  table=5 (ls_in_pre_lb       ), priority=110  , match=(ip && inport == "provnet-ac334841-8877-453f-91de-38264a45b3bf"), action=(next;)
   table=5 (ls_in_pre_lb       ), priority=110  , match=(nd || nd_rs || nd_ra || mldv1 || mldv2), action=(next;)
   table=5 (ls_in_pre_lb       ), priority=110  , match=(reg0[16] == 1), action=(next;)
   table=5 (ls_in_pre_lb       ), priority=0    , match=(1), action=(next;)
@@ -914,9 +932,9 @@ Datapath: "neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6" aka "provider" (fa81dc7
   table=20(ls_in_stateful     ), priority=100  , match=(reg0[1] == 1 && reg0[13] == 0), action=(ct_commit { ct_mark.blocked = 0; }; next;)
   table=20(ls_in_stateful     ), priority=100  , match=(reg0[1] == 1 && reg0[13] == 1), action=(ct_commit { ct_mark.blocked = 0; ct_label.label = reg3; }; next;)
   table=20(ls_in_stateful     ), priority=0    , match=(1), action=(next;)
-  table=21(ls_in_arp_rsp      ), priority=100  , match=(arp.tpa == 172.16.0.100 && arp.op == 1 && inport == "9241e97d-8312-471c-9765-48f657442262"), action=(next;)
-  table=21(ls_in_arp_rsp      ), priority=100  , match=(inport == "provnet-698fbbf6-da6f-4d59-8259-60d87eb5e697"), action=(next;)
-  table=21(ls_in_arp_rsp      ), priority=50   , match=(arp.tpa == 172.16.0.100 && arp.op == 1), action=(eth.dst = eth.src; eth.src = fa:16:3e:ee:57:9a; arp.op = 2; /* ARP reply */ arp.tha = arp.sha; arp.sha = fa:16:3e:ee:57:9a; arp.tpa = arp.spa; arp.spa = 172.16.0.100; outport = inport; flags.loopback = 1; output;)
+  table=21(ls_in_arp_rsp      ), priority=100  , match=(arp.tpa == 172.16.0.100 && arp.op == 1 && inport == "465fdd06-6fa7-4fb9-8d66-35595337ff6a"), action=(next;)
+  table=21(ls_in_arp_rsp      ), priority=100  , match=(inport == "provnet-ac334841-8877-453f-91de-38264a45b3bf"), action=(next;)
+  table=21(ls_in_arp_rsp      ), priority=50   , match=(arp.tpa == 172.16.0.100 && arp.op == 1), action=(eth.dst = eth.src; eth.src = fa:16:3e:61:51:6f; arp.op = 2; /* ARP reply */ arp.tha = arp.sha; arp.sha = fa:16:3e:61:51:6f; arp.tpa = arp.spa; arp.spa = 172.16.0.100; outport = inport; flags.loopback = 1; output;)
   table=21(ls_in_arp_rsp      ), priority=0    , match=(1), action=(next;)
   table=22(ls_in_dhcp_options ), priority=0    , match=(1), action=(next;)
   table=23(ls_in_dhcp_response), priority=0    , match=(1), action=(next;)
@@ -925,16 +943,16 @@ Datapath: "neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6" aka "provider" (fa81dc7
   table=26(ls_in_external_port), priority=0    , match=(1), action=(next;)
   table=27(ls_in_l2_lkup      ), priority=110  , match=(eth.dst == $svc_monitor_mac && (tcp || icmp || icmp6)), action=(handle_svc_check(inport);)
   table=27(ls_in_l2_lkup      ), priority=70   , match=(eth.mcast), action=(outport = "_MC_flood"; output;)
-  table=27(ls_in_l2_lkup      ), priority=50   , match=(eth.dst == fa:16:3e:ee:57:9a), action=(outport = "9241e97d-8312-471c-9765-48f657442262"; output;)
+  table=27(ls_in_l2_lkup      ), priority=50   , match=(eth.dst == fa:16:3e:61:51:6f), action=(outport = "465fdd06-6fa7-4fb9-8d66-35595337ff6a"; output;)
   table=27(ls_in_l2_lkup      ), priority=0    , match=(1), action=(outport = get_fdb(eth.dst); next;)
   table=28(ls_in_l2_unknown   ), priority=50   , match=(outport == "none"), action=(outport = "_MC_unknown"; output;)
   table=28(ls_in_l2_unknown   ), priority=0    , match=(1), action=(output;)
-Datapath: "neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6" aka "provider" (fa81dc7d-3704-41ab-9e5b-266d1fddcfba)  Pipeline: egress
+Datapath: "neutron-a6370456-5bb9-4dde-8b73-3fe5ba0c414a" aka "provider" (a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe)  Pipeline: egress
   table=0 (ls_out_pre_acl     ), priority=110  , match=(eth.src == $svc_monitor_mac), action=(next;)
   table=0 (ls_out_pre_acl     ), priority=0    , match=(1), action=(next;)
   table=1 (ls_out_pre_lb      ), priority=110  , match=(eth.mcast), action=(next;)
   table=1 (ls_out_pre_lb      ), priority=110  , match=(eth.src == $svc_monitor_mac), action=(next;)
-  table=1 (ls_out_pre_lb      ), priority=110  , match=(ip && outport == "provnet-698fbbf6-da6f-4d59-8259-60d87eb5e697"), action=(ct_clear; next;)
+  table=1 (ls_out_pre_lb      ), priority=110  , match=(ip && outport == "provnet-ac334841-8877-453f-91de-38264a45b3bf"), action=(ct_clear; next;)
   table=1 (ls_out_pre_lb      ), priority=110  , match=(nd || nd_rs || nd_ra || mldv1 || mldv2), action=(next;)
   table=1 (ls_out_pre_lb      ), priority=110  , match=(reg0[16] == 1), action=(next;)
   table=1 (ls_out_pre_lb      ), priority=0    , match=(1), action=(next;)
@@ -963,17 +981,17 @@ ovn-sbctl list Port_Binding
 ```
 
 ```
-_uuid               : 856a3a05-69a1-4a7a-93a3-2d150b5cf40d
+_uuid               : 479775c9-8632-4e1c-b6c2-5562759e4fb5
 additional_chassis  : []
 additional_encap    : []
 chassis             : []
-datapath            : fa81dc7d-3704-41ab-9e5b-266d1fddcfba
+datapath            : a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe
 encap               : []
-external_ids        : {"neutron:cidrs"="172.16.0.100/24", "neutron:device_id"=ovnmeta-ec6ba68e-47d4-4ece-a233-718a902e68e6, "neutron:device_owner"="network:distributed", "neutron:mtu"="", "neutron:network_name"=neutron-ec6ba68e-47d4-4ece-a233-718a902e68e6, "neutron:port_capabilities"="", "neutron:port_name"="", "neutron:project_id"=be94f4411bd74f249f5e25f642209b82, "neutron:revision_number"="2", "neutron:security_group_ids"="", "neutron:subnet_pool_addr_scope4"="", "neutron:subnet_pool_addr_scope6"="", "neutron:vnic_type"=normal}
+external_ids        : {"neutron:cidrs"="172.16.0.100/24", "neutron:device_id"=ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a, "neutron:device_owner"="network:distributed", "neutron:mtu"="", "neutron:network_name"=neutron-a6370456-5bb9-4dde-8b73-3fe5ba0c414a, "neutron:port_capabilities"="", "neutron:port_name"="", "neutron:project_id"=be94f4411bd74f249f5e25f642209b82, "neutron:revision_number"="2", "neutron:security_group_ids"="", "neutron:subnet_pool_addr_scope4"="", "neutron:subnet_pool_addr_scope6"="", "neutron:vnic_type"=normal}
 gateway_chassis     : []
 ha_chassis_group    : []
-logical_port        : "9241e97d-8312-471c-9765-48f657442262"
-mac                 : ["fa:16:3e:ee:57:9a 172.16.0.100"]
+logical_port        : "465fdd06-6fa7-4fb9-8d66-35595337ff6a"
+mac                 : ["fa:16:3e:61:51:6f 172.16.0.100"]
 mirror_rules        : []
 nat_addresses       : []
 options             : {}
@@ -987,16 +1005,16 @@ type                : localport
 up                  : false
 virtual_parent      : []
 
-_uuid               : 3c1e627e-3849-4a58-9d23-8db1a7288f6f
+_uuid               : 9e39cafe-0eb6-461b-92c2-e7f699e9963b
 additional_chassis  : []
 additional_encap    : []
 chassis             : []
-datapath            : fa81dc7d-3704-41ab-9e5b-266d1fddcfba
+datapath            : a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe
 encap               : []
 external_ids        : {}
 gateway_chassis     : []
 ha_chassis_group    : []
-logical_port        : provnet-698fbbf6-da6f-4d59-8259-60d87eb5e697
+logical_port        : provnet-ac334841-8877-453f-91de-38264a45b3bf
 mac                 : [unknown]
 mirror_rules        : []
 nat_addresses       : []
@@ -1014,55 +1032,32 @@ virtual_parent      : []
 
 #### Open vSwitch
 
-Open vSwitch にブリッジは作成されない。
+ブリッジを確認する。
 
 ```sh
 ovs-vsctl show
 ```
 
 ```
-f6d63fd3-3bf4-45eb-afc6-603984ff8667
-    ovs_version: "3.3.1"
-```
-
-### Compute Node
-
-#### ネットワーク名前空間
-
-ネットワーク名前空間は作成されない。
-
-### Open vSwitch
-
-ブリッジの構成を確認する。
-
-```sh
-ovs-vsctl show
-```
-
-```
-210309a0-2cc9-4a7f-96af-960f78c1c32d
-    Bridge br-mgmt
-        Port eth3
-            Interface eth3
-                type: system
+9869c49f-a522-47dc-a744-bf85afff8b76
     Bridge br-int
         fail_mode: secure
         datapath_type: system
+        Port ovn-32a2f4-0
+            Interface ovn-32a2f4-0
+                type: geneve
+                options: {csum="true", key=flow, remote_ip="172.16.0.31"}
         Port br-int
             Interface br-int
                 type: internal
-        Port patch-br-int-to-provnet-81e3db3d-dcce-4f30-9232-7240c8c66f77
-            Interface patch-br-int-to-provnet-81e3db3d-dcce-4f30-9232-7240c8c66f77
-                type: patch
-                options: {peer=patch-provnet-81e3db3d-dcce-4f30-9232-7240c8c66f77-to-br-int}
     Bridge br-provider
         Port eth2
             Interface eth2
                 type: system
-        Port patch-provnet-81e3db3d-dcce-4f30-9232-7240c8c66f77-to-br-int
-            Interface patch-provnet-81e3db3d-dcce-4f30-9232-7240c8c66f77-to-br-int
-                type: patch
-                options: {peer=patch-br-int-to-provnet-81e3db3d-dcce-4f30-9232-7240c8c66f77}
+    Bridge br-mgmt
+        Port eth3
+            Interface eth3
+                type: system
     ovs_version: "3.3.1"
 ```
 
@@ -1074,16 +1069,17 @@ ovs-dpctl show
 
 ```
 system@ovs-system:
-  lookups: hit:285 missed:178 lost:0
+  lookups: hit:702 missed:318 lost:0
   flows: 0
-  masks: hit:614 total:0 hit/pkt:1.33
-  cache: hit:167 hit-rate:36.07%
+  masks: hit:1091 total:0 hit/pkt:1.07
+  cache: hit:405 hit-rate:39.71%
   caches:
     masks-cache: size:256
   port 0: ovs-system (internal)
-  port 1: eth2
-  port 2: eth3
-  port 3: br-int (internal)
+  port 1: br-int (internal)
+  port 2: eth2
+  port 3: eth3
+  port 4: genev_sys_6081 (geneve: packet_type=ptap)
 ```
 
 ブリッジ br-int のフローのエントリを確認する。
@@ -1093,17 +1089,20 @@ ovs-ofctl dump-flows br-int
 ```
 
 ```
- cookie=0x0, duration=1310.422s, table=0, n_packets=225, n_bytes=38458, priority=0 actions=drop
- cookie=0x0, duration=1310.422s, table=37, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,39)
- cookie=0x0, duration=1310.423s, table=38, n_packets=0, n_bytes=0, priority=10,reg10=0x1/0x1 actions=resubmit(,40)
- cookie=0x0, duration=1310.422s, table=38, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,39)
- cookie=0x0, duration=1310.422s, table=39, n_packets=0, n_bytes=0, priority=150,reg10=0x2/0x3 actions=resubmit(,40)
- cookie=0x0, duration=1310.422s, table=39, n_packets=0, n_bytes=0, priority=150,reg10=0x10/0x10 actions=resubmit(,40)
- cookie=0x0, duration=1310.422s, table=39, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,40)
- cookie=0x0, duration=1310.423s, table=40, n_packets=0, n_bytes=0, priority=0 actions=drop
- cookie=0x0, duration=1310.422s, table=41, n_packets=0, n_bytes=0, priority=0 actions=load:0->NXM_NX_REG0[],load:0->NXM_NX_REG1[],load:0->NXM_NX_REG2[],load:0->NXM_NX_REG3[],load:0->NXM_NX_REG4[],load:0->NXM_NX_REG5[],load:0->NXM_NX_REG6[],load:0->NXM_NX_REG7[],load:0->NXM_NX_REG8[],load:0->NXM_NX_REG9[],resubmit(,42)
- cookie=0x0, duration=1310.423s, table=64, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,65)
- cookie=0x0, duration=1310.423s, table=65, n_packets=0, n_bytes=0, priority=0 actions=drop
+ cookie=0x0, duration=6026.434s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-32a2f4-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
+ cookie=0x0, duration=6026.434s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-32a2f4-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
+ cookie=0x0, duration=6026.434s, table=0, n_packets=0, n_bytes=0, priority=100,in_port="ovn-32a2f4-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
+ cookie=0x0, duration=7507.217s, table=0, n_packets=0, n_bytes=0, priority=0 actions=drop
+ cookie=0x0, duration=7507.217s, table=37, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,39)
+ cookie=0x0, duration=7507.217s, table=38, n_packets=0, n_bytes=0, priority=10,reg10=0x1/0x1 actions=resubmit(,40)
+ cookie=0x0, duration=7507.217s, table=38, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,39)
+ cookie=0x0, duration=7507.217s, table=39, n_packets=0, n_bytes=0, priority=150,reg10=0x10/0x10 actions=resubmit(,40)
+ cookie=0x0, duration=7507.217s, table=39, n_packets=0, n_bytes=0, priority=150,reg10=0x2/0x3 actions=resubmit(,40)
+ cookie=0x0, duration=7507.217s, table=39, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,40)
+ cookie=0x0, duration=7507.217s, table=40, n_packets=0, n_bytes=0, priority=0 actions=drop
+ cookie=0x0, duration=7507.217s, table=41, n_packets=0, n_bytes=0, priority=0 actions=load:0->NXM_NX_REG0[],load:0->NXM_NX_REG1[],load:0->NXM_NX_REG2[],load:0->NXM_NX_REG3[],load:0->NXM_NX_REG4[],load:0->NXM_NX_REG5[],load:0->NXM_NX_REG6[],load:0->NXM_NX_REG7[],load:0->NXM_NX_REG8[],load:0->NXM_NX_REG9[],resubmit(,42)
+ cookie=0x0, duration=7507.217s, table=64, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,65)
+ cookie=0x0, duration=7507.217s, table=65, n_packets=0, n_bytes=0, priority=0 actions=drop
 ```
 
 ブリッジ br-provider のフローのエントリを確認する。
@@ -1113,7 +1112,7 @@ ovs-ofctl dump-flows br-provider
 ```
 
 ```
- cookie=0x0, duration=1325.642s, table=0, n_packets=225, n_bytes=38458, priority=0 actions=NORMAL
+ cookie=0x0, duration=7516.579s, table=0, n_packets=494, n_bytes=88698, priority=0 actions=NORMAL
 ```
 
 ブリッジ br-mgmt のフローのエントリを確認する。
@@ -1123,5 +1122,126 @@ ovs-ofctl dump-flows br-mgmt
 ```
 
 ```
- cookie=0x0, duration=1338.942s, table=0, n_packets=242, n_bytes=40532, priority=0 actions=NORMAL
+ cookie=0x0, duration=7519.684s, table=0, n_packets=534, n_bytes=93270, priority=0 actions=NORMAL
+```
+
+トンネルを確認する。
+
+```sh
+ovs-appctl ofproto/list-tunnels
+```
+
+```
+port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, ttl=64, csum=true)
+```
+
+### Compute Node
+
+#### ネットワーク名前空間
+
+ネットワーク名前空間は作成されない。
+
+#### Open vSwitch
+
+ブリッジの構成を確認する。
+
+```sh
+ovs-vsctl show
+```
+
+```
+46423187-0689-4323-afe2-2ad6d689596b
+    Bridge br-mgmt
+        Port eth3
+            Interface eth3
+                type: system
+    Bridge br-int
+        fail_mode: secure
+        datapath_type: system
+        Port ovn-3732c7-0
+            Interface ovn-3732c7-0
+                type: geneve
+                options: {csum="true", key=flow, remote_ip="172.16.0.11"}
+        Port br-int
+            Interface br-int
+                type: internal
+    Bridge br-provider
+        Port eth2
+            Interface eth2
+                type: system
+    ovs_version: "3.3.1"
+```
+
+データパスを確認する。
+
+```sh
+ovs-dpctl show
+```
+
+```
+system@ovs-system:
+  lookups: hit:430 missed:140 lost:0
+  flows: 0
+  masks: hit:472 total:0 hit/pkt:0.83
+  cache: hit:287 hit-rate:50.35%
+  caches:
+    masks-cache: size:256
+  port 0: ovs-system (internal)
+  port 1: br-int (internal)
+  port 2: genev_sys_6081 (geneve: packet_type=ptap)
+  port 3: eth2
+  port 4: eth3
+```
+
+ブリッジ br-int のフローのエントリを確認する。
+
+```sh
+ovs-ofctl dump-flows br-int
+```
+
+```
+ cookie=0x0, duration=6125.341s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-3732c7-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
+ cookie=0x0, duration=6125.341s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-3732c7-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
+ cookie=0x0, duration=6125.341s, table=0, n_packets=0, n_bytes=0, priority=100,in_port="ovn-3732c7-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
+ cookie=0x0, duration=6125.341s, table=0, n_packets=0, n_bytes=0, priority=0 actions=drop
+ cookie=0x0, duration=6125.341s, table=37, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,39)
+ cookie=0x0, duration=6125.341s, table=38, n_packets=0, n_bytes=0, priority=10,reg10=0x1/0x1 actions=resubmit(,40)
+ cookie=0x0, duration=6125.341s, table=38, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,39)
+ cookie=0x0, duration=6125.341s, table=39, n_packets=0, n_bytes=0, priority=150,reg10=0x10/0x10 actions=resubmit(,40)
+ cookie=0x0, duration=6125.341s, table=39, n_packets=0, n_bytes=0, priority=150,reg10=0x2/0x3 actions=resubmit(,40)
+ cookie=0x0, duration=6125.341s, table=39, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,40)
+ cookie=0x0, duration=6125.341s, table=40, n_packets=0, n_bytes=0, priority=0 actions=drop
+ cookie=0x0, duration=6125.341s, table=41, n_packets=0, n_bytes=0, priority=0 actions=load:0->NXM_NX_REG0[],load:0->NXM_NX_REG1[],load:0->NXM_NX_REG2[],load:0->NXM_NX_REG3[],load:0->NXM_NX_REG4[],load:0->NXM_NX_REG5[],load:0->NXM_NX_REG6[],load:0->NXM_NX_REG7[],load:0->NXM_NX_REG8[],load:0->NXM_NX_REG9[],resubmit(,42)
+ cookie=0x0, duration=6125.341s, table=64, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,65)
+ cookie=0x0, duration=6125.341s, table=65, n_packets=0, n_bytes=0, priority=0 actions=drop
+```
+
+ブリッジ br-provider のフローのエントリを確認する。
+
+```sh
+ovs-ofctl dump-flows br-provider
+```
+
+```
+ cookie=0x0, duration=6132.919s, table=0, n_packets=268, n_bytes=49471, priority=0 actions=NORMAL
+```
+
+ブリッジ br-mgmt のフローのエントリを確認する。
+
+```sh
+ovs-ofctl dump-flows br-mgmt
+```
+
+```
+ cookie=0x0, duration=6142.187s, table=0, n_packets=309, n_bytes=54308, priority=0 actions=NORMAL
+```
+
+トンネルを確認する。
+
+```sh
+ovs-appctl ofproto/list-tunnels
+```
+
+```
+port 2: ovn-3732c7-0 (geneve: ::->172.16.0.11, key=flow, legacy_l2, dp port=2, ttl=64, csum=true)
 ```

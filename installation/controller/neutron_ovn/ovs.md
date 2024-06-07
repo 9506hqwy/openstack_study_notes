@@ -1,5 +1,11 @@
 # Open vSwitch の設定
 
+```{warning}
+unix socket を使用するとエラーが発生する。
+
+Unable to open stream to unix:/var/run/openvswitch/db.sock to retrieve schema: Permission denied
+```
+
 ovsdb に外部から接続するため起動時のオプションを設定する。
 
 ```sh
@@ -31,10 +37,9 @@ firewall-cmd --permanent --zone=internal --add-port=6642/tcp
 firewall-cmd --reload
 ```
 
-```{warning}
-Gateway_Chassis が空になるため L3 ルータポートが起動しない。
-以降は再確認。
-```
+## Gateway Chassis の設定
+
+Gateway Node として Controller Node を使用する。
 
 Southbound データベースに接続する。
 
@@ -48,6 +53,13 @@ ovs-vsctl set open . external-ids:ovn-remote=tcp:127.0.0.1:6642
 ovs-vsctl set open . external-ids:ovn-encap-type=geneve
 ```
 
+geneve プロトコル用のファイアウォールを開ける。
+
+```sh
+firewall-cmd --permanent --zone=public --add-port=6081/udp
+firewall-cmd --reload
+```
+
 トンネルに使用する IP アドレスを指定する。
 
 ```sh
@@ -59,4 +71,3 @@ Controller Node を OVS のゲートウェイとして設定する。
 ```sh
 ovs-vsctl set open . external-ids:ovn-cms-options=enable-chassis-as-gw
 ```
-
