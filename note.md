@@ -21,13 +21,15 @@ systemctl restart openstack-nova-compute
 
 参考: [libvirt: use 'host-passthrough' as default on AArch64](https://opendev.org/openstack/nova/commit/8bc7b950b7c0a3c80cdd120fe4df97c14848c344)
 
-## ゲストOSが起動しない
+## ゲストOSの画面が表示できない
 
-aarch64 アーキテクチャで QEMU を使用してインスタンスを作成すると下記のエラーでゲスト OS が起動しない。
+aarch64 アーキテクチャで QEMU を使用してインスタンスを作成すると cockpit のコンソールには下記のエラーでゲスト OS の画面が表示できない。
 
 ```
 Guest has not initialized the display (yet).
 ```
+
+`virsh console` コマンドで起動プロセスが確認できる。
 
 ## SELinux の設定
 

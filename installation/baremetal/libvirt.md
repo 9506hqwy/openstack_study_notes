@@ -156,6 +156,10 @@ virsh pool-autostart default
 
 仮想ベアメタルノードとして使用するインスタンスを作成する。
 
+`--os-variant` の値は `osinfo-query os` コマンドの実行結果から取得する。
+
+### PXE
+
 ```sh
 virsh vol-create-as default node01.qcow2 10GiB --format qcow2
 virt-install \
@@ -175,4 +179,105 @@ virt-install \
 
 ```sh
 virsh destroy 1
+```
+
+### ISO
+
+```sh
+virsh vol-create-as default node01.qcow2 16GiB --format qcow2
+virt-install \
+    --name node01 \
+    --vcpu 2 \
+    --cpu host-passthrough \
+    --memory 4096 \
+    --os-variant centos-stream9 \
+    --disk /var/lib/libvirt/images/node01.qcow2,bus=virtio \
+    --network network=default,model=virtio \
+    --graphics vnc,listen=0.0.0.0 \
+    --virt-type kvm \
+    --cdrom /mnt/CentOS-Stream-9-latest-aarch64-dvd1.iso \
+    --noautoconsole
+```
+
+コンソールでインストールした後に停止する。
+
+```sh
+virsh destroy 1
+```
+
+### kickstart
+
+```sh
+virsh vol-create-as default node01.qcow2 16GiB --format qcow2
+virt-install \
+    --name node01 \
+    --vcpu 2 \
+    --cpu host-passthrough \
+    --memory 4096 \
+    --os-variant centos-stream9 \
+    --disk /var/lib/libvirt/images/node01.qcow2,bus=virtio \
+    --network network=default,model=virtio \
+    --graphics vnc,listen=0.0.0.0 \
+    --virt-type kvm \
+    --location /mnt/CentOS-Stream-9-latest-aarch64-dvd1.iso \
+    --initrd-inject /root/ks.cfg \
+    --extra-args="inst.ks=file:/ks.cfg" \
+    --noautoconsole
+```
+
+インストールが完了した後に停止する。
+
+```sh
+virsh destroy 1
+```
+
+*/root/ks.cfg* は以下を用意する。
+ファイルの内容については [パート IV. キックスタートの参照](https://docs.redhat.com/ja/documentation/red_hat_enterprise_linux/9/html/performing_an_advanced_rhel_9_installation/kickstart_references) を参照する。
+
+```
+# Use CDROM installation media
+cdrom
+
+# Use text installation
+text
+
+# Select install disk
+ignoredisk --only-use=vda
+
+# Do not use X
+skipx
+
+# System language
+lang ja_JP.UTF-8
+
+# Keyboard layouts
+keyboard --xlayouts='jp'
+
+# System timezone
+timezone Asia/Tokyo --utc
+
+# Network
+network --hostname=localhost.localdomain
+network --bootproto=dhcp --device=enp1s0 --activate
+
+# Partition layout
+clearpart --drives=vda --all
+zerombr
+autopart --type=plain --fstype=xfs
+
+# Root password
+rootpw --plaintext --allow-ssh centos9
+
+# Reboot after installation
+reboot
+
+# Enable kdump
+%addon com_redhat_kdump --enable --reserve-mb='auto'
+%end
+
+# Install packages
+%packages
+@^minimal-environment
+qemu-guest-agent
+%end
 ```
