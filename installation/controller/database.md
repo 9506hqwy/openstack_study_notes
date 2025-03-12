@@ -43,7 +43,7 @@ mysql_secure_installation
 
 対話形式で以下を回答する。
 
-```
+```text
 NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
       SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
 

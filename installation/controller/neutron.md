@@ -24,7 +24,7 @@ GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'%' IDENTIFIED BY '7d58a6544954d3
 openstack user create --domain default --password 76283d854fd24b78f90b neutron
 ```
 
-```
+```text
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
@@ -51,7 +51,7 @@ neutron サービスを作成する。
 openstack service create --name neutron --description "Networking" network
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -71,7 +71,7 @@ API エンドポイントを作成する。
 openstack endpoint create --region RegionOne network public http://controller:9696
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -91,7 +91,7 @@ openstack endpoint create --region RegionOne network public http://controller:96
 openstack endpoint create --region RegionOne network internal http://controller:9696
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -111,7 +111,7 @@ openstack endpoint create --region RegionOne network internal http://controller:
 openstack endpoint create --region RegionOne network admin http://controller:9696
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+

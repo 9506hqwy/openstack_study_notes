@@ -29,7 +29,7 @@ openstack server create \
     instance02
 ```
 
-```
+```text
 +--------------------------------------+--------------------------------------------------+
 | Field                                | Value                                            |
 +--------------------------------------+--------------------------------------------------+
@@ -74,7 +74,7 @@ openstack server create \
 openstack server list
 ```
 
-```
+```text
 +--------------------------------------+------------+---------+------------------------------+-----------+----------+
 | ID                                   | Name       | Status  | Networks                     | Image     | Flavor   |
 +--------------------------------------+------------+---------+------------------------------+-----------+----------+
@@ -92,7 +92,7 @@ DHCP で IP アドレスが払い出されている。
 cat /var/lib/neutron/dhcp/6ee86f5e-5d22-4c00-a2cd-6622ec856e17/leases
 ```
 
-```
+```text
 1715960522 fa:16:3e:61:21:c6 192.168.101.85 host-192-168-101-85 01:fa:16:3e:61:21:c6
 ```
 
@@ -102,7 +102,7 @@ DHCP に MAC アドレスと IP アドレスの関連が追加される。
 cat /var/lib/neutron/dhcp/6ee86f5e-5d22-4c00-a2cd-6622ec856e17/host
 ```
 
-```
+```text
 fa:16:3e:61:21:c6,host-192-168-101-85.openstacklocal,192.168.101.85
 ```
 
@@ -112,7 +112,7 @@ DNS のエントリが追加される。
 cat /var/lib/neutron/dhcp/6ee86f5e-5d22-4c00-a2cd-6622ec856e17/addn_hosts
 ```
 
-```
+```text
 192.168.101.85  host-192-168-101-85.openstacklocal host-192-168-101-85
 ```
 
@@ -124,7 +124,7 @@ Compute Node で確認する。
 virsh list
 ```
 
-```
+```text
  Id   名前                状態
 ----------------------------------
  1    instance-00000006   実行中
@@ -166,7 +166,7 @@ TAP デバイスが追加される。
 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
@@ -214,7 +214,7 @@ VNI は `in_key`, `out_key` の設定に従って flow で決まる。
 ovs-vsctl show
 ```
 
-```
+```text
 698493db-95ef-4c31-b419-56b3d4096f2b
     Manager "ptcp:6640:127.0.0.1"
         is_connected: true
@@ -298,7 +298,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:765 missed:147 lost:0
   flows: 0
@@ -323,7 +323,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x54777dab8546811, duration=2176.310s, table=0, n_packets=0, n_bytes=0, priority=4,in_port="phy-br-provider",dl_vlan=1 actions=mod_vlan_vid:100,NORMAL
  cookie=0x54777dab8546811, duration=2176.301s, table=0, n_packets=0, n_bytes=0, priority=4,in_port="phy-br-provider",dl_vlan=2 actions=strip_vlan,NORMAL
  cookie=0x54777dab8546811, duration=2179.834s, table=0, n_packets=127, n_bytes=10884, priority=2,in_port="phy-br-provider" actions=drop
@@ -336,7 +336,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x52f8f2f071ca028b, duration=2190.700s, table=0, n_packets=372, n_bytes=46626, priority=2,in_port="phy-br-mgmt" actions=drop
  cookie=0x52f8f2f071ca028b, duration=2190.703s, table=0, n_packets=274, n_bytes=39586, priority=0 actions=NORMAL
 ```
@@ -347,7 +347,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x9b32c8053d494869, duration=2200.748s, table=0, n_packets=0, n_bytes=0, priority=65535,dl_vlan=4095 actions=drop
  cookie=0x9b32c8053d494869, duration=2197.201s, table=0, n_packets=9, n_bytes=666, priority=3,in_port="int-br-provider",dl_vlan=100 actions=mod_vlan_vid:1,resubmit(,58)
  cookie=0x9b32c8053d494869, duration=2197.193s, table=0, n_packets=236, n_bytes=35076, priority=3,in_port="int-br-provider",vlan_tci=0x0000/0x1fff actions=mod_vlan_vid:2,resubmit(,58)
@@ -434,7 +434,7 @@ ovs-ofctl dump-flows br-tun
 
 tag 3 のパケットは VNI 239 (0xef) で vxlan-ac10000b に流れる。
 
-```
+```text
  cookie=0x8a8d4d7575036c1a, duration=2225.575s, table=0, n_packets=216, n_bytes=28282, priority=1,in_port="patch-int" actions=resubmit(,2)
  cookie=0x8a8d4d7575036c1a, duration=2223.456s, table=0, n_packets=81, n_bytes=9197, priority=1,in_port="vxlan-ac10000b" actions=resubmit(,4)
  cookie=0x8a8d4d7575036c1a, duration=2225.573s, table=0, n_packets=0, n_bytes=0, priority=0 actions=drop
@@ -457,7 +457,7 @@ tag 3 のパケットは VNI 239 (0xef) で vxlan-ac10000b に流れる。
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 7: vxlan-ac10000b (vxlan: 172.16.0.31->172.16.0.11, key=flow, legacy_l2, dp port=7, ttl=64)
 ```
 
@@ -469,7 +469,7 @@ eth0 を通るパケットを確認する。
 tcpdump -n -e -i eth0
 ```
 
-```
+```text
 00:53:23.602142 00:15:5d:bf:ba:50 > 00:15:5d:bf:ba:4f, ethertype IPv4 (0x0800), length 148: 172.16.0.31.44874 > 172.16.0.11.vxlan: VXLAN, flags [I] (0x08), vni 239
 fa:16:3e:61:21:c6 > fa:16:3e:e9:26:5b, ethertype IPv4 (0x0800), length 98: 192.168.101.85 > 192.168.101.1: ICMP echo request, id 7692, seq 1, length 64
 ```
@@ -480,6 +480,6 @@ vxlan_sys_4789 を通るパケットを確認する。
 tcpdump -n -e -i  vxlan_sys_4789
 ```
 
-```
+```text
 00:55:59.721276 fa:16:3e:61:21:c6 > fa:16:3e:e9:26:5b, ethertype IPv4 (0x0800), length 98: 192.168.101.85 > 192.168.101.1: ICMP echo request, id 24285, seq 1, length 64
 ```

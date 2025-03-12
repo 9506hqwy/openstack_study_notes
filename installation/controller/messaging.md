@@ -33,7 +33,7 @@ systemctl enable --now rabbitmq-server
 rabbitmqctl add_user openstack 3c17215fe69ba1dad320
 ```
 
-```
+```text
 Adding user "openstack" ...
 Done. Don't forget to grant the user permissions to some virtual hosts! See 'rabbitmqctl help set_permissions' to learn more.
 ```
@@ -44,6 +44,6 @@ Done. Don't forget to grant the user permissions to some virtual hosts! See 'rab
 rabbitmqctl set_permissions openstack ".*" ".*" ".*"
 ```
 
-```
+```text
 Setting permissions for user "openstack" in vhost "/" ...
 ```

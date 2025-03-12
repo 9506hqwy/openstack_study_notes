@@ -6,7 +6,7 @@
 openstack network agent list
 ```
 
-```
+```text
 +--------------------------------------+--------------------+-----------------------+-------------------+-------+-------+---------------------------+
 | ID                                   | Agent Type         | Host                  | Availability Zone | Alive | State | Binary                    |
 +--------------------------------------+--------------------+-----------------------+-------------------+-------+-------+---------------------------+
@@ -30,7 +30,7 @@ openstack network agent list
 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
@@ -65,7 +65,7 @@ Open vSwitch の構成を確認する。
 ovs-vsctl show
 ```
 
-```
+```text
 2a1ab795-d59f-4a33-a5a1-1fb4c942dce4
     Manager "ptcp:6640:127.0.0.1"
         is_connected: true
@@ -118,7 +118,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:81 missed:50 lost:0
   flows: 0
@@ -140,7 +140,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x8d88808236b1ab5c, duration=242.026s, table=0, n_packets=0, n_bytes=0, priority=2,in_port="phy-br-provider" actions=drop
  cookie=0x8d88808236b1ab5c, duration=242.067s, table=0, n_packets=45, n_bytes=6882, priority=0 actions=NORMAL
 ```
@@ -151,7 +151,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x42a40ac25b551bd0, duration=246.948s, table=0, n_packets=0, n_bytes=0, priority=2,in_port="phy-br-mgmt" actions=drop
  cookie=0x42a40ac25b551bd0, duration=246.969s, table=0, n_packets=54, n_bytes=7896, priority=0 actions=NORMAL
 ```
@@ -162,7 +162,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x144329905c50bc53, duration=256.029s, table=0, n_packets=0, n_bytes=0, priority=65535,dl_vlan=4095 actions=drop
  cookie=0x144329905c50bc53, duration=254.919s, table=0, n_packets=45, n_bytes=6882, priority=2,in_port="int-br-provider" actions=drop
  cookie=0x144329905c50bc53, duration=253.857s, table=0, n_packets=54, n_bytes=7896, priority=2,in_port="int-br-mgmt" actions=drop

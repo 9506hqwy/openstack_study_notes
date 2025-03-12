@@ -72,4 +72,3 @@ nmcli con add \
 ```sh
 ovs-vsctl set open . external-ids:ovn-bridge-mappings=provider:br-provider,mgmt:br-mgmt
 ```
-

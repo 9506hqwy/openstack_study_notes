@@ -14,7 +14,7 @@ ssh-keygen -q -N "" -f demo_rsa
 openstack keypair create --public-key demo_rsa.pub mykey
 ```
 
-```
+```text
 +-------------+-------------------------------------------------+
 | Field       | Value                                           |
 +-------------+-------------------------------------------------+
@@ -34,7 +34,7 @@ openstack keypair create --public-key demo_rsa.pub mykey
 openstack keypair list
 ```
 
-```
+```text
 +-------+-------------------------------------------------+------+
 | Name  | Fingerprint                                     | Type |
 +-------+-------------------------------------------------+------+

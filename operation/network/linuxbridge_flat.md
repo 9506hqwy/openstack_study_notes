@@ -6,12 +6,12 @@ Linux Bridge を利用した flat ネットワークを作成する。
 
 eth2 に繋がる外部ネットワークに flat ネットワークを作成する。
 
-| オプション                  | 説明                         |
-| --------------------------- | ---------------------------- |
-| --share                     | プロジェクトで共有           |
-| -external                   | OpenStack 外部のネットワーク |
+| オプション                  | 説明                                                                  |
+| --------------------------- | --------------------------------------------------------------------- |
+| --share                     | プロジェクトで共有                                                    |
+| -external                   | OpenStack 外部のネットワーク                                          |
 | --provider-physical-network | */etc/neutron/plugins/ml2/ml2_conf.ini* の flat_networks に指定した値 |
-| --provider-physical-network | flat                         |
+| --provider-physical-network | flat                                                                  |
 
 ```sh
 openstack network create \
@@ -22,7 +22,7 @@ openstack network create \
     provider
 ```
 
-```
+```text
 +---------------------------+--------------------------------------+
 | Field                     | Value                                |
 +---------------------------+--------------------------------------+
@@ -61,12 +61,12 @@ openstack network create \
 
 サブネットを作成する。
 
-| オプション                  | 説明                         |
-| --------------------------- | ---------------------------- |
-| --network                   | ネットワーク                 |
-| --allocation-pool           | IP アドレス範囲              |
-| --gateway                   | ゲートウェイ IP アドレス     |
-| -subnet-range               | サブネットの CIDR            |
+| オプション        | 説明                     |
+| ----------------- | ------------------------ |
+| --network         | ネットワーク             |
+| --allocation-pool | IP アドレス範囲          |
+| --gateway         | ゲートウェイ IP アドレス |
+| -subnet-range     | サブネットの CIDR        |
 
 ```sh
 openstack subnet create \
@@ -77,7 +77,7 @@ openstack subnet create \
     provider
 ```
 
-```
+```text
 +----------------------+--------------------------------------+
 | Field                | Value                                |
 +----------------------+--------------------------------------+
@@ -112,7 +112,7 @@ DHCP サーバのポートの作成を確認する。
 openstack port list
 ```
 
-```
+```text
 +--------------------------------------+------+-------------------+-----------------------------------------------------------------------------+--------+
 | ID                                   | Name | MAC Address       | Fixed IP Addresses                                                          | Status |
 +--------------------------------------+------+-------------------+-----------------------------------------------------------------------------+--------+
@@ -124,7 +124,7 @@ openstack port list
 openstack port show 61b7b8c3-8fa6-4213-9b86-eaff4e78bf5b
 ```
 
-```
+```text
 +-------------------------+-------------------------------------------------------------------------------+
 | Field                   | Value                                                                         |
 +-------------------------+-------------------------------------------------------------------------------+
@@ -183,7 +183,7 @@ Controller Node でネットワーク構成を確認する。
 ip netns
 ```
 
-```
+```text
 qdhcp-83a19a08-f066-465f-a5e1-23b4fc66e5ac (id: 0)
 ```
 
@@ -195,7 +195,7 @@ qdhcp-83a19a08-f066-465f-a5e1-23b4fc66e5ac (id: 0)
 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
@@ -222,7 +222,7 @@ ip -d link show
 ip netns exec qdhcp-83a19a08-f066-465f-a5e1-23b4fc66e5ac ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: ns-61b7b8c3-8f@if6: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
@@ -238,7 +238,7 @@ veth peer の接続先は sysfs でも確認できる。接続先の Index が�
 cat /sys/class/net/tap61b7b8c3-8f/iflink
 ```
 
-```
+```text
 2
 ```
 
@@ -250,7 +250,7 @@ cat /sys/class/net/tap61b7b8c3-8f/iflink
 ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -280,7 +280,7 @@ ip addr show
 ip netns exec qdhcp-83a19a08-f066-465f-a5e1-23b4fc66e5ac ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -301,7 +301,7 @@ ip netns exec qdhcp-83a19a08-f066-465f-a5e1-23b4fc66e5ac ip addr show
 ip netns exec qdhcp-83a19a08-f066-465f-a5e1-23b4fc66e5ac ip route show
 ```
 
-```
+```text
 default via 172.16.0.254 dev ns-61b7b8c3-8f proto static
 172.16.0.0/24 dev ns-61b7b8c3-8f proto kernel scope link src 172.16.0.100
 ```
@@ -314,7 +314,7 @@ ip netns exec qdhcp-83a19a08-f066-465f-a5e1-23b4fc66e5ac ss -ano -4
 
 `enable_isolated_metadata` が `true` なのでメタデータサービス(169.254.169.254)が起動する。
 
-```
+```text
 Netid               State                Recv-Q               Send-Q                               Local Address:Port                             Peer Address:Port              Process
 udp                 UNCONN               0                    0                                        127.0.0.1:53                                    0.0.0.0:*
 udp                 UNCONN               0                    0                                     172.16.0.100:53                                    0.0.0.0:*
@@ -362,6 +362,6 @@ dnsmasq \
 cat /var/lib/neutron/dhcp/83a19a08-f066-465f-a5e1-23b4fc66e5ac/interface
 ```
 
-```
+```text
 ns-61b7b8c3-8f
 ```

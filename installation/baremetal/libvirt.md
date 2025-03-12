@@ -67,7 +67,7 @@ SASL のユーザを登録する。
 saslpasswd2 -a libvirt openstack
 ```
 
-```
+```text
 Password:
 Again (for verification):
 ```
@@ -78,7 +78,7 @@ Again (for verification):
 sasldblistusers2 -f /etc/libvirt/passwd.db
 ```
 
-```
+```text
 openstack@baremetal.home.local: userPassword
 ```
 
@@ -88,7 +88,7 @@ openstack@baremetal.home.local: userPassword
 virsh -c qemu+tcp://127.0.0.1/system list
 ```
 
-```
+```text
 Please enter your authentication name: openstack
 Please enter your password:
  Id   名前   状態
@@ -234,7 +234,7 @@ virsh destroy 1
 */root/ks.cfg* は以下を用意する。
 ファイルの内容については [パート IV. キックスタートの参照](https://docs.redhat.com/ja/documentation/red_hat_enterprise_linux/9/html/performing_an_advanced_rhel_9_installation/kickstart_references) を参照する。
 
-```
+```text
 # Use CDROM installation media
 cdrom
 

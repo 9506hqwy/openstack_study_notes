@@ -25,7 +25,7 @@ systemctl restart openstack-nova-compute
 
 aarch64 アーキテクチャで QEMU を使用してインスタンスを作成すると cockpit のコンソールには下記のエラーでゲスト OS の画面が表示できない。
 
-```
+```text
 Guest has not initialized the display (yet).
 ```
 
@@ -35,7 +35,7 @@ Guest has not initialized the display (yet).
 
 SELinux で拒否される操作は */var/log/audit/audit.log* から denied されたログを確認する。
 
-```
+```text
 type=AVC msg=audit(1713051947.886:721): avc:  denied  { setattr } for  pid=9593 comm="dnsmasq" name="dhcp_dns_log" dev="dm-0" ino=70321107 scontext=system_u:system_r:dnsmasq_t:s0 tcontext=system_u:object_r:neutron_log_t:s0 tclass=file permissive=1
 ```
 
@@ -79,10 +79,10 @@ tostring(..., encoding='unicode')
 
 Compute Node のホスト名を変更すると下記のエラーで openstack-nova-compute サービスが起動しない。
 
-```
+```text
 nova.exception.InvalidConfiguration: My hypervisor has existing instances, but I appear to be a new service in this database. Possible database configuration error, refusing to start!
 ```
 
-```
+```text
 nova.exception.InvalidConfiguration: My compute node 6c53c76c-39d1-45dc-a5f5-293e91abd3e4 has hypervisor_hostname compute.home.local but virt driver reports it should be localhost.localdomain. Possible rename detected, refusing to start!
 ```

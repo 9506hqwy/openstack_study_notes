@@ -53,14 +53,14 @@ EOF
 
 [](../appendix/time_sync.md) を参照する。
 
-##  OpenStack リポジトリ有効化
+## OpenStack リポジトリ有効化
 
 [](../appendix/repository_enable.md) を参照する。
 
-##  OpenStack クライアントのインストール
+## OpenStack クライアントのインストール
 
 [](../appendix/os_client_install.md) を参照する。
 
-##   SELinux の設定
+## SELinux の設定
 
 [](../appendix/os_selinux.md) を参照する。

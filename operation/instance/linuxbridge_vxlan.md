@@ -29,7 +29,7 @@ openstack server create \
     instance02
 ```
 
-```
+```text
 +--------------------------------------+--------------------------------------------------+
 | Field                                | Value                                            |
 +--------------------------------------+--------------------------------------------------+
@@ -74,7 +74,7 @@ openstack server create \
 openstack server list
 ```
 
-```
+```text
 +--------------------------------------+------------+---------+------------------------------+-----------+----------+
 | ID                                   | Name       | Status  | Networks                     | Image     | Flavor   |
 +--------------------------------------+------------+---------+------------------------------+-----------+----------+
@@ -92,7 +92,7 @@ DHCP で IP アドレスが払い出されている。
 cat /var/lib/neutron/dhcp/c08e7dcd-4acb-4cd0-ad08-ebd3b48467ee/leases
 ```
 
-```
+```text
 1715598764 fa:16:3e:be:71:21 192.168.101.88 host-192-168-101-88 01:fa:16:3e:be:71:21
 ```
 
@@ -102,7 +102,7 @@ DHCP に MAC アドレスと IP アドレスの関連が追加される。
 cat /var/lib/neutron/dhcp/c08e7dcd-4acb-4cd0-ad08-ebd3b48467ee/host
 ```
 
-```
+```text
 fa:16:3e:be:71:21,host-192-168-101-88.openstacklocal,192.168.101.88
 ```
 
@@ -112,7 +112,7 @@ DNS のエントリが追加される。
 cat /var/lib/neutron/dhcp/c08e7dcd-4acb-4cd0-ad08-ebd3b48467ee/addn_hosts
 ```
 
-```
+```text
 192.168.101.88  host-192-168-101-88.openstacklocal host-192-168-101-88
 ```
 
@@ -124,7 +124,7 @@ Compute Node で確認する。
 virsh list
 ```
 
-```
+```text
  Id   名前                状態
 ----------------------------------
  3    instance-0000000d   実行中
@@ -167,7 +167,7 @@ Compute Node でネットワーク構成を確認する。
 ip -d link show
 ```
 
-```
+```text
 (...)
 
 9: brqc08e7dcd-4a: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UP mode DEFAULT group default qlen 1000
@@ -191,7 +191,7 @@ ip -d link show
 iptables -L
 ```
 
-```
+```text
 Chain INPUT (policy ACCEPT)
 target     prot opt source               destination
 neutron-linuxbri-INPUT  all  --  anywhere             anywhere

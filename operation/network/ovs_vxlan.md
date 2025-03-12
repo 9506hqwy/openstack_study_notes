@@ -19,7 +19,7 @@ eth0 に繋がるセルフサービスネットワークとして vxlan ネッ�
 openstack network create selfservice
 ```
 
-```
+```text
 +---------------------------+--------------------------------------+
 | Field                     | Value                                |
 +---------------------------+--------------------------------------+
@@ -66,7 +66,7 @@ openstack subnet create \
     selfservice
 ```
 
-```
+```text
 +----------------------+--------------------------------------+
 | Field                | Value                                |
 +----------------------+--------------------------------------+
@@ -101,7 +101,7 @@ DHCP サーバのポートの作成を確認する。
 openstack port list
 ```
 
-```
+```text
 +--------------------------------------+------+-------------------+--------------------------------------------------------------------------------+--------+
 | ID                                   | Name | MAC Address       | Fixed IP Addresses                                                             | Status |
 +--------------------------------------+------+-------------------+--------------------------------------------------------------------------------+--------+
@@ -113,7 +113,7 @@ openstack port list
 openstack port show 2dac2cf0-6175-47d7-a98f-f561e30e1a49
 ```
 
-```
+```text
 +-------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
 | Field                   | Value                                                                                                                                       |
 +-------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
@@ -172,7 +172,7 @@ Controller Node でネットワーク構成を確認する。
 ip netns
 ```
 
-```
+```text
 (...)
 
 qdhcp-6ee86f5e-5d22-4c00-a2cd-6622ec856e17 (id: 2)
@@ -186,7 +186,7 @@ qdhcp-6ee86f5e-5d22-4c00-a2cd-6622ec856e17 (id: 2)
 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
@@ -226,7 +226,7 @@ ip -d link show
 ip netns exec qdhcp-6ee86f5e-5d22-4c00-a2cd-6622ec856e17 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 16: tap2dac2cf0-61: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
@@ -240,7 +240,7 @@ ip netns exec qdhcp-6ee86f5e-5d22-4c00-a2cd-6622ec856e17 ip -d link show
 ip link show master ovs-system
 ```
 
-```
+```text
 4: eth2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq master ovs-system state UP mode DEFAULT group default qlen 1000
     link/ether 00:15:5d:bf:ba:55 brd ff:ff:ff:ff:ff:ff
 5: eth3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq master ovs-system state UP mode DEFAULT group default qlen 1000
@@ -259,7 +259,7 @@ VNI は `in_key`, `out_key` の設定に従って flow で決まる。
 ovs-vsctl show
 ```
 
-```
+```text
 2a1ab795-d59f-4a33-a5a1-1fb4c942dce4
     Manager "ptcp:6640:127.0.0.1"
         is_connected: true
@@ -344,7 +344,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:337 missed:96 lost:0
   flows: 0
@@ -371,7 +371,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x6742ef84bab0ef7a, duration=666.577s, table=0, n_packets=9, n_bytes=630, priority=4,in_port="phy-br-provider",dl_vlan=1 actions=strip_vlan,NORMAL
  cookie=0x6742ef84bab0ef7a, duration=666.572s, table=0, n_packets=9, n_bytes=630, priority=4,in_port="phy-br-provider",dl_vlan=2 actions=mod_vlan_vid:100,NORMAL
  cookie=0x6742ef84bab0ef7a, duration=669.431s, table=0, n_packets=11, n_bytes=846, priority=2,in_port="phy-br-provider" actions=drop
@@ -384,7 +384,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0xf05c57678cd1a7a8, duration=681.047s, table=0, n_packets=193, n_bytes=24502, priority=2,in_port="phy-br-mgmt" actions=drop
  cookie=0xf05c57678cd1a7a8, duration=681.050s, table=0, n_packets=213, n_bytes=27740, priority=0 actions=NORMAL
 ```
@@ -395,7 +395,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0xf64b46b56ea7ba7b, duration=690.866s, table=0, n_packets=0, n_bytes=0, priority=65535,dl_vlan=4095 actions=drop
  cookie=0xf64b46b56ea7ba7b, duration=687.995s, table=0, n_packets=164, n_bytes=22396, priority=3,in_port="int-br-provider",vlan_tci=0x0000/0x1fff actions=mod_vlan_vid:1,resubmit(,58)
  cookie=0xf64b46b56ea7ba7b, duration=687.990s, table=0, n_packets=0, n_bytes=0, priority=3,in_port="int-br-provider",dl_vlan=100 actions=mod_vlan_vid:2,resubmit(,58)
@@ -435,7 +435,7 @@ ovs-ofctl dump-flows br-tun
 
 tag 3 のパケットは VNI 239 (0xef) で vxlan-ac10001f に流れる。
 
-```
+```text
  cookie=0xb7fd492418bcc3f5, duration=706.195s, table=0, n_packets=38, n_bytes=6260, priority=1,in_port="patch-int" actions=resubmit(,2)
  cookie=0xb7fd492418bcc3f5, duration=627.573s, table=0, n_packets=0, n_bytes=0, priority=1,in_port="vxlan-ac10001f" actions=resubmit(,4)
  cookie=0xb7fd492418bcc3f5, duration=706.194s, table=0, n_packets=0, n_bytes=0, priority=0 actions=drop
@@ -457,7 +457,7 @@ tag 3 のパケットは VNI 239 (0xef) で vxlan-ac10001f に流れる。
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 9: vxlan-ac10001f (vxlan: 172.16.0.11->172.16.0.31, key=flow, legacy_l2, dp port=9, ttl=64)
 ```
 
@@ -470,7 +470,7 @@ port 9: vxlan-ac10001f (vxlan: 172.16.0.11->172.16.0.31, key=flow, legacy_l2, dp
 ip netns exec qdhcp-6ee86f5e-5d22-4c00-a2cd-6622ec856e17 ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -493,7 +493,7 @@ ip netns exec qdhcp-6ee86f5e-5d22-4c00-a2cd-6622ec856e17 ip addr show
 ip netns exec qdhcp-6ee86f5e-5d22-4c00-a2cd-6622ec856e17 ip route
 ```
 
-```
+```text
 default via 192.168.101.254 dev tap2dac2cf0-61 proto static
 192.168.101.0/24 dev tap2dac2cf0-61 proto kernel scope link src 192.168.101.1
 ```
@@ -504,7 +504,7 @@ default via 192.168.101.254 dev tap2dac2cf0-61 proto static
 ip netns exec qdhcp-6ee86f5e-5d22-4c00-a2cd-6622ec856e17 ss -ano -4
 ```
 
-```
+```text
 Netid            State             Recv-Q            Send-Q                         Local Address:Port                       Peer Address:Port           Process
 udp              UNCONN            0                 0                                  127.0.0.1:53                              0.0.0.0:*
 udp              UNCONN            0                 0                            169.254.169.254:53                              0.0.0.0:*
@@ -552,6 +552,6 @@ dnsmasq \
 cat /var/lib/neutron/dhcp/6ee86f5e-5d22-4c00-a2cd-6622ec856e17/interface
 ```
 
-```
+```text
 tap2dac2cf0-61
 ```

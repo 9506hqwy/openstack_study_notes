@@ -17,7 +17,7 @@ myuser で実行
 openstack router create router
 ```
 
-```
+```text
 +-------------------------+--------------------------------------+
 | Field                   | Value                                |
 +-------------------------+--------------------------------------+
@@ -67,7 +67,7 @@ openstack router set router --external-gateway provider
 openstack port list --router router
 ```
 
-```
+```text
 +--------------------------------------+------+-------------------+--------------------------------------------------------------------------------+--------+
 | ID                                   | Name | MAC Address       | Fixed IP Addresses                                                             | Status |
 +--------------------------------------+------+-------------------+--------------------------------------------------------------------------------+--------+
@@ -90,7 +90,7 @@ Controller Node でネットワーク構成を確認する。
 ip netns
 ```
 
-```
+```text
 (...)
 
 qrouter-fa9a921e-7ff6-4468-a08b-5415cebeb089 (id: 3)
@@ -104,7 +104,7 @@ qrouter-fa9a921e-7ff6-4468-a08b-5415cebeb089 (id: 3)
 ip -d link show
 ```
 
-```
+```text
 (...)
 
 4: eth2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq master brq83a19a08-f0 state UP mode DEFAULT group default qlen 1000
@@ -136,7 +136,7 @@ ip -d link show
 ip netns exec qrouter-fa9a921e-7ff6-4468-a08b-5415cebeb089 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: qr-d8316879-dd@if15: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UP mode DEFAULT group default qlen 1000
@@ -155,7 +155,7 @@ veth peer の接続先は sysfs でも確認できる。接続先の Index が�
 cat /sys/class/net/tapd8316879-dd/iflink
 ```
 
-```
+```text
 2
 ```
 
@@ -163,7 +163,7 @@ cat /sys/class/net/tapd8316879-dd/iflink
 cat /sys/class/net/tapd8a9d7f6-47/iflink
 ```
 
-```
+```text
 3
 ```
 
@@ -175,7 +175,7 @@ cat /sys/class/net/tapd8a9d7f6-47/iflink
 ip addr show
 ```
 
-```
+```text
 (...)
 
 4: eth2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq master brq83a19a08-f0 state UP group default qlen 1000
@@ -198,7 +198,7 @@ ip addr show
 ip netns exec qrouter-fa9a921e-7ff6-4468-a08b-5415cebeb089 ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -225,7 +225,7 @@ ip netns exec qrouter-fa9a921e-7ff6-4468-a08b-5415cebeb089 ip addr show
 ip netns exec qrouter-fa9a921e-7ff6-4468-a08b-5415cebeb089 ip route
 ```
 
-```
+```text
 default via 172.16.0.254 dev qg-d8a9d7f6-47 proto static
 172.16.0.0/24 dev qg-d8a9d7f6-47 proto kernel scope link src 172.16.0.131
 192.168.101.0/24 dev qr-d8316879-dd proto kernel scope link src 192.168.101.254
@@ -239,7 +239,7 @@ ip netns exec qrouter-fa9a921e-7ff6-4468-a08b-5415cebeb089 ss -ano -4
 
 メタデータのポートが待ち受けている。
 
-```
+```text
 Netid            State             Recv-Q             Send-Q                         Local Address:Port                         Peer Address:Port            Process
 tcp              LISTEN            0                  1024                                 0.0.0.0:9697                              0.0.0.0:*
 ```

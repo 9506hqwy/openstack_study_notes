@@ -12,7 +12,7 @@ myuser で実行
 openstack server add volume instance02 volume1
 ```
 
-```
+```text
 +-----------------------+--------------------------------------+
 | Field                 | Value                                |
 +-----------------------+--------------------------------------+
@@ -33,7 +33,7 @@ openstack server add volume instance02 volume1
 openstack volume attachment list
 ```
 
-```
+```text
 +--------------------------------------+--------------------------------------+--------------------------------------+----------+
 | ID                                   | Volume ID                            | Server ID                            | Status   |
 +--------------------------------------+--------------------------------------+--------------------------------------+----------+
@@ -45,7 +45,7 @@ openstack volume attachment list
 openstack volume attachment show 6bb646a5-af8b-4966-8035-fb0f1426097e
 ```
 
-```
+```text
 +-------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Field       | Value                                                                                                                                                          |
 +-------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -71,7 +71,7 @@ Controller Node で iSCSI ターゲットを確認する。
 targetcli ls
 ```
 
-```
+```text
 o- / ......................................................................................................................... [...]
   o- backstores .............................................................................................................. [...]
   | o- block .................................................................................................. [Storage Objects: 1]
@@ -100,7 +100,7 @@ iSCSI ACL を確認する。
 targetcli /iscsi/iqn.2010-10.org.openstack:volume-fb4470ac-e504-4959-939c-7f4b22fd07b4/tpg1/acls/iqn.1994-05.com.redhat:fe91975b2a7 info
 ```
 
-```
+```text
 chap_password: 2vCAQz2fcVeAjX9X
 chap_userid: 5KDJu7yNCnns6np2hp9h
 wwns:
@@ -113,7 +113,7 @@ LUN を確認する。
 targetcli /iscsi/iqn.2010-10.org.openstack:volume-fb4470ac-e504-4959-939c-7f4b22fd07b4/tpg1/luns/lun0 info
 ```
 
-```
+```text
 alias: 67e53965ff
 alua_tg_pt_gp_name: default_tg_pt_gp
 index: 0
@@ -126,7 +126,7 @@ iSCSI ポータルを確認する。
 targetcli /iscsi/iqn.2010-10.org.openstack:volume-fb4470ac-e504-4959-939c-7f4b22fd07b4/tpg1/portals/10.0.0.11:3260 info
 ```
 
-```
+```text
 ip_address: 10.0.0.11
 iser: False
 offload: False
@@ -141,7 +141,7 @@ Compute Node で iSCSI イニシエータを確認する。
 iscsiadm --mode node
 ```
 
-```
+```text
 10.0.0.11:3260,4294967295 iqn.2010-10.org.openstack:volume-fb4470ac-e504-4959-939c-7f4b22fd07b4
 ```
 
@@ -151,7 +151,7 @@ iscsiadm --mode node
 lsblk -S
 ```
 
-```
+```text
 NAME HCTL       TYPE VENDOR   MODEL         REV SERIAL                               TRAN
 sda  0:0:0:0    disk Msft     Virtual Disk 1.0  60022480b76b290be6de03390c018a08
 sdb  4:0:0:0    disk LIO-ORG  IBLOCK       4.0  378fc26a-fa7b-4f4d-ac6a-a0d23e7ff16a iscsi
@@ -164,7 +164,7 @@ sr0  3:0:0:0    rom  Msft     Virtual CD   1.0  Virtual_CD                      
 udevadm info /dev/sdb
 ```
 
-```
+```text
 P: /devices/platform/host4/session1/target4:0:0/4:0:0:0/block/sdb
 M: sdb
 U: block
@@ -256,7 +256,7 @@ virsh dumpxml instance-00000006 | sed -n -e '/<disk/,/<\/disk>/{ p }'
 ssh -i demo_rsa cirros@172.16.0.175 /usr/bin/sudo /sbin/fdisk -l /dev/vdb
 ```
 
-```
+```text
 Disk /dev/vdb: 1 GiB, 1073741824 bytes, 2097152 sectors
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 512 bytes

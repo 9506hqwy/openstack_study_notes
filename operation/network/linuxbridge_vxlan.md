@@ -19,7 +19,7 @@ eth0 に繋がるセルフサービスネットワークとして vxlan ネッ�
 openstack network create selfservice
 ```
 
-```
+```text
 +---------------------------+--------------------------------------+
 | Field                     | Value                                |
 +---------------------------+--------------------------------------+
@@ -66,7 +66,7 @@ openstack subnet create \
     selfservice
 ```
 
-```
+```text
 +----------------------+--------------------------------------+
 | Field                | Value                                |
 +----------------------+--------------------------------------+
@@ -101,7 +101,7 @@ DHCP サーバのポートの作成を確認する。
 openstack port list --network selfservice
 ```
 
-```
+```text
 +--------------------------------------+------+-------------------+------------------------------------------------------------------------------+--------+
 | ID                                   | Name | MAC Address       | Fixed IP Addresses                                                           | Status |
 +--------------------------------------+------+-------------------+------------------------------------------------------------------------------+--------+
@@ -113,7 +113,7 @@ openstack port list --network selfservice
 openstack port show e0bba9cc-3e09-4c9d-ac97-22ece432c096
 ```
 
-```
+```text
 +-------------------------+-------------------------------------------------------------------------------+
 | Field                   | Value                                                                         |
 +-------------------------+-------------------------------------------------------------------------------+
@@ -172,7 +172,7 @@ Controller Node でネットワーク構成を確認する。
 ip netns
 ```
 
-```
+```text
 (...)
 
 qdhcp-c08e7dcd-4acb-4cd0-ad08-ebd3b48467ee (id: 2)
@@ -186,7 +186,7 @@ qdhcp-c08e7dcd-4acb-4cd0-ad08-ebd3b48467ee (id: 2)
 ip -d link show
 ```
 
-```
+```text
 (...)
 
 12: tape0bba9cc-3e@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue master brqc08e7dcd-4a state UP mode DEFAULT group default qlen 1000
@@ -208,7 +208,7 @@ ip -d link show
 ip netns exec qdhcp-c08e7dcd-4acb-4cd0-ad08-ebd3b48467ee ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: ns-e0bba9cc-3e@if12: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UP mode DEFAULT group default qlen 1000
@@ -224,7 +224,7 @@ veth peer の接続先は sysfs でも確認できる。接続先の Index が�
 cat /sys/class/net/tape0bba9cc-3e/iflink
 ```
 
-```
+```text
 2
 ```
 
@@ -236,7 +236,7 @@ cat /sys/class/net/tape0bba9cc-3e/iflink
 ip addr show
 ```
 
-```
+```text
 (...)
 
 12: tape0bba9cc-3e@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue master brqc08e7dcd-4a state UP group default qlen 1000
@@ -254,7 +254,7 @@ ip addr show
 ip netns exec qdhcp-c08e7dcd-4acb-4cd0-ad08-ebd3b48467ee ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -277,7 +277,7 @@ ip netns exec qdhcp-c08e7dcd-4acb-4cd0-ad08-ebd3b48467ee ip addr show
 ip netns exec qdhcp-c08e7dcd-4acb-4cd0-ad08-ebd3b48467ee ip route show
 ```
 
-```
+```text
 default via 192.168.101.254 dev ns-e0bba9cc-3e proto static
 192.168.101.0/24 dev ns-e0bba9cc-3e proto kernel scope link src 192.168.101.1
 ```
@@ -288,7 +288,7 @@ default via 192.168.101.254 dev ns-e0bba9cc-3e proto static
 ip netns exec qdhcp-c08e7dcd-4acb-4cd0-ad08-ebd3b48467ee ss -ano -4
 ```
 
-```
+```text
 Netid            State             Recv-Q            Send-Q                          Local Address:Port                         Peer Address:Port            Process
 udp              UNCONN            0                 0                                   127.0.0.1:53                                0.0.0.0:*
 udp              UNCONN            0                 0                               192.168.101.1:53                                0.0.0.0:*
@@ -336,6 +336,6 @@ dnsmasq \
 cat /var/lib/neutron/dhcp/c08e7dcd-4acb-4cd0-ad08-ebd3b48467ee/interface
 ```
 
-```
+```text
 ns-e0bba9cc-3e
 ```

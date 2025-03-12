@@ -24,7 +24,7 @@ GRANT ALL PRIVILEGES ON gnocchi.* TO 'gnocchi'@'%' IDENTIFIED BY '023e924d8a52c3
 openstack user create --domain default --password eb5b4e528d0e10669cfa ceilometer
 ```
 
-```
+```text
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
@@ -49,7 +49,7 @@ openstack role add --project service --user ceilometer admin
 openstack user create --domain default --password e760d03f9f03f676c9e2 gnocchi
 ```
 
-```
+```text
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
@@ -76,7 +76,7 @@ openstack role add --project service --user gnocchi admin
 openstack service create --name ceilometer --description "Telemetry Data Collection" metering
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -94,7 +94,7 @@ openstack service create --name ceilometer --description "Telemetry Data Collect
 openstack service create --name gnocchi --description "OpenStack Metric Service" metric
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -114,7 +114,7 @@ API エンドポイントを作成する。
 openstack endpoint create --region RegionOne metric public http://controller:8041
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -134,7 +134,7 @@ openstack endpoint create --region RegionOne metric public http://controller:804
 openstack endpoint create --region RegionOne metric internal http://controller:8041
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -154,7 +154,7 @@ openstack endpoint create --region RegionOne metric internal http://controller:8
 openstack endpoint create --region RegionOne metric admin http://controller:8041
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -476,7 +476,7 @@ systemctl restart openstack-nova-compute
 openstack metric resource list
 ```
 
-```
+```text
 ------------------+-----------------+------------------+------------------+----------------------+------------------+----------+------------------+--------------+-----------------------+
 | id               | type            | project_id       | user_id          | original_resource_id | started_at       | ended_at | revision_start   | revision_end | creator               |
 +------------------+-----------------+------------------+------------------+----------------------+------------------+----------+------------------+--------------+-----------------------+
@@ -499,7 +499,7 @@ openstack metric resource list
 openstack metric resource show a8fbb935-7f2b-49a5-983a-1f6e78a1e0ed
 ```
 
-```
+```text
 +-----------------------+---------------------------------------------------------------------+
 | Field                 | Value                                                               |
 +-----------------------+---------------------------------------------------------------------+
@@ -529,7 +529,7 @@ openstack metric resource show a8fbb935-7f2b-49a5-983a-1f6e78a1e0ed
 openstack metric measures show 76ea9f63-fc18-4e14-b006-0e960e292d8a
 ```
 
-```
+```text
 +---------------------------+-------------+-------+
 | timestamp                 | granularity | value |
 +---------------------------+-------------+-------+

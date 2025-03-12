@@ -6,7 +6,7 @@
 openstack network agent list
 ```
 
-```
+```text
 +--------------------------------------+------------------------------+-----------------------+-------------------+-------+-------+----------------------------+
 | ID                                   | Agent Type                   | Host                  | Availability Zone | Alive | State | Binary                     |
 +--------------------------------------+------------------------------+-----------------------+-------------------+-------+-------+----------------------------+
@@ -34,7 +34,7 @@ openstack network agent list
 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
@@ -71,7 +71,7 @@ Compute Node が geneve で登録されていることを確認する。
 ovn-sbctl show
 ```
 
-```
+```text
 Chassis "3732c7d2-a358-41ae-82ca-9c350624e13d"
     hostname: controller.home.local
     Encap geneve
@@ -90,7 +90,7 @@ Compute Node が登録されている。
 ovn-sbctl list Chassis
 ```
 
-```
+```text
 _uuid               : 1649a8fe-937d-44f8-861c-372fe528e9ec
 encaps              : [53b36a07-1b5d-4147-a97a-853dad42b687]
 external_ids        : {}
@@ -118,7 +118,7 @@ vtep_logical_switches: []
 ovn-sbctl list Encap
 ```
 
-```
+```text
 _uuid               : cadca5ae-c845-4390-8b5f-c14e7c161617
 chassis_name        : "32a2f4d1-1918-4bcf-beee-d6094e1a1d4c"
 ip                  : "172.16.0.31"
@@ -140,7 +140,7 @@ type                : geneve
 ovs-vsctl show
 ```
 
-```
+```text
 9869c49f-a522-47dc-a744-bf85afff8b76
     Bridge br-int
         fail_mode: secure
@@ -169,7 +169,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:333 missed:198 lost:0
   flows: 0
@@ -190,7 +190,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x0, duration=540.637s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-32a2f4-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=540.637s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-32a2f4-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=540.637s, table=0, n_packets=0, n_bytes=0, priority=100,in_port="ovn-32a2f4-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
@@ -213,7 +213,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=2026.655s, table=0, n_packets=261, n_bytes=45072, priority=0 actions=NORMAL
 ```
 
@@ -223,7 +223,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x0, duration=2030.498s, table=0, n_packets=270, n_bytes=46038, priority=0 actions=NORMAL
 ```
 
@@ -233,7 +233,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, ttl=64, csum=true)
 ```
 
@@ -251,7 +251,7 @@ port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, t
 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
@@ -284,7 +284,7 @@ ip -d link show
 ovs-vsctl show
 ```
 
-```
+```text
 46423187-0689-4323-afe2-2ad6d689596b
     Bridge br-mgmt
         Port eth3
@@ -313,7 +313,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:61 missed:20 lost:0
   flows: 0
@@ -334,7 +334,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x0, duration=716.660s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-3732c7-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=716.660s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-3732c7-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=716.660s, table=0, n_packets=0, n_bytes=0, priority=100,in_port="ovn-3732c7-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
@@ -357,7 +357,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=726.859s, table=0, n_packets=36, n_bytes=6062, priority=0 actions=NORMAL
 ```
 
@@ -367,7 +367,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x0, duration=729.875s, table=0, n_packets=49, n_bytes=7944, priority=0 actions=NORMAL
 ```
 
@@ -377,6 +377,6 @@ ovs-ofctl dump-flows br-mgmt
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 2: ovn-3732c7-0 (geneve: ::->172.16.0.11, key=flow, legacy_l2, dp port=2, ttl=64, csum=true)
 ```

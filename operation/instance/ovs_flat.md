@@ -43,7 +43,7 @@ openstack server create \
     instance00
 ```
 
-```
+```text
 +--------------------------------------+--------------------------------------------------+
 | Field                                | Value                                            |
 +--------------------------------------+--------------------------------------------------+
@@ -88,7 +88,7 @@ openstack server create \
 openstack server list
 ```
 
-```
+```text
 +--------------------------------------+------------+--------+-----------------------+-----------+----------+
 | ID                                   | Name       | Status | Networks              | Image     | Flavor   |
 +--------------------------------------+------------+--------+-----------------------+-----------+----------+
@@ -102,7 +102,7 @@ SSH で接続できるか確認する。
 ssh -i demo_rsa cirros@172.16.0.112 /sbin/ip addr
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -127,7 +127,7 @@ DHCP で IP アドレスが払い出されている。
 cat /var/lib/neutron/dhcp/53f92676-e6e0-42fb-bde9-48dd2c2506b4/leases
 ```
 
-```
+```text
 1715862686 fa:16:3e:55:2a:5d 172.16.0.112 host-172-16-0-112 01:fa:16:3e:55:2a:5d
 ```
 
@@ -137,7 +137,7 @@ DHCP に MAC アドレスと IP アドレスの関連が追加される。
 cat /var/lib/neutron/dhcp/53f92676-e6e0-42fb-bde9-48dd2c2506b4/host
 ```
 
-```
+```text
 fa:16:3e:55:2a:5d,host-172-16-0-112.openstacklocal,172.16.0.112
 ```
 
@@ -147,7 +147,7 @@ DNS のエントリが追加される。
 cat /var/lib/neutron/dhcp/53f92676-e6e0-42fb-bde9-48dd2c2506b4/addn_hosts
 ```
 
-```
+```text
 172.16.0.112    host-172-16-0-112.openstacklocal host-172-16-0-112
 ```
 
@@ -159,7 +159,7 @@ Compute Node で確認する。
 virsh list
 ```
 
-```
+```text
  Id   名前                状態
 ----------------------------------
  1    instance-00000004   実行中
@@ -201,7 +201,7 @@ TAP デバイスが追加される。
 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
@@ -240,7 +240,7 @@ ip -d link show
 ovs-vsctl show
 ```
 
-```
+```text
 698493db-95ef-4c31-b419-56b3d4096f2b
     Manager "ptcp:6640:127.0.0.1"
         is_connected: true
@@ -296,7 +296,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:529 missed:89 lost:0
   flows: 0
@@ -319,7 +319,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x5c314fae3a19481b, duration=354.436s, table=0, n_packets=134, n_bytes=13724, priority=4,in_port="phy-br-provider",dl_vlan=1 actions=strip_vlan,NORMAL
  cookie=0x5c314fae3a19481b, duration=1450.119s, table=0, n_packets=0, n_bytes=0, priority=2,in_port="phy-br-provider" actions=drop
  cookie=0x5c314fae3a19481b, duration=1450.124s, table=0, n_packets=164, n_bytes=24850, priority=0 actions=NORMAL
@@ -331,7 +331,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x96f7d6f4b3d5a1d8, duration=1463.171s, table=0, n_packets=128, n_bytes=12802, priority=2,in_port="phy-br-mgmt" actions=drop
  cookie=0x96f7d6f4b3d5a1d8, duration=1463.175s, table=0, n_packets=92, n_bytes=13400, priority=0 actions=NORMAL
 ```
@@ -342,7 +342,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x495e20e8d5566065, duration=1475.594s, table=0, n_packets=0, n_bytes=0, priority=65535,dl_vlan=4095 actions=drop
  cookie=0x495e20e8d5566065, duration=379.894s, table=0, n_packets=99, n_bytes=15100, priority=3,in_port="int-br-provider",vlan_tci=0x0000/0x1fff actions=mod_vlan_vid:1,resubmit(,58)
  cookie=0x495e20e8d5566065, duration=1475.580s, table=0, n_packets=65, n_bytes=9750, priority=2,in_port="int-br-provider" actions=drop

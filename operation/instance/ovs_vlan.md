@@ -29,7 +29,7 @@ openstack server create \
     instance01
 ```
 
-```
+```text
 +--------------------------------------+--------------------------------------------------+
 | Field                                | Value                                            |
 +--------------------------------------+--------------------------------------------------+
@@ -74,7 +74,7 @@ openstack server create \
 openstack server list
 ```
 
-```
+```text
 +--------------------------------------+------------+---------+------------------------------+-----------+----------+
 | ID                                   | Name       | Status  | Networks                     | Image     | Flavor   |
 +--------------------------------------+------------+---------+------------------------------+-----------+----------+
@@ -92,7 +92,7 @@ DHCP で IP アドレスが払い出されている。
 cat /var/lib/neutron/dhcp/d46c9e95-3ec9-4066-a5f4-6fb6aa96d386/leases
 ```
 
-```
+```text
 1715874926 fa:16:3e:ac:ee:39 192.168.100.200 host-192-168-100-200 01:fa:16:3e:ac:ee:39
 ```
 
@@ -102,7 +102,7 @@ DHCP に MAC アドレスと IP アドレスの関連が追加される。
 cat /var/lib/neutron/dhcp/d46c9e95-3ec9-4066-a5f4-6fb6aa96d386/host
 ```
 
-```
+```text
 fa:16:3e:ac:ee:39,host-192-168-100-200.openstacklocal,192.168.100.200
 ```
 
@@ -112,7 +112,7 @@ DNS のエントリが追加される。
 cat /var/lib/neutron/dhcp/d46c9e95-3ec9-4066-a5f4-6fb6aa96d386/addn_hosts
 ```
 
-```
+```text
 192.168.100.200 host-192-168-100-200.openstacklocal host-192-168-100-200
 ```
 
@@ -124,7 +124,7 @@ Compute Node で確認する。
 virsh list
 ```
 
-```
+```text
  Id   名前                状態
 ----------------------------------
  2    instance-00000005   実行中
@@ -166,7 +166,7 @@ TAP デバイスが追加される。
 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
@@ -205,7 +205,7 @@ ip -d link show
 ovs-vsctl show
 ```
 
-```
+```text
 698493db-95ef-4c31-b419-56b3d4096f2b
     Manager "ptcp:6640:127.0.0.1"
         is_connected: true
@@ -265,7 +265,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:1916 missed:427 lost:0
   flows: 0
@@ -288,7 +288,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x5c314fae3a19481b, duration=12706.145s, table=0, n_packets=134, n_bytes=13724, priority=4,in_port="phy-br-provider",dl_vlan=1 actions=strip_vlan,NORMAL
  cookie=0x5c314fae3a19481b, duration=464.991s, table=0, n_packets=126, n_bytes=10814, priority=4,in_port="phy-br-provider",dl_vlan=2 actions=mod_vlan_vid:100,NORMAL
  cookie=0x5c314fae3a19481b, duration=13801.828s, table=0, n_packets=0, n_bytes=0, priority=2,in_port="phy-br-provider" actions=drop
@@ -301,7 +301,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x96f7d6f4b3d5a1d8, duration=13812.811s, table=0, n_packets=876, n_bytes=129053, priority=2,in_port="phy-br-mgmt" actions=drop
  cookie=0x96f7d6f4b3d5a1d8, duration=13812.814s, table=0, n_packets=814, n_bytes=130009, priority=0 actions=NORMAL
 ```
@@ -312,7 +312,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x495e20e8d5566065, duration=13822.678s, table=0, n_packets=0, n_bytes=0, priority=65535,dl_vlan=4095 actions=drop
  cookie=0x495e20e8d5566065, duration=12726.978s, table=0, n_packets=721, n_bytes=120537, priority=3,in_port="int-br-provider",vlan_tci=0x0000/0x1fff actions=mod_vlan_vid:1,resubmit(,58)
  cookie=0x495e20e8d5566065, duration=485.814s, table=0, n_packets=69, n_bytes=8552, priority=3,in_port="int-br-provider",dl_vlan=100 actions=mod_vlan_vid:2,resubmit(,58)

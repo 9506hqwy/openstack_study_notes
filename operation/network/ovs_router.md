@@ -17,7 +17,7 @@ myuser で実行
 openstack router create router
 ```
 
-```
+```text
 +-------------------------+--------------------------------------+
 | Field                   | Value                                |
 +-------------------------+--------------------------------------+
@@ -67,7 +67,7 @@ openstack router set router --external-gateway provider
 openstack port list --router router
 ```
 
-```
+```text
 +--------------------------------------+------+-------------------+--------------------------------------------------------------------------------+--------+
 | ID                                   | Name | MAC Address       | Fixed IP Addresses                                                             | Status |
 +--------------------------------------+------+-------------------+--------------------------------------------------------------------------------+--------+
@@ -90,7 +90,7 @@ Controller Node でネットワーク構成を確認する。
 ip netns
 ```
 
-```
+```text
 (...)
 
 qrouter-e6efd80e-9468-4787-a6f8-1648486cc1d6 (id: 3)
@@ -104,7 +104,7 @@ qrouter-e6efd80e-9468-4787-a6f8-1648486cc1d6 (id: 3)
 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
@@ -144,7 +144,7 @@ ip -d link show
 ip netns exec qrouter-e6efd80e-9468-4787-a6f8-1648486cc1d6 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 18: qr-13e6e8ff-d7: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
@@ -163,7 +163,7 @@ ip netns exec qrouter-e6efd80e-9468-4787-a6f8-1648486cc1d6 ip -d link show
 ovs-vsctl show
 ```
 
-```
+```text
 2a1ab795-d59f-4a33-a5a1-1fb4c942dce4
     Manager "ptcp:6640:127.0.0.1"
         is_connected: true
@@ -256,7 +256,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:386 missed:178 lost:0
   flows: 0
@@ -285,7 +285,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x887c3572d5e57691, duration=5307.666s, table=0, n_packets=8, n_bytes=560, priority=4,in_port="phy-br-provider",dl_vlan=1 actions=mod_vlan_vid:100,NORMAL
  cookie=0x887c3572d5e57691, duration=5307.642s, table=0, n_packets=26, n_bytes=1748, priority=4,in_port="phy-br-provider",dl_vlan=3 actions=strip_vlan,NORMAL
  cookie=0x887c3572d5e57691, duration=5426.715s, table=0, n_packets=22, n_bytes=1440, priority=2,in_port="phy-br-provider" actions=drop
@@ -298,7 +298,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0xd7598ea6a4179ea2, duration=5439.649s, table=0, n_packets=268, n_bytes=44576, priority=2,in_port="phy-br-mgmt" actions=drop
  cookie=0xd7598ea6a4179ea2, duration=5439.652s, table=0, n_packets=246, n_bytes=44820, priority=0 actions=NORMAL
 ```
@@ -309,7 +309,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x68a8ad4f4c63c160, duration=5453.081s, table=0, n_packets=0, n_bytes=0, priority=65535,dl_vlan=4095 actions=drop
  cookie=0x68a8ad4f4c63c160, duration=5334.020s, table=0, n_packets=0, n_bytes=0, priority=3,in_port="int-br-provider",dl_vlan=100 actions=mod_vlan_vid:1,resubmit(,58)
  cookie=0x68a8ad4f4c63c160, duration=5333.997s, table=0, n_packets=212, n_bytes=40828, priority=3,in_port="int-br-provider",vlan_tci=0x0000/0x1fff actions=mod_vlan_vid:3,resubmit(,58)
@@ -351,7 +351,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-tun
 ```
 
-```
+```text
  cookie=0x20ed499125a369ae, duration=5484.669s, table=0, n_packets=272, n_bytes=45448, priority=1,in_port="patch-int" actions=resubmit(,2)
  cookie=0x20ed499125a369ae, duration=5366.117s, table=0, n_packets=0, n_bytes=0, priority=1,in_port="vxlan-ac10001f" actions=resubmit(,4)
  cookie=0x20ed499125a369ae, duration=5484.667s, table=0, n_packets=0, n_bytes=0, priority=0 actions=drop
@@ -371,7 +371,7 @@ ovs-ofctl dump-flows br-tun
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 2: vxlan-ac10001f (vxlan: 172.16.0.11->172.16.0.31, key=flow, legacy_l2, dp port=2, ttl=64)
 ```
 
@@ -383,7 +383,7 @@ port 2: vxlan-ac10001f (vxlan: 172.16.0.11->172.16.0.31, key=flow, legacy_l2, dp
 ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -420,7 +420,7 @@ ip addr show
 ip netns exec qrouter-e6efd80e-9468-4787-a6f8-1648486cc1d6 ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -447,7 +447,7 @@ ip netns exec qrouter-e6efd80e-9468-4787-a6f8-1648486cc1d6 ip addr show
 ip netns exec qrouter-e6efd80e-9468-4787-a6f8-1648486cc1d6 ip route show
 ```
 
-```
+```text
 default via 172.16.0.254 dev qg-ca92be94-79 proto static
 172.16.0.0/24 dev qg-ca92be94-79 proto kernel scope link src 172.16.0.188
 192.168.101.0/24 dev qr-13e6e8ff-d7 proto kernel scope link src 192.168.101.254
@@ -461,7 +461,7 @@ ip netns exec qrouter-e6efd80e-9468-4787-a6f8-1648486cc1d6 ss -ano -4
 
 メタデータのポートが待ち受けている。
 
-```
+```text
 Netid              State               Recv-Q              Send-Q                            Local Address:Port                             Peer Address:Port              Process
 tcp                LISTEN              0                   1024                                    0.0.0.0:9697                                  0.0.0.0:*
 ```

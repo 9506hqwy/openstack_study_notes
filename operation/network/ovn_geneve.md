@@ -14,7 +14,7 @@ eth0 に繋がるセルフサービスネットワークとして geneve ネッ�
 openstack network create selfservice
 ```
 
-```
+```text
 +---------------------------+--------------------------------------+
 | Field                     | Value                                |
 +---------------------------+--------------------------------------+
@@ -55,7 +55,7 @@ openstack network create selfservice
 openstack port list --network selfservice
 ```
 
-```
+```text
 +--------------------------------------+------+-------------------+--------------------+--------+
 | ID                                   | Name | MAC Address       | Fixed IP Addresses | Status |
 +--------------------------------------+------+-------------------+--------------------+--------+
@@ -67,7 +67,7 @@ openstack port list --network selfservice
 openstack port show 44b8ac53-5887-4002-88f0-8f6bcd0e462d
 ```
 
-```
+```text
 +-------------------------+----------------------------------------------+
 | Field                   | Value                                        |
 +-------------------------+----------------------------------------------+
@@ -128,7 +128,7 @@ openstack port show 44b8ac53-5887-4002-88f0-8f6bcd0e462d
 ovn-nbctl list Logical_Switch
 ```
 
-```
+```text
 _uuid               : 6c84a035-ea9a-4c8a-a1e4-aba91462d704
 acls                : []
 copp                : []
@@ -175,7 +175,7 @@ qos_rules           : []
 ovn-nbctl list Logical_Switch_Port
 ```
 
-```
+```text
 _uuid               : 85fb967c-89c3-49ac-970d-f1c008cfa476
 addresses           : ["fa:16:3e:61:51:6f 172.16.0.100"]
 dhcpv4_options      : []
@@ -309,7 +309,7 @@ up                  : false
 ovn-nbctl list ACL
 ```
 
-```
+```text
 _uuid               : 3b1768c2-3f33-4e57-a614-427811758daf
 action              : drop
 direction           : from-lport
@@ -571,7 +571,7 @@ tier                : 0
 ovn-sbctl list Address_Set
 ```
 
-```
+```text
 _uuid               : ed6f71d0-a79f-4549-b786-0f8e2eb6c3e2
 addresses           : []
 name                : pg_f15eed75_3115_4f88_91e5_e8bf81d9ccd6_ip6
@@ -623,7 +623,7 @@ name                : pg_f15eed75_3115_4f88_91e5_e8bf81d9ccd6_ip4
 ovn-sbctl lflow-list
 ```
 
-```
+```text
 Datapath: "neutron-4cd45e0c-7e56-48e8-b8fb-9105f1e3a57b" aka "provider-100" (500824d6-0f14-41d3-b33d-0ea0eaac34ff)  Pipeline: ingress
   table=0 (ls_in_check_port_sec), priority=110  , match=(((ip4 && icmp4.type == 3 && icmp4.code == 4) || (ip6 && icmp6.type == 2 && icmp6.code == 0)) && flags.tunnel_rx == 1), action=(drop;)
   table=0 (ls_in_check_port_sec), priority=100  , match=(eth.src[40]), action=(drop;)
@@ -981,7 +981,7 @@ Datapath: "neutron-bdf0edc2-bae8-4cc7-85b2-2cc4e82ab10f" aka "selfservice" (ecb9
 ovn-sbctl list Multicast_Group
 ```
 
-```
+```text
 _uuid               : c6d345c1-387f-4e3f-89d3-4d1114f3827e
 datapath            : 500824d6-0f14-41d3-b33d-0ea0eaac34ff
 name                : _MC_unknown
@@ -1049,7 +1049,7 @@ tunnel_key          : 32772
 ovn-sbctl list Datapath_Binding
 ```
 
-```
+```text
 _uuid               : ecb97fdd-e00a-4d0e-b0ab-0c46f8e6720f
 external_ids        : {logical-switch="fbef6e36-ca51-4ad9-9b05-e4652a2fb8cc", name=neutron-bdf0edc2-bae8-4cc7-85b2-2cc4e82ab10f, name2=selfservice}
 load_balancers      : []
@@ -1072,7 +1072,7 @@ tunnel_key          : 1
 ovn-sbctl list Port_Binding
 ```
 
-```
+```text
 _uuid               : 41d97758-9608-4d2f-ab09-62f114f5a1bd
 additional_chassis  : []
 additional_encap    : []
@@ -1250,7 +1250,7 @@ virtual_parent      : []
 ovs-vsctl show
 ```
 
-```
+```text
 9869c49f-a522-47dc-a744-bf85afff8b76
     Bridge br-int
         fail_mode: secure
@@ -1279,7 +1279,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:54 missed:27 lost:0
   flows: 2
@@ -1300,7 +1300,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x0, duration=815.606s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-32a2f4-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=815.606s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-32a2f4-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=815.606s, table=0, n_packets=0, n_bytes=0, priority=100,in_port="ovn-32a2f4-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
@@ -1323,7 +1323,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=935.490s, table=0, n_packets=38, n_bytes=7196, priority=0 actions=NORMAL
 ```
 
@@ -1333,7 +1333,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x0, duration=948.642s, table=0, n_packets=42, n_bytes=7364, priority=0 actions=NORMAL
 ```
 
@@ -1343,7 +1343,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, ttl=64, csum=true)
 ```
 
@@ -1361,7 +1361,7 @@ port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, t
 ovs-vsctl show
 ```
 
-```
+```text
 46423187-0689-4323-afe2-2ad6d689596b
     Bridge br-int
         fail_mode: secure
@@ -1398,7 +1398,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:51 missed:22 lost:0
   flows: 0
@@ -1419,7 +1419,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x0, duration=978.561s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-3732c7-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=978.561s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-3732c7-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=978.561s, table=0, n_packets=0, n_bytes=0, priority=100,in_port="ovn-3732c7-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
@@ -1442,7 +1442,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=1000.617s, table=0, n_packets=34, n_bytes=7028, priority=0 actions=NORMAL
 ```
 
@@ -1452,7 +1452,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x0, duration=1008.192s, table=0, n_packets=39, n_bytes=7238, priority=0 actions=NORMAL
 ```
 
@@ -1462,7 +1462,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 4: ovn-3732c7-0 (geneve: ::->172.16.0.11, key=flow, legacy_l2, dp port=4, ttl=64, csum=true)
 ```
 
@@ -1478,7 +1478,7 @@ openstack subnet create \
     selfservice
 ```
 
-```
+```text
 +----------------------+--------------------------------------+
 | Field                | Value                                |
 +----------------------+--------------------------------------+
@@ -1513,7 +1513,7 @@ openstack subnet create \
 openstack port list --network selfservice
 ```
 
-```
+```text
 +--------------------------------------+------+-------------------+------------------------------------------------------------------------------+--------+
 | ID                                   | Name | MAC Address       | Fixed IP Addresses                                                           | Status |
 +--------------------------------------+------+-------------------+------------------------------------------------------------------------------+--------+
@@ -1525,7 +1525,7 @@ openstack port list --network selfservice
 openstack port show 44b8ac53-5887-4002-88f0-8f6bcd0e462d
 ```
 
-```
+```text
 +-------------------------+------------------------------------------------------------------------------+
 | Field                   | Value                                                                        |
 +-------------------------+------------------------------------------------------------------------------+
@@ -1586,7 +1586,7 @@ openstack port show 44b8ac53-5887-4002-88f0-8f6bcd0e462d
 ovn-nbctl list Logical_Switch_Port
 ```
 
-```
+```text
 _uuid               : 85fb967c-89c3-49ac-970d-f1c008cfa476
 addresses           : ["fa:16:3e:61:51:6f 172.16.0.100"]
 dhcpv4_options      : []
@@ -1722,7 +1722,7 @@ up                  : false
 ovn-sbctl lflow-list
 ```
 
-```
+```text
 Datapath: "neutron-4cd45e0c-7e56-48e8-b8fb-9105f1e3a57b" aka "provider-100" (500824d6-0f14-41d3-b33d-0ea0eaac34ff)  Pipeline: ingress
   table=0 (ls_in_check_port_sec), priority=110  , match=(((ip4 && icmp4.type == 3 && icmp4.code == 4) || (ip6 && icmp6.type == 2 && icmp6.code == 0)) && flags.tunnel_rx == 1), action=(drop;)
   table=0 (ls_in_check_port_sec), priority=100  , match=(eth.src[40]), action=(drop;)
@@ -2082,7 +2082,7 @@ Datapath: "neutron-bdf0edc2-bae8-4cc7-85b2-2cc4e82ab10f" aka "selfservice" (ecb9
 ovn-sbctl list Port_Binding
 ```
 
-```
+```text
 _uuid               : 41d97758-9608-4d2f-ab09-62f114f5a1bd
 additional_chassis  : []
 additional_encap    : []
@@ -2260,7 +2260,7 @@ Open vSwitch にブリッジは作成されない。
 ovs-vsctl show
 ```
 
-```
+```text
 9869c49f-a522-47dc-a744-bf85afff8b76
     Bridge br-int
         fail_mode: secure
@@ -2289,7 +2289,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:117 missed:47 lost:0
   flows: 0
@@ -2310,7 +2310,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x0, duration=1707.729s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-32a2f4-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=1707.729s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-32a2f4-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=1707.729s, table=0, n_packets=0, n_bytes=0, priority=100,in_port="ovn-32a2f4-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
@@ -2333,7 +2333,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=1824.142s, table=0, n_packets=75, n_bytes=13850, priority=0 actions=NORMAL
 ```
 
@@ -2343,7 +2343,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x0, duration=1835.201s, table=0, n_packets=88, n_bytes=15032, priority=0 actions=NORMAL
 ```
 
@@ -2353,7 +2353,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, ttl=64, csum=true)
 ```
 
@@ -2371,7 +2371,7 @@ port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, t
 ovs-vsctl show
 ```
 
-```
+```text
 46423187-0689-4323-afe2-2ad6d689596b
     Bridge br-int
         fail_mode: secure
@@ -2408,7 +2408,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:120 missed:44 lost:0
   flows: 0
@@ -2429,7 +2429,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x0, duration=1940.692s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-3732c7-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=1940.692s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-3732c7-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=1940.692s, table=0, n_packets=0, n_bytes=0, priority=100,in_port="ovn-3732c7-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
@@ -2452,7 +2452,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=1963.181s, table=0, n_packets=75, n_bytes=14550, priority=0 actions=NORMAL
 ```
 
@@ -2462,7 +2462,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x0, duration=1975.391s, table=0, n_packets=89, n_bytes=15774, priority=0 actions=NORMAL
 ```
 
@@ -2472,6 +2472,6 @@ ovs-ofctl dump-flows br-mgmt
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 4: ovn-3732c7-0 (geneve: ::->172.16.0.11, key=flow, legacy_l2, dp port=4, ttl=64, csum=true)
 ```

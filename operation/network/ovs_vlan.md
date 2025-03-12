@@ -10,9 +10,9 @@ Open vSwitch を利用した vlan ネットワークを作成する。
 
 eth0 に繋がる外部ネットワークに vlan ネットワークを作成する。
 
-| オプション                  | 説明                         |
-| --------------------------- | ---------------------------- |
-| --provider-segment          | VLAN ID                      |
+| オプション         | 説明    |
+| ------------------ | ------- |
+| --provider-segment | VLAN ID |
 
 ```sh
 openstack network create \
@@ -24,7 +24,7 @@ openstack network create \
     provider-100
 ```
 
-```
+```text
 +---------------------------+--------------------------------------+
 | Field                     | Value                                |
 +---------------------------+--------------------------------------+
@@ -72,7 +72,7 @@ openstack subnet create \
     provider-100
 ```
 
-```
+```text
 +----------------------+--------------------------------------+
 | Field                | Value                                |
 +----------------------+--------------------------------------+
@@ -107,7 +107,7 @@ DHCP サーバのポートの作成を確認する。
 openstack port list
 ```
 
-```
+```text
 +--------------------------------------+------+-------------------+------------------------------------------------------------------------------+--------+
 | ID                                   | Name | MAC Address       | Fixed IP Addresses                                                           | Status |
 +--------------------------------------+------+-------------------+------------------------------------------------------------------------------+--------+
@@ -119,7 +119,7 @@ openstack port list
 openstack port show 52b1b85b-8ec4-42a9-865d-17580e88460b
 ```
 
-```
+```text
 +-------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
 | Field                   | Value                                                                                                                                       |
 +-------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
@@ -178,7 +178,7 @@ Controller Node でネットワーク構成を確認する。
 ip netns
 ```
 
-```
+```text
 qdhcp-d46c9e95-3ec9-4066-a5f4-6fb6aa96d386 (id: 1)
 ```
 
@@ -190,7 +190,7 @@ qdhcp-d46c9e95-3ec9-4066-a5f4-6fb6aa96d386 (id: 1)
 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
@@ -223,7 +223,7 @@ ip -d link show
 ip netns exec qdhcp-d46c9e95-3ec9-4066-a5f4-6fb6aa96d386 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 12: tap52b1b85b-8e: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
@@ -239,7 +239,7 @@ ip netns exec qdhcp-d46c9e95-3ec9-4066-a5f4-6fb6aa96d386 ip -d link show
 ovs-vsctl show
 ```
 
-```
+```text
 2a1ab795-d59f-4a33-a5a1-1fb4c942dce4
     Manager "ptcp:6640:127.0.0.1"
         is_connected: true
@@ -300,7 +300,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:1205 missed:335 lost:0
   flows: 0
@@ -324,7 +324,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0xbf3c5202337ce111, duration=12191.128s, table=0, n_packets=82, n_bytes=9093, priority=4,in_port="phy-br-provider",dl_vlan=2 actions=strip_vlan,NORMAL
  cookie=0xbf3c5202337ce111, duration=346.629s, table=0, n_packets=11, n_bytes=846, priority=4,in_port="phy-br-provider",dl_vlan=1 actions=mod_vlan_vid:100,NORMAL
  cookie=0xbf3c5202337ce111, duration=12195.378s, table=0, n_packets=0, n_bytes=0, priority=2,in_port="phy-br-provider" actions=drop
@@ -337,7 +337,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x99f23c855fe96a0d, duration=12207.108s, table=0, n_packets=640, n_bytes=105479, priority=2,in_port="phy-br-mgmt" actions=drop
  cookie=0x99f23c855fe96a0d, duration=12207.114s, table=0, n_packets=706, n_bytes=113826, priority=0 actions=NORMAL
 ```
@@ -348,7 +348,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x6e84e3a21375ab76, duration=12219.059s, table=0, n_packets=0, n_bytes=0, priority=65535,dl_vlan=4095 actions=drop
  cookie=0x6e84e3a21375ab76, duration=12214.795s, table=0, n_packets=725, n_bytes=113035, priority=3,in_port="int-br-provider",vlan_tci=0x0000/0x1fff actions=mod_vlan_vid:2,resubmit(,58)
  cookie=0x6e84e3a21375ab76, duration=370.297s, table=0, n_packets=0, n_bytes=0, priority=3,in_port="int-br-provider",dl_vlan=100 actions=mod_vlan_vid:1,resubmit(,58)
@@ -388,7 +388,7 @@ ovs-ofctl dump-flows br-int
 ip netns exec qdhcp-d46c9e95-3ec9-4066-a5f4-6fb6aa96d386 ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -411,7 +411,7 @@ ip netns exec qdhcp-d46c9e95-3ec9-4066-a5f4-6fb6aa96d386 ip addr show
 ip netns exec qdhcp-d46c9e95-3ec9-4066-a5f4-6fb6aa96d386 ip route
 ```
 
-```
+```text
 default via 192.168.100.254 dev tap52b1b85b-8e proto static
 192.168.100.0/24 dev tap52b1b85b-8e proto kernel scope link src 192.168.100.1
 ```
@@ -422,7 +422,7 @@ default via 192.168.100.254 dev tap52b1b85b-8e proto static
 ip netns exec qdhcp-d46c9e95-3ec9-4066-a5f4-6fb6aa96d386 ss -ano -4
 ```
 
-```
+```text
 Netid           State            Recv-Q            Send-Q                         Local Address:Port                       Peer Address:Port           Process
 udp             UNCONN           0                 0                                  127.0.0.1:53                              0.0.0.0:*
 udp             UNCONN           0                 0                              192.168.100.1:53                              0.0.0.0:*
@@ -470,6 +470,6 @@ dnsmasq \
 cat /var/lib/neutron/dhcp/d46c9e95-3ec9-4066-a5f4-6fb6aa96d386/interface
 ```
 
-```
+```text
 tap52b1b85b-8e
 ```

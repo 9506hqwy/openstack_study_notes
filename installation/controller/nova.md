@@ -32,7 +32,7 @@ GRANT ALL PRIVILEGES ON nova_cell0.* TO 'nova'@'%' IDENTIFIED BY '830e052c9ff3fa
 openstack user create --domain default --password 5c5cfbce3214db530456 nova
 ```
 
-```
+```text
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
@@ -59,7 +59,7 @@ nova サービスを作成する。
 openstack service create --name nova --description "Compute" compute
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -79,7 +79,7 @@ API エンドポイントを作成する。
 openstack endpoint create --region RegionOne compute public http://controller:8774/v2.1
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -99,7 +99,7 @@ openstack endpoint create --region RegionOne compute public http://controller:87
 openstack endpoint create --region RegionOne compute internal http://controller:8774/v2.1
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -119,7 +119,7 @@ openstack endpoint create --region RegionOne compute internal http://controller:
 openstack endpoint create --region RegionOne compute admin http://controller:8774/v2.1
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -277,7 +277,7 @@ cell0 と cell1 の作成を確認する。
 su -s /bin/sh -c "nova-manage cell_v2 list_cells" nova
 ```
 
-```
+```text
 +-------+--------------------------------------+------------------------------------------+-------------------------------------------------+----------+
 |  Name |                 UUID                 |              Transport URL               |               Database Connection               | Disabled |
 +-------+--------------------------------------+------------------------------------------+-------------------------------------------------+----------+
@@ -305,7 +305,7 @@ systemctl enable --now openstack-nova-novncproxy
 openstack compute service list
 ```
 
-```
+```text
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+
 | ID                                   | Binary         | Host                  | Zone     | Status  | State | Updated At                 |
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+

@@ -29,7 +29,7 @@ openstack server create \
     instance01
 ```
 
-```
+```text
 +--------------------------------------+--------------------------------------------------+
 | Field                                | Value                                            |
 +--------------------------------------+--------------------------------------------------+
@@ -74,7 +74,7 @@ openstack server create \
 openstack server list
 ```
 
-```
+```text
 +--------------------------------------+------------+---------+------------------------------+-----------+----------+
 | ID                                   | Name       | Status  | Networks                     | Image     | Flavor   |
 +--------------------------------------+------------+---------+------------------------------+-----------+----------+
@@ -92,7 +92,7 @@ DHCP で IP アドレスが払い出されている。
 cat /var/lib/neutron/dhcp/170db5a3-cc70-4474-a545-eb3a56c254c9/leases
 ```
 
-```
+```text
 1715480384 fa:16:3e:12:c7:0f 192.168.100.233 host-192-168-100-233 01:fa:16:3e:12:c7:0f
 ```
 
@@ -102,7 +102,7 @@ DHCP に MAC アドレスと IP アドレスの関連が追加される。
 cat /var/lib/neutron/dhcp/170db5a3-cc70-4474-a545-eb3a56c254c9//host
 ```
 
-```
+```text
 fa:16:3e:12:c7:0f,host-192-168-100-233.openstacklocal,192.168.100.233
 ```
 
@@ -112,7 +112,7 @@ DNS のエントリが追加される。
 cat /var/lib/neutron/dhcp/170db5a3-cc70-4474-a545-eb3a56c254c9/addn_hosts
 ```
 
-```
+```text
 192.168.100.233 host-192-168-100-233.openstacklocal host-192-168-100-233
 ```
 
@@ -124,7 +124,7 @@ Compute Node で確認する。
 virsh list
 ```
 
-```
+```text
  Id   名前                状態
 ----------------------------------
  3    instance-0000000a   実行中
@@ -167,7 +167,7 @@ Compute Node でネットワーク構成を確認する。
 ip -d link show
 ```
 
-```
+```text
 (...)
 
 9: brq170db5a3-cc: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
@@ -191,7 +191,7 @@ ip -d link show
 iptables -L
 ```
 
-```
+```text
 Chain INPUT (policy ACCEPT)
 target     prot opt source               destination
 neutron-linuxbri-INPUT  all  --  anywhere             anywhere

@@ -24,7 +24,7 @@ GRANT ALL PRIVILEGES ON octavia.* TO 'octavia'@'%' IDENTIFIED BY '37cf176d919e31
 openstack user create --domain default --password 1672b62e6cd2c1682425 octavia
 ```
 
-```
+```text
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
@@ -51,7 +51,7 @@ load-balancer サービスを作成する。
 openstack service create --name octavia --description "Load Balancing" load-balancer
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -71,7 +71,7 @@ API エンドポイントを作成する。
 openstack endpoint create --region RegionOne load-balancer public http://controller:9876
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -91,7 +91,7 @@ openstack endpoint create --region RegionOne load-balancer public http://control
 openstack endpoint create --region RegionOne load-balancer internal http://controller:9876
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -111,7 +111,7 @@ openstack endpoint create --region RegionOne load-balancer internal http://contr
 openstack endpoint create --region RegionOne load-balancer admin http://controller:9876
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -180,7 +180,7 @@ setenforce 1
 deactivate
 ```
 
-```
+```text
 (...)
 
 Successfully built the amphora image using amphora-agent from the master branch.
@@ -201,7 +201,7 @@ openstack image create \
     amphora-x64-haproxy
 ```
 
-```
+```text
 +------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Field            | Value                                                                                                                                                   |
 +------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -244,7 +244,7 @@ openstack flavor create \
     amphora
 ```
 
-```
+```text
 +----------------------------+---------+
 | Field                      | Value   |
 +----------------------------+---------+
@@ -271,7 +271,7 @@ amphora の管理用のセキュリティグループを作成する。
 openstack security group create lb-mgmt-sec-grp
 ```
 
-```
+```text
 +-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Field           | Value                                                                                                                                                                        |
 +-----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -296,7 +296,7 @@ ICMP を許可するルールを作成する。
 openstack security group rule create --protocol icmp lb-mgmt-sec-grp
 ```
 
-```
+```text
 +-------------------------+--------------------------------------+
 | Field                   | Value                                |
 +-------------------------+--------------------------------------+
@@ -328,7 +328,7 @@ SSH を許可するルールを作成する。
 openstack security group rule create --protocol tcp --dst-port 22 lb-mgmt-sec-grp
 ```
 
-```
+```text
 +-------------------------+--------------------------------------+
 | Field                   | Value                                |
 +-------------------------+--------------------------------------+
@@ -360,7 +360,7 @@ Load Balancing Service を許可するルールを作成する。
 openstack security group rule create --protocol tcp --dst-port 9443 lb-mgmt-sec-grp
 ```
 
-```
+```text
 +-------------------------+--------------------------------------+
 | Field                   | Value                                |
 +-------------------------+--------------------------------------+
@@ -399,7 +399,7 @@ openstack network create \
     mgmt
 ```
 
-```
+```text
 +---------------------------+--------------------------------------+
 | Field                     | Value                                |
 +---------------------------+--------------------------------------+
@@ -446,7 +446,7 @@ openstack subnet create \
     mgmt
 ```
 
-```
+```text
 +----------------------+--------------------------------------+
 | Field                | Value                                |
 +----------------------+--------------------------------------+
@@ -497,7 +497,7 @@ cd octavia/bin/
 source create_dual_intermediate_CA.sh
 ```
 
-```
+```text
 ################# Verifying the Octavia files ###########################
 etc/octavia/certs/client.cert-and-key.pem: OK
 etc/octavia/certs/server_ca.cert.pem: OK

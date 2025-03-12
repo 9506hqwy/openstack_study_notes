@@ -19,7 +19,7 @@ openstack loadbalancer create \
     --vip-subnet-id selfservice
 ```
 
-```
+```text
 +---------------------+--------------------------------------+
 | Field               | Value                                |
 +---------------------+--------------------------------------+
@@ -58,7 +58,7 @@ octavia で実行
 openstack server list
 ```
 
-```
+```text
 +--------------------------------------+----------------------------------------------+--------+-----------------+---------------------+---------+
 | ID                                   | Name                                         | Status | Networks        | Image               | Flavor  |
 +--------------------------------------+----------------------------------------------+--------+-----------------+---------------------+---------+
@@ -83,7 +83,7 @@ curl -E /etc/octavia/certs/private/client.cert-and-key.pem -ksS https://10.0.0.2
 openstack server list
 ```
 
-```
+```text
 +--------------------------------------+----------------------------------------------+--------+----------------------------------------------+---------------------+---------+
 | ID                                   | Name                                         | Status | Networks                                     | Image               | Flavor  |
 +--------------------------------------+----------------------------------------------+--------+----------------------------------------------+---------------------+---------+
@@ -97,7 +97,7 @@ openstack server list
 openstack loadbalancer list
 ```
 
-```
+```text
 +--------------------------------------+------+----------------------------------+----------------+---------------------+------------------+----------+
 | id                                   | name | project_id                       | vip_address    | provisioning_status | operating_status | provider |
 +--------------------------------------+------+----------------------------------+----------------+---------------------+------------------+----------+
@@ -119,7 +119,7 @@ amphora のインスタンスを確認する。
 virsh list
 ```
 
-```
+```text
  Id   名前                状態
 ----------------------------------
  2    instance-00000004   実行中
@@ -162,7 +162,7 @@ amphora インスタンスのネットワーク名前空間を確認する。
 ssh -i ./demo_rsa cloud-user@10.0.0.217 ip netns
 ```
 
-```
+```text
 amphora-haproxy (id: 0)
 ```
 
@@ -174,7 +174,7 @@ Compute Node のデバイスを確認する。
 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
@@ -221,7 +221,7 @@ amphora インスタンスのデバイスを確認する。
 ssh -i ./demo_rsa cloud-user@10.0.0.217 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: ens3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
@@ -235,7 +235,7 @@ ssh -i ./demo_rsa cloud-user@10.0.0.217 ip -d link show
 ssh -i ./demo_rsa cloud-user@10.0.0.217 sudo ip netns exec amphora-haproxy ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1442 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
@@ -251,7 +251,7 @@ ssh -i ./demo_rsa cloud-user@10.0.0.217 sudo ip netns exec amphora-haproxy ip -d
 ovs-vsctl show
 ```
 
-```
+```text
 46423187-0689-4323-afe2-2ad6d689596b
     Bridge br-provider
         Port eth2
@@ -296,7 +296,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:2131 missed:429 lost:0
   flows: 7
@@ -321,7 +321,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=13194.392s, table=0, n_packets=558, n_bytes=103668, priority=0 actions=NORMAL
 ```
 
@@ -331,7 +331,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
 cookie=0x0, duration=13206.366s, table=0, n_packets=1085, n_bytes=190242, priority=0 actions=NORMAL
 ```
 
@@ -341,7 +341,7 @@ cookie=0x0, duration=13206.366s, table=0, n_packets=1085, n_bytes=190242, priori
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x0, duration=13215.248s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-3732c7-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=13215.248s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-3732c7-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=13215.248s, table=0, n_packets=21, n_bytes=4599, priority=100,in_port="ovn-3732c7-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
@@ -1062,7 +1062,7 @@ ovs-ofctl dump-flows br-int
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 4: ovn-3732c7-0 (geneve: ::->172.16.0.11, key=flow, legacy_l2, dp port=4, ttl=64, csum=true)
 ```
 
@@ -1074,7 +1074,7 @@ amphora インスタンスのイーサネットの情報を確認する。
 ssh -i ./demo_rsa cloud-user@10.0.0.217 ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -1112,7 +1112,7 @@ openstack loadbalancer listener create \
     b9ee0f69-9bae-4939-ba4d-8c5c9c001b6d
 ```
 
-```
+```text
 +-----------------------------+--------------------------------------+
 | Field                       | Value                                |
 +-----------------------------+--------------------------------------+
@@ -1158,7 +1158,7 @@ openstack loadbalancer listener create \
 openstack loadbalancer listener show 5178c1c6-b7de-47ef-8aee-a05caa6c51fb
 ```
 
-```
+```text
 +-----------------------------+--------------------------------------+
 | Field                       | Value                                |
 +-----------------------------+--------------------------------------+
@@ -1210,7 +1210,7 @@ openstack loadbalancer pool create \
     --protocol TCP
 ```
 
-```
+```text
 +----------------------+--------------------------------------+
 | Field                | Value                                |
 +----------------------+--------------------------------------+
@@ -1247,7 +1247,7 @@ openstack loadbalancer pool create \
 openstack loadbalancer pool show 6279aa2c-aa09-48a7-9003-82a23ec8edd5
 ```
 
-```
+```text
 +----------------------+--------------------------------------+
 | Field                | Value                                |
 +----------------------+--------------------------------------+
@@ -1286,7 +1286,7 @@ openstack loadbalancer pool show 6279aa2c-aa09-48a7-9003-82a23ec8edd5
 openstack server list
 ```
 
-```
+```text
 +--------------------------------------+------------+--------+-------------------------------------------+-----------+----------+
 | ID                                   | Name       | Status | Networks                                  | Image     | Flavor   |
 +--------------------------------------+------------+--------+-------------------------------------------+-----------+----------+
@@ -1305,7 +1305,7 @@ openstack loadbalancer member create \
     lb-ssh-pool
 ```
 
-```
+```text
 +---------------------+--------------------------------------+
 | Field               | Value                                |
 +---------------------+--------------------------------------+
@@ -1336,7 +1336,7 @@ openstack loadbalancer member create \
     lb-ssh-pool
 ```
 
-```
+```text
 +---------------------+--------------------------------------+
 | Field               | Value                                |
 +---------------------+--------------------------------------+
@@ -1365,7 +1365,7 @@ openstack loadbalancer member create \
 openstack loadbalancer member list lb-ssh-pool
 ```
 
-```
+```text
 +--------------------------------------+------+----------------------------------+---------------------+-----------------+---------------+------------------+--------+
 | id                                   | name | project_id                       | provisioning_status | address         | protocol_port | operating_status | weight |
 +--------------------------------------+------+----------------------------------+---------------------+-----------------+---------------+------------------+--------+
@@ -1382,7 +1382,7 @@ openstack loadbalancer member list lb-ssh-pool
 openstack floating ip create provider
 ```
 
-```
+```text
 +---------------------+--------------------------------------+
 | Field               | Value                                |
 +---------------------+--------------------------------------+
@@ -1414,7 +1414,7 @@ openstack floating ip create provider
 openstack loadbalancer show b9ee0f69-9bae-4939-ba4d-8c5c9c001b6d -c vip_port_id -f value
 ```
 
-```
+```text
 65dcb86e-449b-4347-9df4-a6cf95608d66
 ```
 
@@ -1434,7 +1434,7 @@ openstack floating ip set \
 ssh -i ./demo_rsa cirros@172.16.0.134 /sbin/ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -1455,7 +1455,7 @@ ssh -i ./demo_rsa cirros@172.16.0.134 /sbin/ip addr show
 ssh -i ./demo_rsa cirros@172.16.0.134 /sbin/ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -1472,12 +1472,11 @@ ssh -i ./demo_rsa cirros@172.16.0.134 /sbin/ip addr show
 
 HAProxy の設定が追加されることを確認する。
 
-
 ```sh
 ssh -i ./demo_rsa cloud-user@10.0.0.217 sudo cat /var/lib/octavia/b9ee0f69-9bae-4939-ba4d-8c5c9c001b6d/haproxy.cfg
 ```
 
-```
+```text
 backend 6279aa2c-aa09-48a7-9003-82a23ec8edd5:5178c1c6-b7de-47ef-8aee-a05caa6c51fb
     mode tcp
     balance roundrobin

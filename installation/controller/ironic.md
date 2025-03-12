@@ -24,7 +24,7 @@ GRANT ALL PRIVILEGES ON ironic.* TO 'ironic'@'%' IDENTIFIED BY '383e3b4468252474
 openstack user create --domain default --password bdda64a33b3a75728a9c ironic
 ```
 
-```
+```text
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
@@ -51,7 +51,7 @@ openstack role add --project service --user ironic admin
 openstack service create --name ironic --description "Bare Metal Provisioning" baremetal
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -71,7 +71,7 @@ API エンドポイントを作成する。
 openstack endpoint create --region RegionOne baremetal public http://controller:6385/
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -91,7 +91,7 @@ openstack endpoint create --region RegionOne baremetal public http://controller:
 openstack endpoint create --region RegionOne baremetal internal http://controller:6385/
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -111,7 +111,7 @@ openstack endpoint create --region RegionOne baremetal internal http://controlle
 openstack endpoint create --region RegionOne baremetal admin http://controller:6385/
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -146,7 +146,6 @@ curl -sSOL https://tarballs.opendev.org/openstack/ironic-python-agent/tinyipa/fi
 
 イメージを登録する。
 
-
 ```sh
 glance image-create \
     --name "deploy-vmlinuz" \
@@ -156,7 +155,7 @@ glance image-create \
     --visibility=public
 ```
 
-```
+```text
 +------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Field            | Value                                                                                                                                                   |
 +------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -192,7 +191,7 @@ glance image-create \
     --visibility=public
 ```
 
-```
+```text
 +------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Field            | Value                                                                                                                                                   |
 +------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -422,6 +421,7 @@ cat > /etc/neutron/policy.yaml <<EOF
 "update_port:binding:profile": "rule:admin_only or rule:service_api"
 EOF
 ```
+
 [Policy: binding operations are prohibited for service role](https://bugs.launchpad.net/neutron/+bug/2052937) を参照。
 
 ## TFTP の設定
@@ -508,7 +508,7 @@ Controller Node の nova-compute を検出する。
 su -s /bin/sh -c "nova-manage cell_v2 discover_hosts --verbose" nova
 ```
 
-```
+```text
 Found 2 cell mappings.
 Skipping cell0 since it does not contain hosts.
 Getting computes from cell 'cell1': f97c2c7f-5010-4b97-aef3-7f910006d261
@@ -521,7 +521,7 @@ Found 0 unmapped computes in cell: f97c2c7f-5010-4b97-aef3-7f910006d261
 openstack compute service list
 ```
 
-```
+```text
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+
 | ID                                   | Binary         | Host                  | Zone     | Status  | State | Updated At                 |
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+
@@ -546,7 +546,7 @@ OS_PROJECT_DOMAIN_NAME="" \
 openstack --os-system-scope all baremetal driver list
 ```
 
-```
+```text
 +---------------------+-----------------------+
 | Supported driver(s) | Active host(s)        |
 +---------------------+-----------------------+

@@ -24,7 +24,7 @@ GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'%' IDENTIFIED BY '5ba24787139e1a1a
 openstack user create --domain default --password 7a69c4834de4f3ed2cfa glance
 ```
 
-```
+```text
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
@@ -51,7 +51,7 @@ image サービスを作成する。
 openstack service create --name glance --description "Image" image
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -71,7 +71,7 @@ API エンドポイントを作成する。
 openstack endpoint create --region RegionOne image public http://controller:9292
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -91,7 +91,7 @@ openstack endpoint create --region RegionOne image public http://controller:9292
 openstack endpoint create --region RegionOne image internal http://controller:9292
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -111,7 +111,7 @@ openstack endpoint create --region RegionOne image internal http://controller:92
 openstack endpoint create --region RegionOne image admin http://controller:9292
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -220,7 +220,7 @@ curl -sSLO http://download.cirros-cloud.net/0.6.2/cirros-0.6.2-x86_64-disk.img
 file cirros-0.6.2-x86_64-disk.img
 ```
 
-```
+```text
 cirros-0.6.2-x86_64-disk.img: QEMU QCOW2 Image (v3), 117440512 bytes
 ```
 
@@ -235,7 +235,7 @@ glance image-create \
     --visibility=public
 ```
 
-```
+```text
 +------------------+----------------------------------------------------------------------------------+
 | Property         | Value                                                                            |
 +------------------+----------------------------------------------------------------------------------+
@@ -269,7 +269,7 @@ glance image-create \
 ls -R /var/lib/glance/images/
 ```
 
-```
+```text
 /var/lib/glance/images/:
 18b72eca-3cf5-40fb-b4fa-441938b13964
 ```
@@ -286,7 +286,7 @@ openstack image set --property hw_video_model=vga cirros062
 openstack image list
 ```
 
-```
+```text
 +--------------------------------------+-----------+--------+
 | ID                                   | Name      | Status |
 +--------------------------------------+-----------+--------+

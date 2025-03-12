@@ -24,7 +24,7 @@ GRANT ALL PRIVILEGES ON cyborg.* TO 'cyborg'@'%' IDENTIFIED BY 'da7c58277dc7e86d
 openstack user create --domain default --password 2927e8e7587d5ccaf836 cyborg
 ```
 
-```
+```text
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
@@ -51,7 +51,7 @@ openstack role add --project service --user cyborg admin
 openstack service create --name cyborg --description "Acceleration" accelerator
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -71,7 +71,7 @@ API エンドポイントを作成する。
 openstack endpoint create --region RegionOne accelerator public http://controller:6666/v2
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -91,7 +91,7 @@ openstack endpoint create --region RegionOne accelerator public http://controlle
 openstack endpoint create --region RegionOne accelerator internal http://controller:6666/v2
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -111,7 +111,7 @@ openstack endpoint create --region RegionOne accelerator internal http://control
 openstack endpoint create --region RegionOne accelerator admin http://controller:6666/v2
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+

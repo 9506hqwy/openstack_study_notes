@@ -141,7 +141,7 @@ Controller Node で下記のコマンドを実行してデータベースに Com
 openstack compute service list --service nova-compute
 ```
 
-```
+```text
 +--------------------------------------+--------------+--------------------+------+---------+-------+----------------------------+
 | ID                                   | Binary       | Host               | Zone | Status  | State | Updated At                 |
 +--------------------------------------+--------------+--------------------+------+---------+-------+----------------------------+
@@ -155,7 +155,7 @@ Compute Node を検出する。
 su -s /bin/sh -c "nova-manage cell_v2 discover_hosts --verbose" nova
 ```
 
-```
+```text
 Found 2 cell mappings.
 Skipping cell0 since it does not contain hosts.
 Getting computes from cell 'cell1': f97c2c7f-5010-4b97-aef3-7f910006d261
@@ -172,7 +172,7 @@ Controller Node でサービスを表示する。
 openstack compute service list
 ```
 
-```
+```text
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+
 | ID                                   | Binary         | Host                  | Zone     | Status  | State | Updated At                 |
 +--------------------------------------+----------------+-----------------------+----------+---------+-------+----------------------------+

@@ -10,7 +10,7 @@ openstack accelerator device profile create \
     '[{"resources:FPGA":1, "trait:CUSTOM_FAKE_DEVICE": "required"}]'
 ```
 
-```
+```text
 +-------------+-------------------------------------------------------------------+
 | Field       | Value                                                             |
 +-------------+-------------------------------------------------------------------+

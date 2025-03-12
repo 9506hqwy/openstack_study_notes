@@ -12,6 +12,7 @@ systemctl restart openstack-nova-compute
 ```sh
 systemctl enable --now neutron-openvswitch-agent
 ```
+
 ## flat ネットワーク用ブリッジの作成
 
 eth2 と接続するブリッジ be-provider を作成する。

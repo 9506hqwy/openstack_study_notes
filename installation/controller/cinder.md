@@ -24,7 +24,7 @@ GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'%' IDENTIFIED BY '909ad266b6b2b52c
 openstack user create --domain default --password e2c046c01e44c27725c3 cinder
 ```
 
-```
+```text
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
@@ -49,7 +49,7 @@ openstack role add --project service --user cinder admin
 openstack service create --name cinderv3 --description "Block Storage" volumev3
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -69,7 +69,7 @@ API エンドポイントを作成する。
 openstack endpoint create --region RegionOne volumev3 public http://controller:8776/v3/%\(project_id\)s
 ```
 
-```
+```text
 +--------------+------------------------------------------+
 | Field        | Value                                    |
 +--------------+------------------------------------------+
@@ -89,7 +89,7 @@ openstack endpoint create --region RegionOne volumev3 public http://controller:8
 openstack endpoint create --region RegionOne volumev3 internal http://controller:8776/v3/%\(project_id\)s
 ```
 
-```
+```text
 +--------------+------------------------------------------+
 | Field        | Value                                    |
 +--------------+------------------------------------------+
@@ -109,7 +109,7 @@ openstack endpoint create --region RegionOne volumev3 internal http://controller
 openstack endpoint create --region RegionOne volumev3 admin http://controller:8776/v3/%\(project_id\)s
 ```
 
-```
+```text
 +--------------+------------------------------------------+
 | Field        | Value                                    |
 +--------------+------------------------------------------+
@@ -143,7 +143,7 @@ firewall-cmd --reload
 openstack role create service
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -167,7 +167,7 @@ openstack role add --user cinder --project service service
 openstack role assignment list --user cinder --project service --names
 ```
 
-```
+```text
 +---------+----------------+-------+-----------------+--------+--------+-----------+
 | Role    | User           | Group | Project         | Domain | System | Inherited |
 +---------+----------------+-------+-----------------+--------+--------+-----------+
@@ -188,7 +188,7 @@ openstack role add --user nova --project service service
 openstack role assignment list --user nova --project service --names
 ```
 
-```
+```text
 +---------+--------------+-------+-----------------+--------+--------+-----------+
 | Role    | User         | Group | Project         | Domain | System | Inherited |
 +---------+--------------+-------+-----------------+--------+--------+-----------+
@@ -308,7 +308,7 @@ dnf install -y targetcli
 pvcreate /dev/sda
 ```
 
-```
+```text
   Physical volume "/dev/sda" successfully created.
 ```
 
@@ -318,7 +318,7 @@ pvcreate /dev/sda
 vgcreate cinder-volumes /dev/sda
 ```
 
-```
+```text
   Volume group "cinder-volumes" successfully created
 ```
 
@@ -328,7 +328,7 @@ LVM ボリュームグループを確認する。
 vgdisplay cinder-volumes
 ```
 
-```
+```text
   --- Volume group ---
   VG Name               cinder-volumes
   System ID
@@ -416,7 +416,7 @@ systemctl enable --now iscsid
 openstack volume service list
 ```
 
-```
+```text
 +------------------+---------------------------+------+---------+-------+----------------------------+
 | Binary           | Host                      | Zone | Status  | State | Updated At                 |
 +------------------+---------------------------+------+---------+-------+----------------------------+

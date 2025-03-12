@@ -24,7 +24,7 @@ GRANT ALL PRIVILEGES ON placement.* TO 'placement'@'%' IDENTIFIED BY '251ccf2f93
 openstack user create --domain default --password b4b6936f87c338567d3c placement
 ```
 
-```
+```text
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
@@ -51,7 +51,7 @@ placement サービスを作成する。
 openstack service create --name placement --description "Placement" placement
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -71,7 +71,7 @@ API エンドポイントを作成する。
 openstack endpoint create --region RegionOne placement public http://controller:8778
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -91,7 +91,7 @@ openstack endpoint create --region RegionOne placement public http://controller:
 openstack endpoint create --region RegionOne placement internal http://controller:8778
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -111,7 +111,7 @@ openstack endpoint create --region RegionOne placement internal http://controlle
 openstack endpoint create --region RegionOne placement admin http://controller:8778
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -216,7 +216,7 @@ systemctl restart httpd
 placement-status upgrade check
 ```
 
-```
+```text
 +-------------------------------------------+
 | Upgrade Check Results                     |
 +-------------------------------------------+
@@ -238,7 +238,7 @@ placement-status upgrade check
 openstack resource class list --sort-column name
 ```
 
-```
+```text
 +----------------------------------------+
 | name                                   |
 +----------------------------------------+
@@ -270,7 +270,7 @@ openstack resource class list --sort-column name
 openstack trait list --sort-column name
 ```
 
-```
+```text
 +---------------------------------------+
 | name                                  |
 +---------------------------------------+

@@ -43,7 +43,7 @@ openstack server create \
     instance00
 ```
 
-```
+```text
 +--------------------------------------+--------------------------------------------------+
 | Field                                | Value                                            |
 +--------------------------------------+--------------------------------------------------+
@@ -88,7 +88,7 @@ openstack server create \
 openstack server list
 ```
 
-```
+```text
 +--------------------------------------+------------+--------+-----------------------+-----------+----------+
 | ID                                   | Name       | Status | Networks              | Image     | Flavor   |
 +--------------------------------------+------------+--------+-----------------------+-----------+----------+
@@ -102,7 +102,7 @@ SSH で接続できるか確認する。
 ssh -i demo_rsa cirros@172.16.0.150 /sbin/ip addr
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -127,7 +127,7 @@ Compute Node で確認する。
 virsh list
 ```
 
-```
+```text
  Id   名前                状態
 ----------------------------------
  1    instance-00000001   実行中
@@ -165,7 +165,7 @@ virsh dumpxml 1 | sed -n -e '/<interface/,/<\/interface>/ { p }'
 ovn-nbctl list Logical_Switch_Port
 ```
 
-```
+```text
 _uuid               : 85fb967c-89c3-49ac-970d-f1c008cfa476
 addresses           : ["fa:16:3e:61:51:6f 172.16.0.100"]
 dhcpv4_options      : []
@@ -227,7 +227,7 @@ DHCP オプションを確認する。
 ovn-nbctl list DHCP_options 98a75115-7d53-41a2-98b4-7bfb0e7dcb40
 ```
 
-```
+```text
 _uuid               : 98a75115-7d53-41a2-98b4-7bfb0e7dcb40
 cidr                : "172.16.0.0/24"
 external_ids        : {"neutron:revision_number"="0", subnet_id="be32ef49-5ab1-4ba7-ab26-9518dc2b063f"}
@@ -240,7 +240,7 @@ options             : {classless_static_route="{169.254.169.254/32,172.16.0.100,
 ovn-nbctl list ACL
 ```
 
-```
+```text
 _uuid               : 3b1768c2-3f33-4e57-a614-427811758daf
 action              : drop
 direction           : from-lport
@@ -502,7 +502,7 @@ tier                : 0
 ovn-sbctl list Address_Set
 ```
 
-```
+```text
 _uuid               : ed6f71d0-a79f-4549-b786-0f8e2eb6c3e2
 addresses           : []
 name                : pg_f15eed75_3115_4f88_91e5_e8bf81d9ccd6_ip6
@@ -554,7 +554,7 @@ name                : pg_f15eed75_3115_4f88_91e5_e8bf81d9ccd6_ip4
 ovn-sbctl lflow-list
 ```
 
-```
+```text
 Datapath: "neutron-a6370456-5bb9-4dde-8b73-3fe5ba0c414a" aka "provider" (a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe)  Pipeline: ingress
   table=0 (ls_in_check_port_sec), priority=110  , match=(((ip4 && icmp4.type == 3 && icmp4.code == 4) || (ip6 && icmp6.type == 2 && icmp6.code == 0)) && flags.tunnel_rx == 1), action=(drop;)
   table=0 (ls_in_check_port_sec), priority=100  , match=(eth.src[40]), action=(drop;)
@@ -703,7 +703,7 @@ Datapath: "neutron-a6370456-5bb9-4dde-8b73-3fe5ba0c414a" aka "provider" (a69f8cd
 ovn-sbctl list Multicast_Group
 ```
 
-```
+```text
 _uuid               : 2677d319-557d-406b-91de-e5c9cc7f1b3b
 datapath            : a69f8cd6-1f9d-48b5-a8e3-30a5edd951fe
 name                : _MC_flood
@@ -735,7 +735,7 @@ tunnel_key          : 32772
 ovn-sbctl list Port_Binding
 ```
 
-```
+```text
 _uuid               : 479775c9-8632-4e1c-b6c2-5562759e4fb5
 additional_chassis  : []
 additional_encap    : []
@@ -817,7 +817,7 @@ virtual_parent      : []
 ovs-vsctl show
 ```
 
-```
+```text
 9869c49f-a522-47dc-a744-bf85afff8b76
     Bridge br-int
         fail_mode: secure
@@ -846,7 +846,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:1334 missed:472 lost:0
   flows: 0
@@ -867,7 +867,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x0, duration=12332.682s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-32a2f4-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=12332.682s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-32a2f4-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=12332.682s, table=0, n_packets=0, n_bytes=0, priority=100,in_port="ovn-32a2f4-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
@@ -890,7 +890,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=13820.874s, table=0, n_packets=860, n_bytes=144356, priority=0 actions=NORMAL
 ```
 
@@ -900,7 +900,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x0, duration=13823.905s, table=0, n_packets=946, n_bytes=155508, priority=0 actions=NORMAL
 ```
 
@@ -910,7 +910,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, ttl=64, csum=true)
 ```
 
@@ -928,7 +928,7 @@ port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, t
 ip netns
 ```
 
-```
+```text
 ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a (id: 0)
 ```
 
@@ -940,7 +940,7 @@ TAP デバイスが追加される。
 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
@@ -979,7 +979,7 @@ ip -d link show
 ip netns exec ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: tapa6370456-51@if10: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
@@ -995,7 +995,7 @@ ip netns exec ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a ip -d link show
 ovs-vsctl show
 ```
 
-```
+```text
 46423187-0689-4323-afe2-2ad6d689596b
     Bridge br-mgmt
         Port eth3
@@ -1036,7 +1036,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:1668 missed:344 lost:0
   flows: 0
@@ -1059,7 +1059,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x0, duration=12795.941s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-3732c7-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=12795.941s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-3732c7-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=12795.941s, table=0, n_packets=0, n_bytes=0, priority=100,in_port="ovn-3732c7-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
@@ -1351,7 +1351,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=12823.901s, table=0, n_packets=748, n_bytes=119071, priority=0 actions=NORMAL
 ```
 
@@ -1361,7 +1361,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x0, duration=12827.141s, table=0, n_packets=759, n_bytes=121614, priority=0 actions=NORMAL
 ```
 
@@ -1371,7 +1371,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 2: ovn-3732c7-0 (geneve: ::->172.16.0.11, key=flow, legacy_l2, dp port=2, ttl=64, csum=true)
 ```
 
@@ -1383,7 +1383,7 @@ port 2: ovn-3732c7-0 (geneve: ::->172.16.0.11, key=flow, legacy_l2, dp port=2, t
 ip netns exec ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -1408,7 +1408,7 @@ ip netns exec ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a ip addr show
 ip netns exec ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a ip route show
 ```
 
-```
+```text
 172.16.0.0/24 dev tapa6370456-51 proto kernel scope link src 172.16.0.100
 ```
 
@@ -1418,7 +1418,7 @@ ip netns exec ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a ip route show
 ip netns exec ovnmeta-a6370456-5bb9-4dde-8b73-3fe5ba0c414a ss -ano -4
 ```
 
-```
+```text
 Netid              State               Recv-Q              Send-Q                               Local Address:Port                             Peer Address:Port              Process
 tcp                LISTEN              0                   1024                               169.254.169.254:80                                    0.0.0.0:*
 ```
@@ -1429,7 +1429,7 @@ tcp                LISTEN              0                   1024                 
 ssh -i demo_rsa cirros@172.16.0.150 /sbin/ip route show
 ```
 
-```
+```text
 default via 172.16.0.254 dev eth0  src 172.16.0.150  metric 1002
 169.254.169.254 via 172.16.0.100 dev eth0  src 172.16.0.150  metric 1002
 172.16.0.0/24 dev eth0 scope link  src 172.16.0.150  metric 1002
@@ -1444,7 +1444,7 @@ cat /var/lib/neutron/ovn-metadata-proxy/a6370456-5bb9-4dde-8b73-3fe5ba0c414a.con
 リンクローカルで待ち受けて UNIX ドメインソケットを経由して neutron-ovn-metadata-agent に転送して、
 nova metadata と通信する。
 
-```
+```text
 global
     log         /dev/log local0 info
     log-tag     haproxy-metadata-proxy-a6370456-5bb9-4dde-8b73-3fe5ba0c414a

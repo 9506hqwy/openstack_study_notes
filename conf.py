@@ -17,18 +17,24 @@ release = '0.1.0'
 extensions = [
     'myst_parser',
 ]
+
 exclude_patterns = [
-    '_build',
-    'Thumbs.db',
-    '.DS_Store',
+    '.devcontainer',
     '.mypy_cache',
     '.venv',
+    '.vscode',
+    '_build',
 ]
+
 language = 'ja'
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_rtd_theme'
-html_style = 'css/styles.css'
 html_static_path = ['_static']
+html_style = 'css/styles.css'
+
+# -- MyST configuration-------------------------------------------------------
+
+myst_number_code_blocks = ["sh"]

@@ -1,4 +1,4 @@
-# Welcome to OpenStack Study Notes's documentation!
+# Welcome to OpenStack Study Notes's documentation
 
 ```{toctree}
 ---

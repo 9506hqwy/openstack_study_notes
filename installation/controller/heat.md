@@ -24,7 +24,7 @@ GRANT ALL PRIVILEGES ON heat.* TO 'heat'@'%' IDENTIFIED BY '08e9d96fd510ddab2732
 openstack user create --domain default --password 2fac8b8307cabd60f3b8 heat
 ```
 
-```
+```text
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
@@ -51,7 +51,7 @@ openstack role add --project service --user heat admin
 openstack service create --name heat --description "Orchestration" orchestration
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -69,7 +69,7 @@ openstack service create --name heat --description "Orchestration" orchestration
 openstack service create --name heat-cfn --description "Orchestration CFN" cloudformation
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -89,7 +89,7 @@ openstack service create --name heat-cfn --description "Orchestration CFN" cloud
 openstack endpoint create --region RegionOne orchestration public http://controller:8004/v1/%\(tenant_id\)s
 ```
 
-```
+```text
 +--------------+-----------------------------------------+
 | Field        | Value                                   |
 +--------------+-----------------------------------------+
@@ -109,7 +109,7 @@ openstack endpoint create --region RegionOne orchestration public http://control
 openstack endpoint create --region RegionOne orchestration internal http://controller:8004/v1/%\(tenant_id\)s
 ```
 
-```
+```text
 +--------------+-----------------------------------------+
 | Field        | Value                                   |
 +--------------+-----------------------------------------+
@@ -129,7 +129,7 @@ openstack endpoint create --region RegionOne orchestration internal http://contr
 openstack endpoint create --region RegionOne orchestration admin http://controller:8004/v1/%\(tenant_id\)s
 ```
 
-```
+```text
 +--------------+-----------------------------------------+
 | Field        | Value                                   |
 +--------------+-----------------------------------------+
@@ -158,7 +158,7 @@ firewall-cmd --reload
 openstack endpoint create --region RegionOne cloudformation public http://controller:8000/v1
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -178,7 +178,7 @@ openstack endpoint create --region RegionOne cloudformation public http://contro
 openstack endpoint create --region RegionOne cloudformation internal http://controller:8000/v1
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -198,7 +198,7 @@ openstack endpoint create --region RegionOne cloudformation internal http://cont
 openstack endpoint create --region RegionOne cloudformation admin http://controller:8000/v1
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -229,7 +229,7 @@ firewall-cmd --reload
 openstack domain create --description "Stack projects and users" heat
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -248,7 +248,7 @@ openstack domain create --description "Stack projects and users" heat
 openstack user create --domain heat --password 3d99ff8995969fbe113b heat_domain_admin
 ```
 
-```
+```text
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
@@ -273,7 +273,7 @@ openstack role add --domain heat --user-domain heat --user heat_domain_admin adm
 openstack role create heat_stack_owner
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -297,7 +297,7 @@ openstack role add --project myproject --user myuser heat_stack_owner
 openstack role create heat_stack_user
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -410,7 +410,7 @@ systemctl enable --now openstack-heat-engine
 openstack orchestration service list
 ```
 
-```
+```text
 +-----------------------+-------------+--------------------------------------+-----------------------+--------+----------------------------+--------+
 | Hostname              | Binary      | Engine ID                            | Host                  | Topic  | Updated At                 | Status |
 +-----------------------+-------------+--------------------------------------+-----------------------+--------+----------------------------+--------+

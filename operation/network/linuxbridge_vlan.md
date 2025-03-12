@@ -10,9 +10,9 @@ Linux Bridge を利用した vlan ネットワークを作成する。
 
 eth2 に繋がる外部ネットワークに vlan ネットワークを作成する。
 
-| オプション                  | 説明                         |
-| --------------------------- | ---------------------------- |
-| --provider-segment          | VLAN ID                      |
+| オプション         | 説明    |
+| ------------------ | ------- |
+| --provider-segment | VLAN ID |
 
 ```sh
 openstack network create \
@@ -24,7 +24,7 @@ openstack network create \
     provider-100
 ```
 
-```
+```text
 +---------------------------+--------------------------------------+
 | Field                     | Value                                |
 +---------------------------+--------------------------------------+
@@ -72,7 +72,7 @@ openstack subnet create \
     provider-100
 ```
 
-```
+```text
 +----------------------+--------------------------------------+
 | Field                | Value                                |
 +----------------------+--------------------------------------+
@@ -107,7 +107,7 @@ DHCP サーバのポートの作成を確認する。
 openstack port list --network provider-100
 ```
 
-```
+```text
 +--------------------------------------+------+-------------------+------------------------------------------------------------------------------+--------+
 | ID                                   | Name | MAC Address       | Fixed IP Addresses                                                           | Status |
 +--------------------------------------+------+-------------------+------------------------------------------------------------------------------+--------+
@@ -119,7 +119,7 @@ openstack port list --network provider-100
 openstack port show 39bed5c0-4c17-44b2-b191-c4c8028b8d64
 ```
 
-```
+```text
 +-------------------------+-------------------------------------------------------------------------------+
 | Field                   | Value                                                                         |
 +-------------------------+-------------------------------------------------------------------------------+
@@ -178,7 +178,7 @@ Controller Node でネットワーク構成を確認する。
 ip netns
 ```
 
-```
+```text
 qdhcp-170db5a3-cc70-4474-a545-eb3a56c254c9 (id: 1)
 ```
 
@@ -190,7 +190,7 @@ qdhcp-170db5a3-cc70-4474-a545-eb3a56c254c9 (id: 1)
 ip -d link show
 ```
 
-```
+```text
 (...)
 
 8: tap39bed5c0-4c@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master brq170db5a3-cc state UP mode DEFAULT group default qlen 1000
@@ -212,7 +212,7 @@ ip -d link show
 ip netns exec qdhcp-170db5a3-cc70-4474-a545-eb3a56c254c9 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: ns-39bed5c0-4c@if8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
@@ -228,7 +228,7 @@ veth peer の接続先は sysfs でも確認できる。接続先の Index が�
 cat /sys/class/net/tap39bed5c0-4c/iflink
 ```
 
-```
+```text
 2
 ```
 
@@ -240,7 +240,7 @@ cat /sys/class/net/tap39bed5c0-4c/iflink
 ip addr show
 ```
 
-```
+```text
 (...)
 
 8: tap39bed5c0-4c@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master brq170db5a3-cc state UP group default qlen 1000
@@ -258,7 +258,7 @@ ip addr show
 ip netns exec qdhcp-170db5a3-cc70-4474-a545-eb3a56c254c9 ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -281,7 +281,7 @@ ip netns exec qdhcp-170db5a3-cc70-4474-a545-eb3a56c254c9 ip addr show
 ip netns exec qdhcp-170db5a3-cc70-4474-a545-eb3a56c254c9 ip route show
 ```
 
-```
+```text
 default via 192.168.100.254 dev ns-39bed5c0-4c proto static
 192.168.100.0/24 dev ns-39bed5c0-4c proto kernel scope link src 192.168.100.1
 ```
@@ -292,7 +292,7 @@ default via 192.168.100.254 dev ns-39bed5c0-4c proto static
 ip netns exec qdhcp-170db5a3-cc70-4474-a545-eb3a56c254c9 ss -ano -4
 ```
 
-```
+```text
 Netid             State              Recv-Q             Send-Q                            Local Address:Port                           Peer Address:Port             Process
 udp               UNCONN             0                  0                                     127.0.0.1:53                                  0.0.0.0:*
 udp               UNCONN             0                  0                               169.254.169.254:53                                  0.0.0.0:*
@@ -340,6 +340,6 @@ dnsmasq \
 cat /var/lib/neutron/dhcp/170db5a3-cc70-4474-a545-eb3a56c254c9/interface
 ```
 
-```
+```text
 ns-39bed5c0-4c
 ```

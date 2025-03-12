@@ -17,7 +17,7 @@ myuser で実行
 openstack floating ip create provider
 ```
 
-```
+```text
 +---------------------+--------------------------------------+
 | Field               | Value                                |
 +---------------------+--------------------------------------+
@@ -57,7 +57,7 @@ openstack server add floating ip instance02 172.16.0.180
 openstack server list
 ```
 
-```
+```text
 +--------------------------------------+------------+---------+-------------------------------------------+-----------+----------+
 | ID                                   | Name       | Status  | Networks                                  | Image     | Flavor   |
 +--------------------------------------+------------+---------+-------------------------------------------+-----------+----------+
@@ -71,7 +71,7 @@ SSH の接続を確認する。
 ssh -i demo_rsa cirros@172.16.0.180 /sbin/ip addr
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -102,7 +102,7 @@ ssh -i demo_rsa cirros@172.16.0.180 /sbin/ip addr
 ovn-nbctl list Logical_Switch_Port
 ```
 
-```
+```text
 _uuid               : cbb50839-47b5-4e8a-9522-92e89442bb9f
 addresses           : ["fa:16:3e:d8:6c:ea 192.168.100.110"]
 dhcpv4_options      : 8cd29b3d-d50d-479d-803b-044caf31c6bb
@@ -290,7 +290,7 @@ up                  : true
 ovn-nbctl list Logical_Router
 ```
 
-```
+```text
 _uuid               : 9e9d46a9-6294-4193-b351-d4b0dc68d8bc
 copp                : []
 enabled             : true
@@ -311,7 +311,7 @@ NAT を確認する。
 ovn-nbctl list nat 564b02bf-a317-411c-a6b5-42f02f3f3c0c
 ```
 
-```
+```text
 _uuid               : 564b02bf-a317-411c-a6b5-42f02f3f3c0c
 allowed_ext_ips     : []
 exempted_ext_ips    : []
@@ -334,7 +334,7 @@ type                : dnat_and_snat
 ovn-sbctl lflow-list
 ```
 
-```
+```text
 Datapath: "neutron-4cd45e0c-7e56-48e8-b8fb-9105f1e3a57b" aka "provider-100" (500824d6-0f14-41d3-b33d-0ea0eaac34ff)  Pipeline: ingress
   table=0 (ls_in_check_port_sec), priority=110  , match=(((ip4 && icmp4.type == 3 && icmp4.code == 4) || (ip6 && icmp6.type == 2 && icmp6.code == 0)) && flags.tunnel_rx == 1), action=(drop;)
   table=0 (ls_in_check_port_sec), priority=100  , match=(eth.src[40]), action=(drop;)
@@ -900,7 +900,7 @@ Datapath: "neutron-f83e37a9-ece2-4cab-9d0e-d7df37f42acd" aka "router" (530f83a6-
 ovn-sbctl list Port_Binding
 ```
 
-```
+```text
 _uuid               : 7f721c18-eec0-40d5-a7e3-135cf21313cc
 additional_chassis  : []
 additional_encap    : []
@@ -1220,7 +1220,7 @@ MAC アドレスバインディングを確認する。
 ovn-sbctl list MAC_Binding
 ```
 
-```
+```text
 _uuid               : 008e9d70-539a-4973-a607-a4b45a235041
 datapath            : 530f83a6-aaed-4ded-834b-da77662b7910
 ip                  : "172.16.0.31"
@@ -1251,7 +1251,7 @@ timestamp           : 1717669412856
 ovs-vsctl show
 ```
 
-```
+```text
 9869c49f-a522-47dc-a744-bf85afff8b76
     Bridge br-int
         fail_mode: secure
@@ -1288,7 +1288,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:269 missed:78 lost:0
   flows: 0
@@ -1309,7 +1309,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x7f721c18, duration=2432.936s, table=0, n_packets=0, n_bytes=0, priority=180,conj_id=100,in_port="patch-br-int-to",vlan_tci=0x0000/0x1000 actions=load:0x8->NXM_NX_REG13[0..15],load:0x6->NXM_NX_REG11[],load:0x7->NXM_NX_REG12[],load:0x1->OXM_OF_METADATA[],load:0x1->NXM_NX_REG14[],load:0->NXM_NX_REG13[16..31],mod_dl_src:fa:16:3e:5c:ae:36,resubmit(,8)
  cookie=0x7f721c18, duration=2432.936s, table=0, n_packets=0, n_bytes=0, priority=180,vlan_tci=0x0000/0x1000 actions=conjunction(100,2/2)
  cookie=0x0, duration=2330.799s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-32a2f4-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
@@ -1961,7 +1961,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=2519.824s, table=0, n_packets=164, n_bytes=28527, priority=0 actions=NORMAL
 ```
 
@@ -1971,7 +1971,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x0, duration=2527.482s, table=0, n_packets=141, n_bytes=23036, priority=0 actions=NORMAL
 ```
 
@@ -1981,7 +1981,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, ttl=64, csum=true)
 ```
 
@@ -1999,7 +1999,7 @@ port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, t
 ovs-vsctl show
 ```
 
-```
+```text
 46423187-0689-4323-afe2-2ad6d689596b
     Bridge br-provider
         Port eth2
@@ -2032,7 +2032,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:718 missed:114 lost:0
   flows: 0
@@ -2055,7 +2055,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x0, duration=2971.956s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-3732c7-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=2971.956s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-3732c7-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=2971.956s, table=0, n_packets=21, n_bytes=4599, priority=100,in_port="ovn-3732c7-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
@@ -2501,7 +2501,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=3036.590s, table=0, n_packets=129, n_bytes=23342, priority=0 actions=NORMAL
 ```
 
@@ -2511,7 +2511,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x0, duration=3051.564s, table=0, n_packets=154, n_bytes=26382, priority=0 actions=NORMAL
 ```
 
@@ -2521,6 +2521,6 @@ ovs-ofctl dump-flows br-mgmt
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 4: ovn-3732c7-0 (geneve: ::->172.16.0.11, key=flow, legacy_l2, dp port=4, ttl=64, csum=true)
 ```

@@ -48,7 +48,7 @@ firewall-cmd --reload
 
 マシンの起動時に下記のログが出力されるためネットワークが起動した後で dnsmasq を起動する。
 
-```
+```text
 dnsmasq: unknown interface eth2
 ```
 

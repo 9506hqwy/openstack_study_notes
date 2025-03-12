@@ -17,7 +17,7 @@ myuser で実行
 openstack router create router
 ```
 
-```
+```text
 +---------------------------+--------------------------------------+
 | Field                     | Value                                |
 +---------------------------+--------------------------------------+
@@ -69,7 +69,7 @@ openstack router set router --external-gateway provider
 openstack port list --router router
 ```
 
-```
+```text
 +--------------------------------------+------+-------------------+--------------------------------------------------------------------------------+--------+
 | ID                                   | Name | MAC Address       | Fixed IP Addresses                                                             | Status |
 +--------------------------------------+------+-------------------+--------------------------------------------------------------------------------+--------+
@@ -94,7 +94,7 @@ openstack port list --router router
 ovn-nbctl list Logical_Switch_Port
 ```
 
-```
+```text
 _uuid               : cbb50839-47b5-4e8a-9522-92e89442bb9f
 addresses           : ["fa:16:3e:d8:6c:ea 192.168.100.110"]
 dhcpv4_options      : 8cd29b3d-d50d-479d-803b-044caf31c6bb
@@ -282,7 +282,7 @@ up                  : true
 ovn-nbctl list Logical_Router
 ```
 
-```
+```text
 _uuid               : 9e9d46a9-6294-4193-b351-d4b0dc68d8bc
 copp                : []
 enabled             : true
@@ -303,7 +303,7 @@ NAT を確認する。
 ovn-nbctl list nat cf071de0-e97c-406f-addc-eabe8f2ab617
 ```
 
-```
+```text
 _uuid               : cf071de0-e97c-406f-addc-eabe8f2ab617
 allowed_ext_ips     : []
 exempted_ext_ips    : []
@@ -324,7 +324,7 @@ type                : snat
 ovn-nbctl list logical-router-static-route 01ac40fa-802e-499d-b0b7-22cf0de8c16f
 ```
 
-```
+```text
 _uuid               : 01ac40fa-802e-499d-b0b7-22cf0de8c16f
 bfd                 : []
 external_ids        : {"neutron:is_ext_gw"="true", "neutron:subnet_id"="be32ef49-5ab1-4ba7-ab26-9518dc2b063f"}
@@ -342,7 +342,7 @@ route_table         : ""
 ovn-nbctl list Logical_Router_Port
 ```
 
-```
+```text
 _uuid               : 6949c68d-b3b2-4e7d-abb9-691f981e0e80
 enabled             : []
 external_ids        : {"neutron:is_ext_gw"=True, "neutron:network_name"=neutron-a6370456-5bb9-4dde-8b73-3fe5ba0c414a, "neutron:revision_number"="4", "neutron:router_name"="f83e37a9-ece2-4cab-9d0e-d7df37f42acd", "neutron:subnet_ids"="be32ef49-5ab1-4ba7-ab26-9518dc2b063f"}
@@ -378,7 +378,7 @@ Gateway Node を確認する。
 ovn-nbctl list Gateway_Chassis
 ```
 
-```
+```text
 _uuid               : 6a8e2929-66f0-4f14-86e7-9b45eb40362a
 chassis_name        : "3732c7d2-a358-41ae-82ca-9c350624e13d"
 external_ids        : {}
@@ -395,7 +395,7 @@ priority            : 1
 ovn-sbctl lflow-list
 ```
 
-```
+```text
 Datapath: "neutron-4cd45e0c-7e56-48e8-b8fb-9105f1e3a57b" aka "provider-100" (500824d6-0f14-41d3-b33d-0ea0eaac34ff)  Pipeline: ingress
   table=0 (ls_in_check_port_sec), priority=110  , match=(((ip4 && icmp4.type == 3 && icmp4.code == 4) || (ip6 && icmp6.type == 2 && icmp6.code == 0)) && flags.tunnel_rx == 1), action=(drop;)
   table=0 (ls_in_check_port_sec), priority=100  , match=(eth.src[40]), action=(drop;)
@@ -949,7 +949,7 @@ Datapath: "neutron-f83e37a9-ece2-4cab-9d0e-d7df37f42acd" aka "router" (530f83a6-
 ovn-sbctl list Multicast_Group
 ```
 
-```
+```text
 _uuid               : c6d345c1-387f-4e3f-89d3-4d1114f3827e
 datapath            : 500824d6-0f14-41d3-b33d-0ea0eaac34ff
 name                : _MC_unknown
@@ -1017,7 +1017,7 @@ tunnel_key          : 32772
 ovn-sbctl list Datapath_Binding
 ```
 
-```
+```text
 _uuid               : ecb97fdd-e00a-4d0e-b0ab-0c46f8e6720f
 external_ids        : {logical-switch="fbef6e36-ca51-4ad9-9b05-e4652a2fb8cc", name=neutron-bdf0edc2-bae8-4cc7-85b2-2cc4e82ab10f, name2=selfservice}
 load_balancers      : []
@@ -1045,7 +1045,7 @@ tunnel_key          : 4
 ovn-sbctl list Port_Binding
 ```
 
-```
+```text
 _uuid               : 7f721c18-eec0-40d5-a7e3-135cf21313cc
 additional_chassis  : []
 additional_encap    : []
@@ -1367,7 +1367,7 @@ virtual_parent      : []
 ovs-vsctl show
 ```
 
-```
+```text
 9869c49f-a522-47dc-a744-bf85afff8b76
     Bridge br-int
         fail_mode: secure
@@ -1404,7 +1404,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:936 missed:263 lost:0
   flows: 0
@@ -1425,7 +1425,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x7f721c18, duration=800.501s, table=0, n_packets=0, n_bytes=0, priority=180,conj_id=100,in_port="patch-br-int-to",vlan_tci=0x0000/0x1000 actions=load:0x8->NXM_NX_REG13[0..15],load:0x6->NXM_NX_REG11[],load:0x7->NXM_NX_REG12[],load:0x1->OXM_OF_METADATA[],load:0x1->NXM_NX_REG14[],load:0->NXM_NX_REG13[16..31],mod_dl_src:fa:16:3e:5c:ae:36,resubmit(,8)
  cookie=0x7f721c18, duration=800.501s, table=0, n_packets=0, n_bytes=0, priority=180,vlan_tci=0x0000/0x1000 actions=conjunction(100,2/2)
  cookie=0x0, duration=11203.796s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-32a2f4-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
@@ -2055,7 +2055,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=11372.454s, table=0, n_packets=558, n_bytes=94749, priority=0 actions=NORMAL
 ```
 
@@ -2065,7 +2065,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x0, duration=11383.227s, table=0, n_packets=649, n_bytes=105507, priority=0 actions=NORMAL
 ```
 
@@ -2075,7 +2075,7 @@ ovs-ofctl dump-flows br-mgmt
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, ttl=64, csum=true)
 ```
 
@@ -2093,7 +2093,7 @@ port 4: ovn-32a2f4-0 (geneve: ::->172.16.0.31, key=flow, legacy_l2, dp port=4, t
 ovs-vsctl show
 ```
 
-```
+```text
 46423187-0689-4323-afe2-2ad6d689596b
     Bridge br-int
         fail_mode: secure
@@ -2126,7 +2126,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:1408 missed:291 lost:0
   flows: 0
@@ -2149,7 +2149,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x0, duration=11436.037s, table=0, n_packets=0, n_bytes=0, priority=120,icmp6,in_port="ovn-3732c7-0",icmp_type=2,icmp_code=0 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=11436.037s, table=0, n_packets=0, n_bytes=0, priority=120,icmp,in_port="ovn-3732c7-0",icmp_type=3,icmp_code=4 actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40),load:0x1->NXM_NX_REG10[16],resubmit(,8)
  cookie=0x0, duration=11436.037s, table=0, n_packets=0, n_bytes=0, priority=100,in_port="ovn-3732c7-0" actions=move:NXM_NX_TUN_ID[0..23]->OXM_OF_METADATA[0..23],move:NXM_NX_TUN_METADATA0[16..30]->NXM_NX_REG14[0..14],move:NXM_NX_TUN_METADATA0[0..15]->NXM_NX_REG15[0..15],resubmit(,40)
@@ -2581,7 +2581,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=11490.822s, table=0, n_packets=558, n_bytes=95449, priority=0 actions=NORMAL
 ```
 
@@ -2591,7 +2591,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x0, duration=11499.641s, table=0, n_packets=646, n_bytes=105381, priority=0 actions=NORMAL
 ```
 
@@ -2601,6 +2601,6 @@ ovs-ofctl dump-flows br-mgmt
 ovs-appctl ofproto/list-tunnels
 ```
 
-```
+```text
 port 4: ovn-3732c7-0 (geneve: ::->172.16.0.11, key=flow, legacy_l2, dp port=4, ttl=64, csum=true)
 ```

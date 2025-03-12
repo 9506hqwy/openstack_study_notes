@@ -24,7 +24,7 @@ GRANT ALL PRIVILEGES ON aodh.* TO 'aodh'@'%' IDENTIFIED BY '237d687f60cd82bd2472
 openstack user create --domain default --password 7df3446ca4ec04bb40be aodh
 ```
 
-```
+```text
 +---------------------+----------------------------------+
 | Field               | Value                            |
 +---------------------+----------------------------------+
@@ -51,7 +51,7 @@ openstack role add --project service --user aodh admin
 openstack service create --name aodh --description "Telemetry Alarming" alarming
 ```
 
-```
+```text
 +-------------+----------------------------------+
 | Field       | Value                            |
 +-------------+----------------------------------+
@@ -71,7 +71,7 @@ API エンドポイントを作成する。
 openstack endpoint create --region RegionOne alarming public http://controller:8042
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -91,7 +91,7 @@ openstack endpoint create --region RegionOne alarming public http://controller:8
 openstack endpoint create --region RegionOne alarming internal http://controller:8042
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+
@@ -111,7 +111,7 @@ openstack endpoint create --region RegionOne alarming internal http://controller
 openstack endpoint create --region RegionOne alarming admin http://controller:8042
 ```
 
-```
+```text
 +--------------+----------------------------------+
 | Field        | Value                            |
 +--------------+----------------------------------+

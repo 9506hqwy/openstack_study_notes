@@ -6,7 +6,7 @@
 openstack network agent list
 ```
 
-```
+```text
 +--------------------------------------+------------------------------+-----------------------+-------------------+-------+-------+----------------+
 | ID                                   | Agent Type                   | Host                  | Availability Zone | Alive | State | Binary         |
 +--------------------------------------+------------------------------+-----------------------+-------------------+-------+-------+----------------+
@@ -32,7 +32,7 @@ openstack network agent list
 ip -d link show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0  allmulti 0 minmtu 0 maxmtu 0 addrgenmode eui64 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535 tso_max_size 524280 tso_max_segs 65535 gro_max_size 65536
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000
@@ -61,7 +61,7 @@ ACL を確認する。
 ovn-nbctl list ACL
 ```
 
-```
+```text
 _uuid               : 3b1768c2-3f33-4e57-a614-427811758daf
 action              : drop
 direction           : from-lport
@@ -99,7 +99,7 @@ Controller Node が geneve で登録されていることを確認する。
 ovn-sbctl show
 ```
 
-```
+```text
 Chassis "3732c7d2-a358-41ae-82ca-9c350624e13d"
     hostname: controller.home.local
     Encap geneve
@@ -113,7 +113,7 @@ Controller Node が登録されている。
 ovn-sbctl list Chassis
 ```
 
-```
+```text
 _uuid               : 1649a8fe-937d-44f8-861c-372fe528e9ec
 encaps              : [53b36a07-1b5d-4147-a97a-853dad42b687]
 external_ids        : {}
@@ -131,7 +131,7 @@ vtep_logical_switches: []
 ovn-sbctl list Encap
 ```
 
-```
+```text
 _uuid               : 53b36a07-1b5d-4147-a97a-853dad42b687
 chassis_name        : "3732c7d2-a358-41ae-82ca-9c350624e13d"
 ip                  : "172.16.0.11"
@@ -145,7 +145,7 @@ type                : geneve
 ovn-sbctl list Address_Set
 ```
 
-```
+```text
 _uuid               : d0cae968-1582-4c82-8324-88900c57b6ec
 addresses           : ["2a:91:79:ab:04:2d"]
 name                : svc_monitor_mac
@@ -167,7 +167,7 @@ name                : neutron_pg_drop_ip4
 ovs-vsctl show
 ```
 
-```
+```text
 9869c49f-a522-47dc-a744-bf85afff8b76
     Bridge br-int
         fail_mode: secure
@@ -192,7 +192,7 @@ ovs-vsctl show
 ovs-dpctl show
 ```
 
-```
+```text
 system@ovs-system:
   lookups: hit:122 missed:78 lost:0
   flows: 2
@@ -212,7 +212,7 @@ system@ovs-system:
 ovs-ofctl dump-flows br-int
 ```
 
-```
+```text
  cookie=0x0, duration=892.166s, table=0, n_packets=0, n_bytes=0, priority=0 actions=drop
  cookie=0x0, duration=892.166s, table=37, n_packets=0, n_bytes=0, priority=0 actions=resubmit(,39)
  cookie=0x0, duration=892.166s, table=38, n_packets=0, n_bytes=0, priority=10,reg10=0x1/0x1 actions=resubmit(,40)
@@ -232,7 +232,7 @@ ovs-ofctl dump-flows br-int
 ovs-ofctl dump-flows br-provider
 ```
 
-```
+```text
  cookie=0x0, duration=893.723s, table=0, n_packets=126, n_bytes=22172, priority=0 actions=NORMAL
 ```
 
@@ -242,7 +242,7 @@ ovs-ofctl dump-flows br-provider
 ovs-ofctl dump-flows br-mgmt
 ```
 
-```
+```text
  cookie=0x0, duration=901.568s, table=0, n_packets=130, n_bytes=22932, priority=0 actions=NORMAL
 ```
 

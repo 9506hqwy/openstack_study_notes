@@ -17,7 +17,7 @@ myuser で実行
 openstack floating ip create provider
 ```
 
-```
+```text
 +---------------------+--------------------------------------+
 | Field               | Value                                |
 +---------------------+--------------------------------------+
@@ -57,7 +57,7 @@ openstack server add floating ip instance02 172.16.0.168
 openstack server list
 ```
 
-```
+```text
 +--------------------------------------+------------+---------+------------------------------------------+-----------+----------+
 | ID                                   | Name       | Status  | Networks                                 | Image     | Flavor   |
 +--------------------------------------+------------+---------+------------------------------------------+-----------+----------+
@@ -71,7 +71,7 @@ SSH の接続を確認する。
 ssh -i demo_rsa cirros@172.16.0.168 /sbin/ip addr
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -94,7 +94,7 @@ ssh -i demo_rsa cirros@172.16.0.168 /sbin/ip addr
 ip netns exec qrouter-fa9a921e-7ff6-4468-a08b-5415cebeb089 ip addr show
 ```
 
-```
+```text
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -125,7 +125,7 @@ ip netns exec qrouter-fa9a921e-7ff6-4468-a08b-5415cebeb089 iptables -n -t nat -L
 
 DNAT と SNAT が設定されている。
 
-```
+```text
 Chain PREROUTING (policy ACCEPT)
 target     prot opt source               destination
 neutron-l3-agent-PREROUTING  0    --  0.0.0.0/0            0.0.0.0/0
